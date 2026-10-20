@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6efe4">
+  <title>寻迹 · 博物馆智能导览</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar"><a class="brand" href="#"><span class="brand-mark">寻</span><span><strong>寻迹</strong><small>博物馆智能导览</small></span></a><button class="icon-button" id="reset-session" type="button" title="重新开始">↻</button></header>
+    <p class="museum-notice hidden" id="museum-notice" role="note"></p>
+    <main id="app" aria-live="polite">
+      <section class="view view-welcome" data-view="welcome">
+        <div class="hero-ornament" aria-hidden="true">◌</div><p class="eyebrow">今天，跟着你的好奇心逛</p>
+        <h1>你想在博物馆里，<em>遇见什么？</em></h1><p class="hero-copy">告诉我今天想看的内容，心情，或者只是一个模糊的念头，我会把它变成一条适合你的路线。</p>
+        <a class="browse-link" href="#recommendations">还没有想法？先看看推荐路线 ↗</a>
+        <form id="welcome-form" class="welcome-form"><label class="field-label" for="wish-input">今天想怎么逛？</label><textarea id="wish-input" rows="4" placeholder="比如：我想看看有趣的器物，顺便了解古人怎么生活。带孩子一起，希望讲得生动一点。"></textarea><div class="time-row"><div class="time-field"><label class="field-label" for="time-input">预计游览时间</label><input id="time-input" type="text" maxlength="100" placeholder="比如：一个小时左右"></div><button class="primary-button" type="submit"><span>开始设计路线</span><b>→</b></button></div><p class="form-hint">不用按格式填写，时间也可以自然地说。</p></form>
+        <div class="topic-suggestion" id="topic-suggestion"><div class="suggestion-heading"><span>不想输入？从这里开始</span><small>选个方向，告诉我时间就好</small></div><div class="topic-grid" id="topic-grid"></div></div><p class="status-line" id="welcome-status" role="status"></p>
+        <section id="recommendations" class="recommendations hidden"><div class="suggestion-heading"><span>先看看推荐路线</span><small>不用填写，就能浏览</small></div><div id="recommendation-list" class="recommendation-list"></div></section>
+      </section>
+      <section class="view view-tour hidden" data-view="tour">
+        <div class="tour-header"><div><p class="eyebrow">正在为你安排</p><h2>你的探索路线</h2></div><span class="status-pill" id="tour-status">准备中</span></div>
+        <p class="status-line" id="tour-message" role="status"></p>
+        <div class="time-card"><div><span class="muted-label">剩余时间</span><strong id="remaining-time">--</strong></div><div class="location-copy"><span class="muted-label">当前位置</span><strong id="current-location">尚未设置</strong></div><button class="text-button" id="edit-location" type="button">更新位置</button></div>
+        <div class="route-card"><div class="section-heading"><div><span class="eyebrow">ROUTE</span><h3>今天的路线</h3></div><button class="text-button" id="replan-button" type="button">重新规划</button></div><div class="route-track" id="route-track"></div><div class="empty-state hidden" id="route-empty">路线还在等待资料接入，先告诉我你想探索的方向吧。</div></div>
+        <div class="guide-card hidden" id="guide-card"><div class="guide-card-top"><div><span class="eyebrow">NOW PLAYING</span><h3 id="guide-title">当前展品</h3></div><span class="guide-counter" id="guide-counter"></span></div><div class="guide-text" id="guide-text"></div><div class="player-row"><button class="play-button" id="play-button" type="button" aria-label="播放讲解">▶</button><div class="player-progress"><div class="progress-track"><span id="progress-fill"></span></div><small id="progress-copy">准备播放</small></div></div><div class="guide-actions"><button class="secondary-button" id="ask-button" type="button">问问这件展品</button><button class="text-button" id="resume-button" type="button">恢复讲解</button></div></div>
+        <div class="chat-card"><div class="section-heading"><div><span class="eyebrow">CHAT</span><h3>随时告诉我</h3></div></div><div class="chat-log" id="chat-log"><div class="chat-bubble assistant">路线途中想换个方向、对某件展品好奇，直接说就好。</div></div><form class="chat-form" id="chat-form"><input id="chat-input" autocomplete="off" placeholder="例如：我想多看一些和工艺有关的展品"><button type="submit" aria-label="发送">↑</button></form></div>
+        <div class="bottom-actions"><button class="secondary-button" id="finish-button" type="button">结束游览</button></div>
+      </section>
+      <section class="view view-summary hidden" data-view="summary"><div class="summary-hero"><span class="eyebrow">YOUR EXPLORATION NOTE</span><h2 id="summary-title">你的探索手记</h2><p id="summary-introduction"></p></div><div class="summary-content" id="summary-content"></div><button class="secondary-button full-button hidden" id="retry-summary" type="button">重新生成手记</button><button class="primary-button full-button" id="restart-button" type="button"><span>再逛一次</span><b>↗</b></button></section>
+    </main>
+    <div class="modal hidden" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="modal-backdrop" data-close-modal></div><div class="modal-panel"><button class="modal-close" data-close-modal aria-label="关闭">×</button><h3 id="modal-title"></h3><div id="modal-body"></div></div></div><div class="toast" id="toast" role="status"></div>
+  </div><script src="app.js"></script>
+</body></html>
+
