@@ -35,15 +35,15 @@ flowchart TD
 
 | 部分 | 负责什么 | 主要文件 |
 | --- | --- | --- |
-| 手机网页 | 收集需求，显示路线、讲解、问答和手记 | `index.html`、`style.css`、`app.js` |
-| 网页接口 | 接收页面请求，交给总调度，把结果返回页面 | `main.py` |
-| 总调度 | 决定先做什么、后做什么，管理时间、位置和播放进度 | `router.py` |
-| 游览记录 | 保存本次游客信息、已参观列表、待看列表和讲解问答 | `session_state.py` |
-| 整理需求 | 从文字中提取需求、问题和结束意图 | `operators.py`、`input_interpreter_prompt.py` |
-| 安排路线 | 整理兴趣，给展品打分，再根据位置和时间安排顺序 | `interest_prompts.py`、`route_*.py` |
-| 生成讲解 | 读取资料、选择内容、写讲解、检查后保存 | `guide_*.py` |
-| 整理手记 | 读取本次讲解问答，写成手记并检查 | `summary_*.py` |
-| 模型服务 | 读取模型配置，发送请求，检查返回内容 | `model_api.py`、`model_services.py`、`llm_config.json` |
+| 手机网页 | 收集需求，显示路线、讲解、问答和手记 | `frontend/index.html`、`frontend/style.css`、`frontend/app.js` |
+| 网页接口 | 接收页面请求，交给总调度，把结果返回页面 | `backend/main.py` |
+| 总调度 | 决定先做什么、后做什么，管理时间、位置和播放进度 | `backend/router.py` |
+| 游览记录 | 保存本次游客信息、已参观列表、待看列表和讲解问答 | `backend/session_state.py` |
+| 整理需求 | 从文字中提取需求、问题和结束意图 | `backend/operators.py`、`backend/input_interpreter_prompt.py` |
+| 安排路线 | 整理兴趣，给展品打分，再根据位置和时间安排顺序 | `backend/interest_prompts.py`、`backend/route_*.py` |
+| 生成讲解 | 读取资料、选择内容、写讲解、检查后保存 | `backend/guide_*.py` |
+| 整理手记 | 读取本次讲解问答，写成手记并检查 | `backend/summary_*.py` |
+| 模型服务 | 读取模型配置，发送请求，检查返回内容 | `backend/model_api.py`、`backend/model_services.py` |
 | 馆藏资料 | 提供展品说明、标签、位置、通路、来源和展品之间的关系 | `data/` 及后续资料读取代码 |
 
 ### 页面怎样调用后台

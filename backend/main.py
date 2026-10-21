@@ -257,7 +257,7 @@ def create_server(
     """创建可供测试或 ``serve`` 使用的 HTTPServer。"""
     if router is not None and not isinstance(router, Router):
         raise TypeError("router 必须是 Router")
-    root = Path(static_dir) if static_dir is not None else Path(__file__).parent
+    root = Path(static_dir) if static_dir is not None else Path(__file__).resolve().parents[1] / "frontend"
     museum = None
     if router is None:
         if not demo:
