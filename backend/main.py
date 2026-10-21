@@ -16,6 +16,7 @@ from __future__ import annotations
 import asyncio
 import json
 import mimetypes
+import os
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -283,4 +284,12 @@ def serve(
 
 
 if __name__ == "__main__":
-    serve()
+    host = os.environ.get("LUMORA_HOST", os.environ.get("HOST", DEFAULT_HOST)).strip() or DEFAULT_HOST
+    raw_port = os.environ.get("LUMORA_PORT", os.environ.get("PORT", str(DEFAULT_PORT))).strip()
+    try:
+        port = int(raw_port)
+    except ValueError as exc:
+        raise SystemExit("PORT/LUMORA_PORT 必须是整数") from exc
+    if not 1 <= port <= 65535:
+        raise SystemExit("PORT/LUMORA_PORT 必须在 1 到 65535 之间")
+    serve(host=host, port=port)

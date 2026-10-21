@@ -24,7 +24,8 @@ from summary_models import SummaryDataSource
 from summary_prompts import make_summary_composer, make_summary_reviewer
 
 
-DEFAULT_CONFIG_PATH = Path(__file__).with_name("llm_config.json")
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_CONFIG_PATH = PROJECT_ROOT / "config" / "llm_config.json"
 ModelCall = Callable[..., Awaitable[str | Mapping[str, Any]]]
 CandidateLoader = Callable[..., Awaitable[Sequence[GuideMaterial]]]
 

@@ -1,0 +1,10 @@
+# Local secrets and generated files
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+
+# Local model configuration may contain a real key; keep only the checked-in placeholder config.
+config/*
+!config/llm_config.json
