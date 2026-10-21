@@ -14,9 +14,9 @@ HTTP 层只负责把 JSON 请求转交给 :class:`router.Router`，不在浏览�
 from __future__ import annotations
 
 import asyncio
+import argparse
 import json
 import mimetypes
-import os
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -25,6 +25,7 @@ from typing import Any
 from urllib.parse import parse_qs, unquote, urlsplit
 
 from demo_museum import ENTRANCE, EXIT, build_demo_services, museum_metadata
+from lan_network import get_lan_ipv4_addresses
 from router import Router
 
 
@@ -270,11 +271,21 @@ def create_server(
 
 def serve(
     *, router: Router | None = None, host: str = DEFAULT_HOST, port: int = DEFAULT_PORT,
-    static_dir: str | Path | None = None,
+    static_dir: str | Path | None = None, lan_access: bool = False,
 ) -> None:
     """启动开发服务器，按 Ctrl+C 停止。"""
     server = create_server(router=router, host=host, port=port, static_dir=static_dir)
-    print(f"寻迹演示导览 http://{host}:{server.server_port}")
+    if lan_access:
+        print("寻迹演示导览已启动；同一局域网设备可尝试以下网址：")
+        addresses = get_lan_ipv4_addresses()
+        if addresses:
+            for address in addresses:
+                print(f"  http://{address}:{server.server_port}/")
+        else:
+            print("未检测到可用的局域网 IPv4 地址；可运行 .\\scripts\\show_lan_url.ps1 再查一次。")
+        print("本机也可打开 http://127.0.0.1:{}/".format(server.server_port))
+    else:
+        print(f"寻迹演示导览 http://{host}:{server.server_port}/")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
@@ -284,12 +295,7 @@ def serve(
 
 
 if __name__ == "__main__":
-    host = os.environ.get("LUMORA_HOST", os.environ.get("HOST", DEFAULT_HOST)).strip() or DEFAULT_HOST
-    raw_port = os.environ.get("LUMORA_PORT", os.environ.get("PORT", str(DEFAULT_PORT))).strip()
-    try:
-        port = int(raw_port)
-    except ValueError as exc:
-        raise SystemExit("PORT/LUMORA_PORT 必须是整数") from exc
-    if not 1 <= port <= 65535:
-        raise SystemExit("PORT/LUMORA_PORT 必须在 1 到 65535 之间")
-    serve(host=host, port=port)
+    parser = argparse.ArgumentParser(description="启动寻迹本地演示服务器")
+    parser.add_argument("--lan", action="store_true", help="允许同一局域网内的设备访问并显示当前网址")
+    args = parser.parse_args()
+    serve(host="0.0.0.0" if args.lan else DEFAULT_HOST, port=DEFAULT_PORT, lan_access=args.lan)
