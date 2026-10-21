@@ -26,6 +26,7 @@ from summary_prompts import make_summary_composer, make_summary_reviewer
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG_PATH = PROJECT_ROOT / "config" / "llm_config.json"
+EXAMPLE_CONFIG_PATH = PROJECT_ROOT / "config" / "llm_config.example.json"
 ModelCall = Callable[..., Awaitable[str | Mapping[str, Any]]]
 CandidateLoader = Callable[..., Awaitable[Sequence[GuideMaterial]]]
 
@@ -35,10 +36,13 @@ def load_llm_config(
 ) -> LLMConfig:
     """读取配置文件，再以 ``LUMORA_LLM_<大写字段名>`` 环境变量覆盖。
 
-    默认文件相对于模块定位，和启动工作目录无关。真实密钥宜只通过
+    优先读取未跟踪的本地配置；不存在时读取仓库中的示例配置。
+    路径相对于模块定位，和启动工作目录无关。真实密钥只通过
     LUMORA_LLM_API_KEY 提供；错误消息不回显配置值。
     """
-    config_path = Path(path) if path is not None else DEFAULT_CONFIG_PATH
+    config_path = Path(path) if path is not None else (
+        DEFAULT_CONFIG_PATH if DEFAULT_CONFIG_PATH.is_file() else EXAMPLE_CONFIG_PATH
+    )
 
     def object_pairs(pairs):
         result = {}

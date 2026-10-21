@@ -67,7 +67,7 @@ D:\tools\anaconda\python.exe --version
 .\scripts\set_lumora_api_key.ps1
 ```
 
-配置文件只保存服务地址、模型名和超时等非敏感设置。`LUMORA_LLM_API_KEY` 会覆盖配置文件中的同名字段；如果要清除当前会话变量，可运行：
+仓库只提供不含真实密钥的 `config/llm_config.example.json`。本地可另建被 Git 忽略的 `config/llm_config.json` 调整非敏感参数；部署到 Render 时只在服务的 Environment 中填写 `LUMORA_LLM_API_KEY`，不要把密钥写入任何配置文件。环境变量会覆盖配置文件中的同名字段；如果要清除当前会话变量，可运行：
 
 ```powershell
 .\scripts\set_lumora_api_key.ps1 -Clear

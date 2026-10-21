@@ -5,6 +5,5 @@
 __pycache__/
 *.py[cod]
 
-# Local model configuration may contain a real key; keep only the checked-in placeholder config.
-config/*
-!config/llm_config.json
+# Local model configuration may contain a real key.
+config/llm_config.json
