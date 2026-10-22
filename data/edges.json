@@ -1,0 +1,729 @@
+{
+  "meta": {
+    "source_file": "国博AI文旅数据收集_官网来源层_20261021.xlsx",
+    "package_version": "扩容solid版 v5（40核心/60候选/160候选池）",
+    "generated": "2026-10-21"
+  },
+  "edges": [
+    {
+      "relation_id": "REL-001",
+      "source_relic_id": "NMC-CQ-105",
+      "target_relic_id": "NMC-CQ-107",
+      "relation_type": "工艺演进",
+      "scenario": "唐宋手工艺水准",
+      "evidence_summary": "鲁山窑花釉执壶官方说明涉及釉中氧化铁形成色斑；汝窑天青釉盘说明涉及天青釉、支烧与开片。可比较唐宋釉色控制与审美。",
+      "source_refs": [
+        "CQ专题页105",
+        "CQ专题页107"
+      ],
+      "confidence": "高",
+      "demo_priority": "核心",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-002",
+      "source_relic_id": "NMC-CQ-107",
+      "target_relic_id": "NMC-CQ-109",
+      "relation_type": "同类对照",
+      "scenario": "宋代名窑与地方窑",
+      "evidence_summary": "汝窑天青釉盘体现宫廷贡瓷和天青釉审美；耀州窑青釉刻莲花纹围棋罐体现北方耀州窑刻花青瓷。",
+      "source_refs": [
+        "CQ专题页107",
+        "CQ专题页109"
+      ],
+      "confidence": "高",
+      "demo_priority": "核心",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-003",
+      "source_relic_id": "NMC-CQ-104",
+      "target_relic_id": "NMC-CQ-109",
+      "relation_type": "纹样延续",
+      "scenario": "莲花纹跨时代",
+      "evidence_summary": "北朝青釉莲花尊官方说明称受佛教艺术影响并布满莲花瓣；北宋耀州窑围棋罐题名含刻莲花纹。",
+      "source_refs": [
+        "CQ专题页104",
+        "CQ专题页109"
+      ],
+      "confidence": "高",
+      "demo_priority": "核心",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-004",
+      "source_relic_id": "NMC-CQ-111",
+      "target_relic_id": "NMC-TJ-008",
+      "relation_type": "纹样跨媒介",
+      "scenario": "龙纹跨瓷器与铜镜",
+      "evidence_summary": "元青花云龙纹罐说明突出元代龙纹与青花；明代云龙纹菱式铜镜说明主体为浮雕蟠龙。",
+      "source_refs": [
+        "CQ专题页111",
+        "TJ专题页008"
+      ],
+      "confidence": "高",
+      "demo_priority": "核心",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-005",
+      "source_relic_id": "NMC-CQ-112",
+      "target_relic_id": "NMC-YQ-403",
+      "relation_type": "吉祥纹样",
+      "scenario": "凤、莲、鹭鸶的吉祥图像",
+      "evidence_summary": "元青花玉壶春瓶含双凤、莲花、祥云；明代镂雕花卉鹭鸶杯说明莲荷、牡丹、鹭鸶有吉祥寓意。",
+      "source_refs": [
+        "CQ专题页112",
+        "YQ专题页403"
+      ],
+      "confidence": "中高",
+      "demo_priority": "候选",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-006",
+      "source_relic_id": "NMC-CQ-301",
+      "target_relic_id": "NMC-CQ-302",
+      "relation_type": "功能组合",
+      "scenario": "宋代点茶与斗茶",
+      "evidence_summary": "白釉花式带托瓷盏说明盏托用于防烫举持；黑釉兔毫盏说明其为点茶、斗茶必备器物。",
+      "source_refs": [
+        "CQ专题页301",
+        "CQ专题页302"
+      ],
+      "confidence": "高",
+      "demo_priority": "核心",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-007",
+      "source_relic_id": "NMC-CQ-301",
+      "target_relic_id": "NMC-YQ-402",
+      "relation_type": "同功能跨材质",
+      "scenario": "茶具不只一种材料",
+      "evidence_summary": "瓷盏体现点茶器用设计；玛瑙花瓣盏托说明盏托在唐代已流行，且可由瓷、金玉等材质制作。",
+      "source_refs": [
+        "CQ专题页301",
+        "YQ专题页402"
+      ],
+      "confidence": "高",
+      "demo_priority": "核心",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-008",
+      "source_relic_id": "NMC-CQ-302",
+      "target_relic_id": "NMC-YQ-402",
+      "relation_type": "器用演化",
+      "scenario": "从承盘到斗茶盏",
+      "evidence_summary": "玛瑙盏托说明盏托从饮食器中分化；黑釉兔毫盏说明宋代斗茶对茶盏颜色和功能有需求。",
+      "source_refs": [
+        "CQ专题页302",
+        "YQ专题页402"
+      ],
+      "confidence": "高",
+      "demo_priority": "核心",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-009",
+      "source_relic_id": "NMC-CQ-106",
+      "target_relic_id": "NMC-TJ-006",
+      "relation_type": "唐代交流",
+      "scenario": "唐代花鸟葡萄纹与开放气象",
+      "evidence_summary": "长沙窑壶说明唐代彩绘瓷是对外贸易商品之一；瑞兽孔雀葡萄纹铜镜以葡萄、孔雀、瑞兽为装饰。",
+      "source_refs": [
+        "CQ专题页106",
+        "TJ专题页006"
+      ],
+      "confidence": "中高",
+      "demo_priority": "核心",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-010",
+      "source_relic_id": "NMC-CQ-106",
+      "target_relic_id": "NMC-TJ-010",
+      "relation_type": "唐代生活美学",
+      "scenario": "花鸟彩绘与宴乐图像",
+      "evidence_summary": "长沙窑壶有褐绿彩花鸟图；高士宴乐纹嵌螺钿铜镜有宴乐人物、鹦鹉、花树等图像。",
+      "source_refs": [
+        "CQ专题页106",
+        "TJ专题页010"
+      ],
+      "confidence": "中高",
+      "demo_priority": "核心",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-011",
+      "source_relic_id": "NMC-YQ-101",
+      "target_relic_id": "NMC-YQ-110",
+      "relation_type": "龙纹源流",
+      "scenario": "从玉龙到人龙共身",
+      "evidence_summary": "玦形龙说明红山文化龙形可能与神主/巫师佩件相关；人龙纹璜说明人龙共身体现神人飞升等宗教意识。",
+      "source_refs": [
+        "YQ专题页101",
+        "YQ专题页110"
+      ],
+      "confidence": "高",
+      "demo_priority": "核心",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-012",
+      "source_relic_id": "NMC-YQ-110",
+      "target_relic_id": "NMC-YQ-204",
+      "relation_type": "龙形演变",
+      "scenario": "西周到战国的龙形变化",
+      "evidence_summary": "人龙纹璜体现人龙合体；夔龙形佩说明战国龙身出现S形曲转、飞翼等时代特征。",
+      "source_refs": [
+        "YQ专题页110",
+        "YQ专题页204"
+      ],
+      "confidence": "高",
+      "demo_priority": "核心",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-013",
+      "source_relic_id": "NMC-YQ-201",
+      "target_relic_id": "NMC-FS-005",
+      "relation_type": "礼制与佩饰",
+      "scenario": "礼玉和组玉佩",
+      "evidence_summary": "牙璋说明其可能为祭器、信符或仪仗用器；组玉佩可连接佩饰和礼制身份。",
+      "source_refs": [
+        "YQ专题页201",
+        "FS专题页005"
+      ],
+      "confidence": "中",
+      "demo_priority": "候选",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-014",
+      "source_relic_id": "NMC-YQ-203",
+      "target_relic_id": "NMC-FS-016",
+      "relation_type": "身体姿态",
+      "scenario": "舞人佩与女侍俑",
+      "evidence_summary": "舞人佩说明舞姿与贵族宴飨、女性贵族墓有关；着半臂女侍俑提供唐代女性服饰形象。",
+      "source_refs": [
+        "YQ专题页203",
+        "FS专题页016"
+      ],
+      "confidence": "中高",
+      "demo_priority": "核心",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-015",
+      "source_relic_id": "NMC-YQ-301",
+      "target_relic_id": "NMC-FS-022",
+      "relation_type": "女性头面",
+      "scenario": "玉簪饰与金簪",
+      "evidence_summary": "亭阁人物凤舟簪饰说明其应为分心嵌饰；楼阁人物金簪同属明代头面首饰。",
+      "source_refs": [
+        "YQ专题页301",
+        "FS专题页022"
+      ],
+      "confidence": "中高",
+      "demo_priority": "核心",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-016",
+      "source_relic_id": "NMC-YQ-302",
+      "target_relic_id": "NMC-FS-005",
+      "relation_type": "穿戴系统",
+      "scenario": "玉器进入服饰系统",
+      "evidence_summary": "绶带衔花巾环说明为头巾帛带穿插系结之用；组玉佩可作为佩饰系统节点。",
+      "source_refs": [
+        "YQ专题页302",
+        "FS专题页005"
+      ],
+      "confidence": "中",
+      "demo_priority": "候选",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-017",
+      "source_relic_id": "NMC-YQ-306",
+      "target_relic_id": "NMC-FS-022",
+      "relation_type": "工艺与妆饰",
+      "scenario": "玉雕簪花与金簪",
+      "evidence_summary": "玉簪花饰说明采用透雕、高浮雕等技法；楼阁人物金簪提供金属首饰形态。",
+      "source_refs": [
+        "YQ专题页306",
+        "FS专题页022"
+      ],
+      "confidence": "中高",
+      "demo_priority": "核心",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-018",
+      "source_relic_id": "NMC-FS-001",
+      "target_relic_id": "NMC-FS-027",
+      "relation_type": "技术长线",
+      "scenario": "从骨针到清代女衫",
+      "evidence_summary": "骨针代表缝制工具，天青纱多重镶滚女衫代表成熟服装成品。",
+      "source_refs": [
+        "FS专题页001",
+        "FS专题页027"
+      ],
+      "confidence": "中",
+      "demo_priority": "候选",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-019",
+      "source_relic_id": "NMC-FS-014",
+      "target_relic_id": "NMC-FS-016",
+      "relation_type": "同代对照",
+      "scenario": "唐代冠服与女装",
+      "evidence_summary": "戴鹖冠的三彩俑和着半臂的女侍俑都为唐代人物形象，可观察冠、半臂、人物身份与性别角色。",
+      "source_refs": [
+        "FS专题页014",
+        "FS专题页016"
+      ],
+      "confidence": "中高",
+      "demo_priority": "核心",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-020",
+      "source_relic_id": "NMC-FS-014",
+      "target_relic_id": "NMC-TJ-010",
+      "relation_type": "唐代生活",
+      "scenario": "唐代人物形象与宴乐镜",
+      "evidence_summary": "三彩俑提供唐代服饰/人物形象，高士宴乐纹嵌螺钿铜镜提供宴乐场景。",
+      "source_refs": [
+        "FS专题页014",
+        "TJ专题页010"
+      ],
+      "confidence": "中",
+      "demo_priority": "核心",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-021",
+      "source_relic_id": "NMC-FS-017",
+      "target_relic_id": "NMC-FS-019",
+      "relation_type": "图像证据",
+      "scenario": "从宋到明的画像服饰",
+      "evidence_summary": "中兴四将图与陇西恭献王李贞像都是人物图像资料，可说明服饰研究依赖图像证据。",
+      "source_refs": [
+        "FS专题页017",
+        "FS专题页019"
+      ],
+      "confidence": "中",
+      "demo_priority": "候选",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-022",
+      "source_relic_id": "NMC-FS-024",
+      "target_relic_id": "NMC-FS-027",
+      "relation_type": "清代服饰",
+      "scenario": "宫廷礼服与女性服饰",
+      "evidence_summary": "康熙朝衣和天青纱女衫同属清代服饰，可对照礼服与女性服装工艺。",
+      "source_refs": [
+        "FS专题页024",
+        "FS专题页027"
+      ],
+      "confidence": "中",
+      "demo_priority": "候选",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-023",
+      "source_relic_id": "NMC-TJ-001",
+      "target_relic_id": "NMC-TJ-004",
+      "relation_type": "铜镜发展",
+      "scenario": "从早期弦纹到汉代瑞兽博局",
+      "evidence_summary": "商代弦纹铜镜体现早期形制；西汉瑞兽博局纹鎏金铜镜包含瑞兽、博局纹、铭文和鎏金。",
+      "source_refs": [
+        "TJ专题页001",
+        "TJ专题页004"
+      ],
+      "confidence": "高",
+      "demo_priority": "候选",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-024",
+      "source_relic_id": "NMC-TJ-004",
+      "target_relic_id": "NMC-TJ-013",
+      "relation_type": "图像系统变化",
+      "scenario": "从汉代瑞兽到佛像纹",
+      "evidence_summary": "西汉铜镜有四神、瑞兽和铭文；三国佛像对凤纹铜镜出现佛像、莲座、对凤等图像。",
+      "source_refs": [
+        "TJ专题页004",
+        "TJ专题页013"
+      ],
+      "confidence": "高",
+      "demo_priority": "核心",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-025",
+      "source_relic_id": "NMC-TJ-006",
+      "target_relic_id": "NMC-TJ-010",
+      "relation_type": "唐镜工艺",
+      "scenario": "葡萄瑞兽与嵌螺钿宴乐",
+      "evidence_summary": "瑞兽孔雀葡萄纹铜镜代表盛唐纹样；高士宴乐纹嵌螺钿铜镜展示嵌螺钿工艺和宴乐图像。",
+      "source_refs": [
+        "TJ专题页006",
+        "TJ专题页010"
+      ],
+      "confidence": "高",
+      "demo_priority": "核心",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-026",
+      "source_relic_id": "NMC-TJ-011",
+      "target_relic_id": "NMC-YQ-306",
+      "relation_type": "高等级装饰",
+      "scenario": "花鸟题材与精工装饰",
+      "evidence_summary": "羽人花鸟金银平脱铜镜与玉簪花饰都强调精细工艺和花鸟/花卉题材。",
+      "source_refs": [
+        "TJ专题页011",
+        "YQ专题页306"
+      ],
+      "confidence": "中",
+      "demo_priority": "候选",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-027",
+      "source_relic_id": "NMC-TJ-013",
+      "target_relic_id": "NMC-CQ-104",
+      "relation_type": "佛教图像",
+      "scenario": "佛像、莲座与莲花尊",
+      "evidence_summary": "佛像对凤纹铜镜说明佛像坐于莲花座，青釉莲花尊说明莲花装饰受佛教艺术影响。",
+      "source_refs": [
+        "TJ专题页013",
+        "CQ专题页104"
+      ],
+      "confidence": "高",
+      "demo_priority": "核心",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-028",
+      "source_relic_id": "NMC-TJ-016",
+      "target_relic_id": "NMC-FS-027",
+      "relation_type": "生活场景",
+      "scenario": "镜子使用与女性服饰",
+      "evidence_summary": "磨镜图展示持镜妇人与磨镜场景，天青纱女衫提供清代女性服饰节点。",
+      "source_refs": [
+        "TJ专题页016",
+        "FS专题页027"
+      ],
+      "confidence": "中",
+      "demo_priority": "候选",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-029",
+      "source_relic_id": "NMC-CQ-115",
+      "target_relic_id": "NMC-CQ-111",
+      "relation_type": "龙纹与釉彩",
+      "scenario": "青花云龙与甜白云龙",
+      "evidence_summary": "元青花云龙纹罐体现青花与龙纹；明甜白釉模印云龙纹高足碗体现白瓷与模印龙纹。",
+      "source_refs": [
+        "CQ专题页115",
+        "CQ专题页111"
+      ],
+      "confidence": "高",
+      "demo_priority": "候选",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-030",
+      "source_relic_id": "NMC-TJ-002",
+      "target_relic_id": "NMC-TJ-003",
+      "relation_type": "动物与叙事",
+      "scenario": "动物纹到武士斗兽图",
+      "evidence_summary": "鸟兽纹铜镜表现鹿、飞鸟、虎等动物纹；武士斗兽纹铜镜出现更强叙事性的斗兽图像。",
+      "source_refs": [
+        "TJ专题页002",
+        "TJ专题页003"
+      ],
+      "confidence": "高",
+      "demo_priority": "候选",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-031",
+      "source_relic_id": "NMC-CQ-108",
+      "target_relic_id": "NMC-CQ-107",
+      "relation_type": "宋代釉色",
+      "scenario": "哥窑开片与汝窑天青",
+      "evidence_summary": "哥窑洗说明灰青釉和开片，汝窑盘说明天青釉和冰裂纹，可比较宋瓷釉色与开片审美。",
+      "source_refs": [
+        "CQ专题页108",
+        "CQ专题页107"
+      ],
+      "confidence": "高",
+      "demo_priority": "候选",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-032",
+      "source_relic_id": "NMC-CQ-110",
+      "target_relic_id": "NMC-CQ-107",
+      "relation_type": "宋代名窑",
+      "scenario": "钧窑窑变与汝窑天青",
+      "evidence_summary": "钧窑花盆与汝窑盘都可作为宋代名窑节点，但一个强调玫瑰紫釉，一个强调天青釉。",
+      "source_refs": [
+        "CQ专题页110",
+        "CQ专题页107"
+      ],
+      "confidence": "中高",
+      "demo_priority": "候选",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-033",
+      "source_relic_id": "NMC-CQ-113",
+      "target_relic_id": "NMC-CQ-203",
+      "relation_type": "彩绘工艺",
+      "scenario": "斗彩与釉里红",
+      "evidence_summary": "斗彩花蝶图罐说明成化斗彩成熟；釉里红缠枝菊纹瓶说明釉里红以氧化铜为着色剂，高温还原烧成。",
+      "source_refs": [
+        "CQ专题页113",
+        "CQ专题页203"
+      ],
+      "confidence": "高",
+      "demo_priority": "候选",
+      "available_in_demo": false,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-034",
+      "source_relic_id": "NMC-CQ-116",
+      "target_relic_id": "NMC-CQ-111",
+      "relation_type": "龙纹大器",
+      "scenario": "清代云龙缸与元青花云龙罐",
+      "evidence_summary": "两件均含云龙题材，一件为元青花罐，一件为清康熙青花釉里红加彩缸，可比较大件瓷器中的龙纹。",
+      "source_refs": [
+        "CQ专题页116",
+        "CQ专题页111"
+      ],
+      "confidence": "高",
+      "demo_priority": "候选",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-035",
+      "source_relic_id": "NMC-CQ-303",
+      "target_relic_id": "NMC-CQ-301",
+      "relation_type": "茶生活延展",
+      "scenario": "宋代茶盏到清代御用茶壶",
+      "evidence_summary": "宋代带托瓷盏对应点茶举持，清乾隆茶壶说明文人品茶、诗书画印与制瓷结合。",
+      "source_refs": [
+        "CQ专题页303",
+        "CQ专题页301"
+      ],
+      "confidence": "高",
+      "demo_priority": "候选",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-036",
+      "source_relic_id": "NMC-YQ-102",
+      "target_relic_id": "NMC-YQ-101",
+      "relation_type": "红山神性",
+      "scenario": "神面形器与玦形龙",
+      "evidence_summary": "二者均属红山文化节点，一个是神面纹，一个是龙形，可用于早期神灵崇拜路线。",
+      "source_refs": [
+        "YQ专题页102",
+        "YQ专题页101"
+      ],
+      "confidence": "高",
+      "demo_priority": "候选",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-037",
+      "source_relic_id": "NMC-YQ-104",
+      "target_relic_id": "NMC-YQ-106",
+      "relation_type": "凤鸟图像",
+      "scenario": "新石器凤佩到商代凤冠人形佩",
+      "evidence_summary": "凤形佩说明新石器时代鸟/凤崇拜，凤冠人形佩说明商人玄鸟图腾与巫师形象，可串联凤鸟图像。",
+      "source_refs": [
+        "YQ专题页104",
+        "YQ专题页106"
+      ],
+      "confidence": "高",
+      "demo_priority": "候选",
+      "available_in_demo": false,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-038",
+      "source_relic_id": "NMC-YQ-202",
+      "target_relic_id": "NMC-YQ-203",
+      "relation_type": "佩饰系统",
+      "scenario": "玉组佩骨架与舞人佩",
+      "evidence_summary": "双龙首珩说明为玉组佩上部横向玉，舞人佩为贵族生活佩饰，可讲佩饰系统的结构与题材。",
+      "source_refs": [
+        "YQ专题页202",
+        "YQ专题页203"
+      ],
+      "confidence": "高",
+      "demo_priority": "候选",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-039",
+      "source_relic_id": "NMC-YQ-205",
+      "target_relic_id": "NMC-YQ-207",
+      "relation_type": "神兽与升仙",
+      "scenario": "螭虎食人与骑虎人形",
+      "evidence_summary": "螭虎食人佩和骑虎人形佩官方说明均涉及神化/宗教含义，可作为战国神兽佩饰对照。",
+      "source_refs": [
+        "YQ专题页205",
+        "YQ专题页207"
+      ],
+      "confidence": "高",
+      "demo_priority": "候选",
+      "available_in_demo": false,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-040",
+      "source_relic_id": "NMC-YQ-303",
+      "target_relic_id": "NMC-TJ-006",
+      "relation_type": "孔雀图像",
+      "scenario": "玉帽顶与唐镜孔雀",
+      "evidence_summary": "孔雀牡丹帽顶题名含孔雀，瑞兽孔雀葡萄纹铜镜含孔雀和葡萄，可作为孔雀题材跨材质观察。",
+      "source_refs": [
+        "YQ专题页303",
+        "TJ专题页006"
+      ],
+      "confidence": "中",
+      "demo_priority": "候选",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-041",
+      "source_relic_id": "NMC-FS-002",
+      "target_relic_id": "NMC-FS-003",
+      "relation_type": "纺织工具",
+      "scenario": "石纺轮与陶纺轮",
+      "evidence_summary": "两件均为纺轮，可作为服饰起源和纺织技术的工具节点。",
+      "source_refs": [
+        "FS专题页002",
+        "FS专题页003"
+      ],
+      "confidence": "高",
+      "demo_priority": "候选",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-042",
+      "source_relic_id": "NMC-FS-012",
+      "target_relic_id": "NMC-FS-016",
+      "relation_type": "女性形象",
+      "scenario": "汉代女舞俑与唐代女侍俑",
+      "evidence_summary": "彩绘木雕女舞俑和着半臂女侍俑均为女性人物形象，可比较不同时代的身体姿态与服饰表现。",
+      "source_refs": [
+        "FS专题页012",
+        "FS专题页016"
+      ],
+      "confidence": "中",
+      "demo_priority": "候选",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-043",
+      "source_relic_id": "NMC-FS-014",
+      "target_relic_id": "NMC-FS-015",
+      "relation_type": "唐代冠服",
+      "scenario": "鹖冠与进贤冠",
+      "evidence_summary": "两件三彩俑都为唐代冠服形象，题名分别显示鹖冠和进贤冠，可用于观察冠制差异。",
+      "source_refs": [
+        "FS专题页014",
+        "FS专题页015"
+      ],
+      "confidence": "高",
+      "demo_priority": "候选",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-044",
+      "source_relic_id": "NMC-FS-022",
+      "target_relic_id": "NMC-FS-023",
+      "relation_type": "明代金饰",
+      "scenario": "金簪与金帔坠",
+      "evidence_summary": "二者均为明代金质头面/服饰配件，可用于女性妆饰和金工路线。",
+      "source_refs": [
+        "FS专题页022",
+        "FS专题页023"
+      ],
+      "confidence": "中高",
+      "demo_priority": "候选",
+      "available_in_demo": false,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    },
+    {
+      "relation_id": "REL-045",
+      "source_relic_id": "NMC-TJ-004",
+      "target_relic_id": "NMC-TJ-005",
+      "relation_type": "汉镜图像",
+      "scenario": "博局瑞兽与四神羽人",
+      "evidence_summary": "两件汉代铜镜均含瑞兽/四神/羽人等图像元素，可比较汉代镜背图像系统。",
+      "source_refs": [
+        "TJ专题页004",
+        "TJ专题页005"
+      ],
+      "confidence": "高",
+      "demo_priority": "候选",
+      "available_in_demo": true,
+      "review_status": "证据摘要已按官网说明整理；仍需人工复核叙事措辞"
+    }
+  ]
+}

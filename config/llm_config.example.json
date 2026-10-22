@@ -1,10 +1,11 @@
 {
   "base_url": "https://llmapi.paratera.com",
-  "model": "GLM-5.3",
+  "model": "GLM-5.3-Flash",
   "api_key": "REPLACE_WITH_YOUR_API_KEY",
   "chat_path": "/chat/completions",
-  "timeout": 60,
+  "timeout": 240,
   "response_mode": "json_object",
   "embedding_model": "GLM-Embedding-3",
-  "embeddings_path": "/embeddings"
+  "embeddings_path": "/embeddings",
+  "guide_web_search": true
 }

@@ -1,0 +1,190 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+  <title id="title">寻迹博物馆导览 Agent 架构</title>
+  <desc id="desc">游客通过手机网页与后端交互，由 Router 管理会话状态并分发到四类业务算子；算子按需调用馆藏资料和模型服务。</desc>
+  <defs>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3679b8"/>
+    </marker>
+    <marker id="arrow-teal" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#13847b"/>
+    </marker>
+    <marker id="arrow-dark" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#536579"/>
+    </marker>
+    <style>
+      text { font-family: "Microsoft YaHei", "Noto Sans SC", sans-serif; fill: #172b3e; }
+      .muted { fill: #5e7183; }
+      .eyebrow { font-size: 14px; font-weight: 700; letter-spacing: 1.2px; }
+      .title { font-size: 34px; font-weight: 700; }
+      .subtitle { font-size: 17px; }
+      .section { font-size: 17px; font-weight: 700; }
+      .node-title { font-size: 22px; font-weight: 700; }
+      .node-sub { font-size: 14px; }
+      .small { font-size: 12px; }
+      .pill { font-size: 12px; font-weight: 600; }
+      .service-title { font-size: 24px; font-weight: 700; }
+      .service-body { font-size: 15px; }
+      .service-label { font-size: 12px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#ffffff"/>
+  <text x="96" y="56" class="eyebrow" fill="#3679b8">XUNJI  /  MUSEUM GUIDE AGENT</text>
+  <text x="96" y="103" class="title">寻迹 · 博物馆导览 Agent 架构</text>
+  <text x="96" y="135" class="subtitle muted">从游客输入到路线规划、按需讲解与探索手记</text>
+  <line x1="96" y1="158" x2="1824" y2="158" stroke="#e4eaf0" stroke-width="1.5"/>
+
+  <text x="96" y="190" class="section">01　交互入口与会话状态</text>
+  <text x="1824" y="190" text-anchor="end" class="small muted">请求与响应由网页接口统一承接</text>
+
+  <!-- Interaction nodes -->
+  <g>
+    <rect x="95" y="214" width="250" height="118" rx="12" fill="#f6f9fc" stroke="#cbd7e2" stroke-width="1.5"/>
+    <rect x="95" y="214" width="6" height="118" rx="3" fill="#73869a"/>
+    <text x="122" y="262" class="node-title">游客</text>
+    <text x="122" y="291" class="node-sub muted">输入文字 · 点击按钮</text>
+  </g>
+  <g>
+    <rect x="405" y="214" width="275" height="118" rx="12" fill="#eef6fc" stroke="#b9d2e6" stroke-width="1.5"/>
+    <rect x="405" y="214" width="6" height="118" rx="3" fill="#3679b8"/>
+    <text x="432" y="262" class="node-title">手机网页 H5</text>
+    <text x="432" y="291" class="node-sub muted">收集需求 · 展示路线与讲解</text>
+  </g>
+  <g>
+    <rect x="740" y="214" width="300" height="118" rx="12" fill="#eef6fc" stroke="#b9d2e6" stroke-width="1.5"/>
+    <rect x="740" y="214" width="6" height="118" rx="3" fill="#3679b8"/>
+    <text x="767" y="254" class="node-title">网页接口</text>
+    <text x="767" y="279" class="node-sub" fill="#3679b8">main.py</text>
+    <text x="767" y="307" class="small muted">接收请求 · 返回结果与最新记录</text>
+  </g>
+  <g>
+    <rect x="1100" y="214" width="310" height="118" rx="12" fill="#eaf6f4" stroke="#a9d3ce" stroke-width="1.5"/>
+    <rect x="1100" y="214" width="6" height="118" rx="3" fill="#13847b"/>
+    <text x="1127" y="262" class="node-title">总调度 Router</text>
+    <text x="1127" y="291" class="node-sub muted">事件分发 · 会话级编排</text>
+  </g>
+  <g>
+    <rect x="1470" y="214" width="355" height="118" rx="12" fill="#f0f7f2" stroke="#bfd6c4" stroke-width="1.5"/>
+    <rect x="1470" y="214" width="6" height="118" rx="3" fill="#548660"/>
+    <text x="1497" y="254" class="node-title">本次游览记录</text>
+    <text x="1497" y="279" class="node-sub" fill="#548660">SessionState</text>
+    <text x="1497" y="307" class="small muted">游客信息 · 已看/待看 · 讲解问答</text>
+  </g>
+
+  <!-- Request, response, and state links -->
+  <line x1="352" y1="273" x2="393" y2="273" stroke="#3679b8" stroke-width="2.4" marker-end="url(#arrow-blue)"/>
+  <line x1="687" y1="250" x2="728" y2="250" stroke="#3679b8" stroke-width="2.2" marker-end="url(#arrow-blue)"/>
+  <line x1="728" y1="286" x2="687" y2="286" stroke="#13847b" stroke-width="2.2" marker-end="url(#arrow-teal)"/>
+  <line x1="1047" y1="250" x2="1088" y2="250" stroke="#3679b8" stroke-width="2.2" marker-end="url(#arrow-blue)"/>
+  <line x1="1088" y1="286" x2="1047" y2="286" stroke="#13847b" stroke-width="2.2" marker-end="url(#arrow-teal)"/>
+  <line x1="1417" y1="250" x2="1458" y2="250" stroke="#13847b" stroke-width="2.2" marker-end="url(#arrow-teal)"/>
+  <line x1="1458" y1="286" x2="1417" y2="286" stroke="#548660" stroke-width="2.2" marker-end="url(#arrow-dark)"/>
+
+  <line x1="890" y1="332" x2="890" y2="343" stroke="#13847b" stroke-width="1.8" marker-end="url(#arrow-teal)"/>
+  <rect x="740" y="347" width="300" height="48" rx="8" fill="#f4f8fb" stroke="#d7e2eb"/>
+  <text x="890" y="367" text-anchor="middle" class="small" font-weight="700">处理结果与最新记录</text>
+  <text x="890" y="385" text-anchor="middle" class="small muted">reply_content + latest_state</text>
+  <text x="352" y="250" text-anchor="middle" class="small muted">输入</text>
+  <text x="708" y="238" text-anchor="middle" class="small muted">请求</text>
+  <text x="708" y="309" text-anchor="middle" class="small muted">页面更新</text>
+  <text x="1068" y="238" text-anchor="middle" class="small muted">分发</text>
+  <text x="1068" y="309" text-anchor="middle" class="small muted">结果</text>
+  <text x="1437" y="238" text-anchor="middle" class="small muted">读写</text>
+
+  <line x1="96" y1="411" x2="1824" y2="411" stroke="#e4eaf0" stroke-width="1.5"/>
+  <text x="96" y="448" class="section">02　路由调度与业务算子</text>
+  <text x="1824" y="448" text-anchor="end" class="small muted">Router 按按钮事件或自然语言意图调用对应算子</text>
+
+  <!-- Dispatch bus -->
+  <path d="M1255 332 V478 M300 478 H1620" fill="none" stroke="#8da3b5" stroke-width="2"/>
+  <line x1="300" y1="478" x2="300" y2="500" stroke="#3679b8" stroke-width="2.2" marker-end="url(#arrow-blue)"/>
+  <line x1="740" y1="478" x2="740" y2="500" stroke="#548660" stroke-width="2.2" marker-end="url(#arrow-dark)"/>
+  <line x1="1180" y1="478" x2="1180" y2="500" stroke="#b57a26" stroke-width="2.2" marker-end="url(#arrow-dark)"/>
+  <line x1="1620" y1="478" x2="1620" y2="500" stroke="#b15d63" stroke-width="2.2" marker-end="url(#arrow-dark)"/>
+
+  <!-- Operator cards -->
+  <g>
+    <rect x="95" y="502" width="410" height="156" rx="12" fill="#ffffff" stroke="#b9d2e6" stroke-width="1.5"/>
+    <circle cx="128" cy="540" r="17" fill="#3679b8"/>
+    <text x="128" y="546" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">1</text>
+    <text x="158" y="548" class="node-title">整理需求</text>
+    <text x="122" y="582" class="node-sub muted">解析文本意图、兴趣与游览条件</text>
+    <rect x="122" y="605" width="102" height="29" rx="14" fill="#eef6fc"/>
+    <text x="173" y="624" text-anchor="middle" class="pill" fill="#3679b8">模型服务</text>
+  </g>
+  <g>
+    <rect x="535" y="502" width="410" height="156" rx="12" fill="#ffffff" stroke="#bfd6c4" stroke-width="1.5"/>
+    <circle cx="568" cy="540" r="17" fill="#548660"/>
+    <text x="568" y="546" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">2</text>
+    <text x="598" y="548" class="node-title">安排路线</text>
+    <text x="562" y="582" class="node-sub muted">兴趣匹配 · 展厅路径与时间预算</text>
+    <rect x="562" y="605" width="102" height="29" rx="14" fill="#f0f7f2"/>
+    <text x="613" y="624" text-anchor="middle" class="pill" fill="#548660">馆藏资料</text>
+    <rect x="674" y="605" width="102" height="29" rx="14" fill="#fff6e9"/>
+    <text x="725" y="624" text-anchor="middle" class="pill" fill="#a56d1e">模型服务</text>
+  </g>
+  <g>
+    <rect x="975" y="502" width="410" height="156" rx="12" fill="#ffffff" stroke="#e2c99f" stroke-width="1.5"/>
+    <circle cx="1008" cy="540" r="17" fill="#b57a26"/>
+    <text x="1008" y="546" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">3</text>
+    <text x="1038" y="548" class="node-title">生成讲解与回答</text>
+    <text x="1002" y="582" class="node-sub muted">到站讲解 · 当前展品追问</text>
+    <rect x="1002" y="605" width="102" height="29" rx="14" fill="#f0f7f2"/>
+    <text x="1053" y="624" text-anchor="middle" class="pill" fill="#548660">馆藏资料</text>
+    <rect x="1114" y="605" width="102" height="29" rx="14" fill="#fff6e9"/>
+    <text x="1165" y="624" text-anchor="middle" class="pill" fill="#a56d1e">模型服务</text>
+  </g>
+  <g>
+    <rect x="1415" y="502" width="410" height="156" rx="12" fill="#ffffff" stroke="#e0c5c7" stroke-width="1.5"/>
+    <circle cx="1448" cy="540" r="17" fill="#b15d63"/>
+    <text x="1448" y="546" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">4</text>
+    <text x="1478" y="548" class="node-title">整理探索手记</text>
+    <text x="1442" y="582" class="node-sub muted">汇总本次参观、讲解与问答</text>
+    <rect x="1442" y="605" width="102" height="29" rx="14" fill="#f0f7f2"/>
+    <text x="1493" y="624" text-anchor="middle" class="pill" fill="#548660">馆藏资料</text>
+    <rect x="1554" y="605" width="102" height="29" rx="14" fill="#fff6e9"/>
+    <text x="1605" y="624" text-anchor="middle" class="pill" fill="#a56d1e">模型服务</text>
+  </g>
+
+  <line x1="96" y1="692" x2="1824" y2="692" stroke="#e4eaf0" stroke-width="1.5"/>
+  <text x="96" y="729" class="section">03　共享资料与模型服务</text>
+  <text x="1824" y="729" text-anchor="end" class="small muted">依赖关系标注在各算子与服务模块中</text>
+
+  <!-- Shared services -->
+  <g>
+    <rect x="95" y="758" width="820" height="226" rx="12" fill="#f2f8f3" stroke="#c4d9c8" stroke-width="1.5"/>
+    <rect x="95" y="758" width="7" height="226" rx="3" fill="#548660"/>
+    <text x="128" y="803" class="service-title">馆藏与展厅资料</text>
+    <text x="128" y="837" class="service-body muted">为路线、讲解和手记提供可核验的场馆信息</text>
+    <text x="128" y="875" class="service-label" fill="#548660">资料范围</text>
+    <text x="128" y="900" class="service-body">展品内容与来源　·　展厅位置与通路　·　已审核知识关联</text>
+    <text x="128" y="940" class="service-label" fill="#548660">调用方</text>
+    <rect x="185" y="920" width="112" height="34" rx="8" fill="#ffffff" stroke="#d3e3d6"/>
+    <text x="241" y="942" text-anchor="middle" class="pill" fill="#456f4f">安排路线</text>
+    <rect x="307" y="920" width="154" height="34" rx="8" fill="#ffffff" stroke="#d3e3d6"/>
+    <text x="384" y="942" text-anchor="middle" class="pill" fill="#456f4f">生成讲解与回答</text>
+    <rect x="471" y="920" width="136" height="34" rx="8" fill="#ffffff" stroke="#d3e3d6"/>
+    <text x="539" y="942" text-anchor="middle" class="pill" fill="#456f4f">探索手记</text>
+  </g>
+  <g>
+    <rect x="1005" y="758" width="820" height="226" rx="12" fill="#fff8ee" stroke="#e8d4b3" stroke-width="1.5"/>
+    <rect x="1005" y="758" width="7" height="226" rx="3" fill="#b57a26"/>
+    <text x="1038" y="803" class="service-title">模型服务</text>
+    <text x="1038" y="837" class="service-body muted">统一接入文本模型与向量服务，支撑理解、生成和校验</text>
+    <text x="1038" y="875" class="service-label" fill="#a56d1e">模型职责</text>
+    <text x="1038" y="900" class="service-body">输入解析　·　兴趣理解　·　讲解与手记生成　·　内容校验　·　向量编码</text>
+    <text x="1038" y="940" class="service-label" fill="#a56d1e">调用方</text>
+    <rect x="1095" y="920" width="112" height="34" rx="8" fill="#ffffff" stroke="#eadcc5"/>
+    <text x="1151" y="942" text-anchor="middle" class="pill" fill="#94651f">整理需求</text>
+    <rect x="1217" y="920" width="112" height="34" rx="8" fill="#ffffff" stroke="#eadcc5"/>
+    <text x="1273" y="942" text-anchor="middle" class="pill" fill="#94651f">安排路线</text>
+    <rect x="1339" y="920" width="154" height="34" rx="8" fill="#ffffff" stroke="#eadcc5"/>
+    <text x="1416" y="942" text-anchor="middle" class="pill" fill="#94651f">生成讲解与回答</text>
+    <rect x="1503" y="920" width="112" height="34" rx="8" fill="#ffffff" stroke="#eadcc5"/>
+    <text x="1559" y="942" text-anchor="middle" class="pill" fill="#94651f">探索手记</text>
+  </g>
+
+  <line x1="96" y1="1020" x2="1824" y2="1020" stroke="#e4eaf0" stroke-width="1.2"/>
+  <text x="96" y="1050" class="small muted">会话状态由 Router 统一管理；页面读取服务端最新状态，不直接覆盖游览记录。</text>
+  <text x="1824" y="1050" text-anchor="end" class="small muted">横向阅读 · 入口 → 调度 → 共享能力</text>
+</svg>

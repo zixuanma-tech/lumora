@@ -20,6 +20,10 @@ from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 PLACEHOLDER_API_KEY = "REPLACE_WITH_YOUR_API_KEY"
 JSONTransport = Callable[..., Awaitable[Mapping[str, Any]]]
+# GLM 服务端内置联网搜索工具；搜索由模型侧执行，响应仍是普通 content。
+WEB_SEARCH_TOOL: Mapping[str, Any] = {
+    "type": "web_search", "web_search": {"enable": True, "search_result": True},
+}
 
 
 class ModelServiceError(RuntimeError):
@@ -72,13 +76,14 @@ class LLMConfig:
     """模型服务配置；默认密钥为占位值，repr 不显示密钥。"""
 
     base_url: str = "https://llmapi.paratera.com"
-    model: str = "GLM-5.3"
+    model: str = "GLM-5.3-Flash"
     api_key: str = field(default=PLACEHOLDER_API_KEY, repr=False)
     chat_path: str = "/chat/completions"
-    timeout: float = 60.0
+    timeout: float = 120.0
     response_mode: str = "json_schema"
     embedding_model: str | None = None
     embeddings_path: str = "/embeddings"
+    guide_web_search: bool = False
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "base_url", _base_url(self.base_url))
@@ -93,6 +98,8 @@ class LLMConfig:
         object.__setattr__(self, "timeout", float(self.timeout))
         if self.response_mode not in ("json_schema", "json_object"):
             raise ValueError("response_mode 必须是 json_schema 或 json_object")
+        if type(self.guide_web_search) is not bool:
+            raise ValueError("guide_web_search 必须是布尔值")
         object.__setattr__(self, "chat_path", _path(self.chat_path, "chat_path"))
         object.__setattr__(self, "embeddings_path", _path(self.embeddings_path, "embeddings_path"))
         if self.embedding_model is not None:
@@ -227,9 +234,12 @@ class ChatCompletionsClient:
                 "Content-Type": "application/json", "Accept": "application/json"}
 
     async def __call__(self, *, system_prompt: str, user_prompt: str,
-                       response_format: Mapping[str, Any]) -> str:
+                       response_format: Mapping[str, Any],
+                       web_search: bool = False) -> str:
         system_prompt = _text(system_prompt, "system_prompt")
         user_prompt = _text(user_prompt, "user_prompt")
+        if type(web_search) is not bool:
+            raise ValueError("web_search 必须是布尔值")
         formatted = _chat_response_format(response_format)
         if self.config.response_mode == "json_object":
             schema_text = json.dumps(formatted["json_schema"]["schema"], ensure_ascii=False,
@@ -242,6 +252,8 @@ class ChatCompletionsClient:
                          {"role": "user", "content": user_prompt}],
             "stream": False, "response_format": formatted,
         }
+        if web_search:
+            payload["tools"] = [dict(WEB_SEARCH_TOOL)]
         data = await self._transport(
             url=self.config.chat_url, headers=self._headers, payload=payload,
             timeout_seconds=self.config.timeout,

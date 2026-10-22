@@ -1,6 +1,6 @@
-"""把七个模型职责统一接到可配置的 Chat Completions 客户端。
+"""把五个模型职责统一接到可配置的 Chat Completions 客户端。
 
-这是部署适配层；Prompt、数据契约、算子及 Router 调用方式不变。
+这是部署适配层；沿用 Prompt、算子和 Router 的可注入接口。
 馆藏、候选史料、空间快照仍由调用方注入，不能从聊天模型编造。
 """
 
@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import Any
 
 from guide_models import GuideMaterial, GuideRequest
-from guide_prompts import make_guide_composer, make_guide_reviewer, make_guide_selector
+from guide_prompts import make_guide_composer, make_guide_material_loader
 from input_interpreter_prompt import make_input_interpreter
 from interest_prompts import make_interest_parser
 from model_api import ChatCompletionsClient, LLMConfig
@@ -29,7 +29,6 @@ DEFAULT_CONFIG_PATH = PROJECT_ROOT / "config" / "llm_config.json"
 EXAMPLE_CONFIG_PATH = PROJECT_ROOT / "config" / "llm_config.example.json"
 ModelCall = Callable[..., Awaitable[str | Mapping[str, Any]]]
 CandidateLoader = Callable[..., Awaitable[Sequence[GuideMaterial]]]
-
 
 def load_llm_config(
     path: str | Path | None = None, *, environ: Mapping[str, str] | None = None,
@@ -80,6 +79,10 @@ def load_llm_config(
                     raise ValueError("LUMORA_LLM_TIMEOUT 必须是正数秒数") from None
             elif name == "embedding_model" and value == "":
                 value = None
+            elif name == "guide_web_search":
+                if not isinstance(value, str) or value.strip().lower() not in ("true", "false"):
+                    raise ValueError("LUMORA_LLM_GUIDE_WEB_SEARCH 必须是 true 或 false")
+                value = value.strip().lower() == "true"
             values[name] = value
     return LLMConfig(**values)
 
@@ -100,9 +103,12 @@ def build_model_services(
 ) -> RouterServices:
     """一次装配全部模型服务；创建时不发送网络请求。
 
-    七个职责使用同一配置，Reviewer 始终为单独模型调用。需要真实请求时
+    五个职责使用同一配置，讲解直接加载全部候选并在一次生成内自检，
+    手记保留独立审核。需要真实请求时
     替换占位密钥；测试可注入 model_call 或底层异步 transport。embedding
     只在配置了明确的 embedding_model 后接入，或显式注入 VectorService。
+    配置 guide_web_search=true 时仅讲解生成请求附加 GLM 联网搜索工具，
+    并选择对应的完整证据策略；其余职责和注入的 model_call 不受影响。
     """
     if config is not None and config_path is not None:
         raise ValueError("config 和 config_path 只能提供一个")
@@ -116,20 +122,35 @@ def build_model_services(
         raise ValueError("model_call 与 config/config_path 不能同时提供")
     if model_call is not None and not callable(model_call):
         raise TypeError("model_call 必须是异步可调用对象")
+
+    composer_call = None
+    guide_web_search = False
     if model_call is None:
         settings = config if config is not None else load_llm_config(config_path)
         client = ChatCompletionsClient(settings, transport=transport)
         model_call = client
         if vector_service is None and settings.embedding_model is not None:
             vector_service = client
+        if settings.guide_web_search:
+            guide_web_search = True
+            async def web_search_composer_call(**kwargs):
+                # 部署层只启用厂商工具；完整证据策略由 Prompt 模块按模式生成。
+                patched = dict(kwargs)
+                patched["web_search"] = True
+                return await client(**patched)
+            composer_call = web_search_composer_call
 
     return RouterServices(
         interpreter=make_input_interpreter(model_call),
         interest_parser=make_interest_parser(model_call, taxonomy=taxonomy),
-        selector=make_guide_selector(
-            model_call, _missing_candidates if candidates is None else candidates,
+        selector=make_guide_material_loader(
+            _missing_candidates if candidates is None else candidates,
         ),
-        composer=make_guide_composer(model_call), reviewer=make_guide_reviewer(model_call),
+        composer=make_guide_composer(
+            composer_call if composer_call is not None else model_call,
+            web_search_enabled=guide_web_search,
+        ),
+        guide_review_mode="integrated",
         summary_composer=make_summary_composer(model_call),
         summary_reviewer=make_summary_reviewer(model_call),
         snapshot=snapshot, data_source=data_source, vector_service=vector_service,

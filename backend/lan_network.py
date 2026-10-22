@@ -1,12 +1,12 @@
-"""Detect the IPv4 address selected by the default local network route."""
+"""Local IPv4 address discovery for the optional LAN development server."""
 
 from __future__ import annotations
 
 import ipaddress
 import os
-import shutil
 import socket
 import subprocess
+import shutil
 
 
 def _is_lan_ipv4(value: str) -> bool:
@@ -25,9 +25,12 @@ def _is_lan_ipv4(value: str) -> bool:
 
 
 def get_lan_ipv4_addresses() -> list[str]:
-    """Return a usable IPv4 address without sending a network packet."""
+    """Return the IPv4 address chosen by the system's default route."""
+    addresses: set[str] = set()
+
+    # A UDP connect only asks the local OS which interface it would use; no
+    # packet is sent. This avoids returning virtual adapters such as WSL.
     try:
-        # UDP connect selects a route in the local OS; it sends no datagram.
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as probe:
             probe.connect(("192.0.2.1", 9))
             selected = probe.getsockname()[0]
@@ -36,7 +39,8 @@ def get_lan_ipv4_addresses() -> list[str]:
     except OSError:
         pass
 
-    addresses: set[str] = set()
+    # Windows exposes adapter addresses directly through this built-in cmdlet.
+    # It avoids selecting a stale address when campus Wi-Fi changes.
     powershell = shutil.which("powershell.exe")
     if powershell:
         try:
@@ -65,6 +69,7 @@ def get_lan_ipv4_addresses() -> list[str]:
         except (OSError, subprocess.SubprocessError):
             pass
 
+    # On Unix, hostname resolution is a last resort if route selection fails.
     if os.name != "nt":
         try:
             for _family, _type, _proto, _canonname, sockaddr in socket.getaddrinfo(

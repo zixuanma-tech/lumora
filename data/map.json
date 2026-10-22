@@ -1,0 +1,29 @@
+{
+  "meta": {
+    "source_file": "generated-test-map",
+    "package_version": "nmc-demo-20261021",
+    "generated": "2026-10-21",
+    "status": "虚拟测试地图，不代表实际馆内通路",
+    "note": "空间边与 data/edges.json 的文物知识关联完全分离；步行时间为测试估值。"
+  },
+  "nodes": [
+    {"node_id": "entrance", "name": "入口", "kind": "entrance", "floor": 1, "coords": [0, 0]},
+    {"node_id": "NMC-EXH-CQ", "name": "瓷器展厅（北17展厅）", "kind": "gallery", "gallery_id": "NMC-EXH-CQ", "hall": "北17展厅", "floor": 1, "coords": [2, 0], "base_pass_min": 1.0},
+    {"node_id": "NMC-EXH-FS", "name": "服饰展厅（北18展厅）", "kind": "gallery", "gallery_id": "NMC-EXH-FS", "hall": "北18展厅", "floor": 1, "coords": [4, 0], "base_pass_min": 1.0},
+    {"node_id": "NMC-EXH-YQ", "name": "玉器展厅（北19展厅）", "kind": "gallery", "gallery_id": "NMC-EXH-YQ", "hall": "北19展厅", "floor": 1, "coords": [6, 0], "base_pass_min": 1.0},
+    {"node_id": "NMC-EXH-TJ", "name": "铜镜展厅（南14展厅）", "kind": "gallery", "gallery_id": "NMC-EXH-TJ", "hall": "南14展厅", "floor": 1, "coords": [8, 0], "base_pass_min": 1.0},
+    {"node_id": "exit", "name": "出口", "kind": "exit", "floor": 1, "coords": [10, 0]}
+  ],
+  "edges": [
+    {"source": "entrance", "target": "NMC-EXH-CQ", "walk_time_min": 3},
+    {"source": "NMC-EXH-CQ", "target": "entrance", "walk_time_min": 3},
+    {"source": "NMC-EXH-CQ", "target": "NMC-EXH-FS", "walk_time_min": 3},
+    {"source": "NMC-EXH-FS", "target": "NMC-EXH-CQ", "walk_time_min": 3},
+    {"source": "NMC-EXH-FS", "target": "NMC-EXH-YQ", "walk_time_min": 4},
+    {"source": "NMC-EXH-YQ", "target": "NMC-EXH-FS", "walk_time_min": 4},
+    {"source": "NMC-EXH-YQ", "target": "NMC-EXH-TJ", "walk_time_min": 5},
+    {"source": "NMC-EXH-TJ", "target": "NMC-EXH-YQ", "walk_time_min": 5},
+    {"source": "NMC-EXH-TJ", "target": "exit", "walk_time_min": 3},
+    {"source": "exit", "target": "NMC-EXH-TJ", "walk_time_min": 3}
+  ]
+}

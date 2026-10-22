@@ -1,0 +1,3683 @@
+{
+  "meta": {
+    "source_file": "国博AI文旅数据收集_官网来源层_20261021.xlsx",
+    "package_version": "扩容solid版 v5（40核心/60候选/160候选池）",
+    "generated": "2026-10-21",
+    "note": "仅收录 02_候选文物60（40 核心 + 20 候选）；候选池160 其余条目无六标签，保留在 Excel 中作参考。"
+  },
+  "relics": [
+    {
+      "relic_id": "NMC-CQ-104",
+      "name": "青釉仰覆莲花尊",
+      "era": "北朝（公元386—581年）",
+      "gallery_id": "NMC-EXH-CQ",
+      "gallery_name": "中国古代瓷器",
+      "hall": "北17展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "魏晋南北朝"
+        ],
+        "era_specific": [
+          "北朝"
+        ],
+        "category_main": [
+          "瓷"
+        ],
+        "craft_types": [
+          "青釉",
+          "刻花",
+          "刻纹"
+        ],
+        "artifact_types": [
+          "罐",
+          "瓶",
+          "尊",
+          "盆",
+          "陈设或盛储器"
+        ],
+        "motifs": [
+          "莲花",
+          "莲荷",
+          "花卉"
+        ],
+        "themes": [
+          "工艺技术",
+          "纹样追踪",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-CQ-104-m1",
+          "text": "莲花尊是南北朝时期青瓷中的典型器，南北方均有出土。受佛教艺术影响，此尊器身布满塑贴和雕刻的上覆下仰的层层莲花瓣，是研究北朝瓷器及瓷器装饰工艺的重要实物资料。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+            "modal id=104"
+          ],
+          "related_relic_ids": [
+            "NMC-CQ-109",
+            "NMC-TJ-013"
+          ]
+        }
+      ],
+      "unit": "源远流长",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "excavation": "传河南上蔡出土",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+      "page_ref": "modal id=104",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/img/1/pic4_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为莲花纹或佛教图像路线节点：青釉仰覆莲花尊适合与瓷器、玉器、铜镜中的莲荷题材比较。"
+    },
+    {
+      "relic_id": "NMC-CQ-105",
+      "name": "鲁山窑花釉执壶",
+      "era": "唐（公元618—907年）",
+      "gallery_id": "NMC-EXH-CQ",
+      "gallery_name": "中国古代瓷器",
+      "hall": "北17展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "隋唐"
+        ],
+        "era_specific": [
+          "唐"
+        ],
+        "category_main": [
+          "瓷"
+        ],
+        "craft_types": [
+          "黑釉"
+        ],
+        "artifact_types": [
+          "壶",
+          "盛器"
+        ],
+        "motifs": [
+          "花卉"
+        ],
+        "themes": [
+          "工艺技术",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-CQ-105-m1",
+          "text": "鲁山窑遗址在今河南省鲁山县段店村，始烧于唐，终烧于元代。此窑产品的特色在于利用釉中氧化铁含量的不同烧造出不同色调的瓷器。大体可分两类：一类是黑釉或褐色釉地带天蓝或月白等浅色斑块装饰；另一类是浅黄或月白色釉地带蓝色不规则的斑块。器物造型以壶、罐居多。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+            "modal id=105"
+          ],
+          "related_relic_ids": [
+            "NMC-CQ-107"
+          ]
+        }
+      ],
+      "unit": "源远流长",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "excavation": "1956年河南陕县刘家渠出土",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+      "page_ref": "modal id=105",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/img/1/pic5_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为工艺路线节点：鲁山窑花釉执壶适合观察材料处理、制作技术或装饰工艺。"
+    },
+    {
+      "relic_id": "NMC-CQ-106",
+      "name": "青釉褐绿彩花鸟图壶",
+      "era": "唐（公元618—907年）",
+      "gallery_id": "NMC-EXH-CQ",
+      "gallery_name": "中国古代瓷器",
+      "hall": "北17展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "隋唐"
+        ],
+        "era_specific": [
+          "唐"
+        ],
+        "category_main": [
+          "铜",
+          "青铜"
+        ],
+        "craft_types": [
+          "青釉",
+          "陶塑",
+          "三彩"
+        ],
+        "artifact_types": [
+          "壶",
+          "盛器"
+        ],
+        "motifs": [
+          "凤鸟",
+          "鸟",
+          "花卉"
+        ],
+        "themes": [
+          "工艺技术",
+          "纹样追踪",
+          "中外交流",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-CQ-106-m1",
+          "text": "器身绘褐、绿彩花鸟图，纹饰清晰，是长沙窑彩绘瓷代表作。唐代长沙窑遗址位于湖南省长沙市铜官镇，创始于中唐，终烧于五代。其烧造的彩绘瓷，丰富了唐代瓷器的装饰技术，在陶瓷史上占有重要地位，也是中国古代对外贸易的重要商品之一。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+            "modal id=106"
+          ],
+          "related_relic_ids": [
+            "NMC-TJ-006",
+            "NMC-TJ-010"
+          ]
+        }
+      ],
+      "unit": "源远流长",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "excavation": "1983年湖南望城县蓝岸嘴出土",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+      "page_ref": "modal id=106",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/img/1/pic6_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为交流路线节点：青釉褐绿彩花鸟图壶的名称或官方说明包含跨文化/贸易/外来题材线索。"
+    },
+    {
+      "relic_id": "NMC-CQ-107",
+      "name": "汝窑天青釉盘",
+      "era": "北宋（公元960—1127年）",
+      "gallery_id": "NMC-EXH-CQ",
+      "gallery_name": "中国古代瓷器",
+      "hall": "北17展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 5,
+      "tags": {
+        "era_broad": [
+          "宋辽金元"
+        ],
+        "era_specific": [
+          "北宋"
+        ],
+        "category_main": [
+          "瓷"
+        ],
+        "craft_types": [
+          "青釉",
+          "天青釉"
+        ],
+        "artifact_types": [],
+        "motifs": [],
+        "themes": [
+          "工艺技术",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-CQ-107-m1",
+          "text": "汝窑窑址在今河南宝丰清凉寺，以烧造青釉瓷器著称，是继定窑之后又一为宫廷烧造贡瓷的窑场。其产品胎体细洁如香灰色，多为“裹足支烧”。釉色主要为天青色，釉层薄而莹润，釉泡大而稀疏，有“寥若晨星”之称。釉面有细小的开片纹，称为“冰裂纹”。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+            "modal id=107"
+          ],
+          "related_relic_ids": [
+            "NMC-CQ-105",
+            "NMC-CQ-109",
+            "NMC-CQ-108",
+            "NMC-CQ-110"
+          ]
+        }
+      ],
+      "treasure_note": "汝窑传世品不足百件，汝窑天青釉盘为陶瓷史名品",
+      "unit": "源远流长",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+      "page_ref": "modal id=107",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/img/1/pic7_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为工艺路线节点：汝窑天青釉盘适合观察材料处理、制作技术或装饰工艺。"
+    },
+    {
+      "relic_id": "NMC-CQ-108",
+      "name": "哥窑灰青釉五方委角洗",
+      "era": "南宋（公元1127—1279年）",
+      "gallery_id": "NMC-EXH-CQ",
+      "gallery_name": "中国古代瓷器",
+      "hall": "北17展厅",
+      "status": "候选",
+      "demo_use": "备用/扩展",
+      "importance_level": 3,
+      "tags": {
+        "era_broad": [
+          "宋辽金元"
+        ],
+        "era_specific": [
+          "南宋"
+        ],
+        "category_main": [
+          "金",
+          "金饰"
+        ],
+        "craft_types": [
+          "青釉"
+        ],
+        "artifact_types": [],
+        "motifs": [],
+        "themes": [
+          "工艺技术"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-CQ-108-m1",
+          "text": "哥窑瓷器釉色以灰青为主，釉面有深浅不同的纹片，俗称“开片”，有“金丝铁线”之说，其瓷质优良，为宫廷用瓷式样。哥窑窑址至今尚未被发现，有学者认为哥窑可能即为宋代修内司官窑。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+            "modal id=108"
+          ],
+          "related_relic_ids": [
+            "NMC-CQ-107"
+          ]
+        }
+      ],
+      "unit": "源远流长",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+      "page_ref": "modal id=108",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/img/1/pic8_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为工艺路线节点：哥窑灰青釉五方委角洗适合观察材料处理、制作技术或装饰工艺。"
+    },
+    {
+      "relic_id": "NMC-CQ-109",
+      "name": "耀州窑青釉刻莲花纹围棋罐",
+      "era": "北宋（公元960—1127年）",
+      "gallery_id": "NMC-EXH-CQ",
+      "gallery_name": "中国古代瓷器",
+      "hall": "北17展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "宋辽金元"
+        ],
+        "era_specific": [
+          "北宋"
+        ],
+        "category_main": [
+          "铜",
+          "青铜"
+        ],
+        "craft_types": [
+          "青釉",
+          "刻花",
+          "刻纹"
+        ],
+        "artifact_types": [
+          "罐",
+          "瓶",
+          "尊",
+          "盆",
+          "陈设或盛储器"
+        ],
+        "motifs": [
+          "莲花",
+          "莲荷",
+          "花卉"
+        ],
+        "themes": [
+          "工艺技术",
+          "纹样追踪",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-CQ-109-m1",
+          "text": "耀州窑是北方著名瓷窑之一，窑址在今陕西省铜川市，创烧于唐代，盛于北宋，以烧造刻花和印花青瓷著称。耀州窑青瓷釉色以橄榄青和黄绿色为主，釉质莹亮，其对河南、广东、广西等地制瓷业的影响颇深。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+            "modal id=109"
+          ],
+          "related_relic_ids": [
+            "NMC-CQ-107",
+            "NMC-CQ-104"
+          ]
+        }
+      ],
+      "unit": "源远流长",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+      "page_ref": "modal id=109",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/img/1/pic9_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为莲花纹或佛教图像路线节点：耀州窑青釉刻莲花纹围棋罐适合与瓷器、玉器、铜镜中的莲荷题材比较。"
+    },
+    {
+      "relic_id": "NMC-CQ-110",
+      "name": "钧窑玫瑰紫釉海棠式花盆",
+      "era": "宋（公元960—1279年）",
+      "gallery_id": "NMC-EXH-CQ",
+      "gallery_name": "中国古代瓷器",
+      "hall": "北17展厅",
+      "status": "候选",
+      "demo_use": "备用/扩展",
+      "importance_level": 3,
+      "tags": {
+        "era_broad": [
+          "宋辽金元"
+        ],
+        "era_specific": [
+          "宋"
+        ],
+        "category_main": [
+          "玉"
+        ],
+        "craft_types": [
+          "刻花",
+          "刻纹"
+        ],
+        "artifact_types": [
+          "罐",
+          "瓶",
+          "尊",
+          "盆",
+          "陈设或盛储器"
+        ],
+        "motifs": [
+          "花卉"
+        ],
+        "themes": [
+          "工艺技术",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-CQ-110-m1",
+          "text": "此盆为清宫旧藏。外底刻“三”字，并刻有“重华宫”及“金昭玉翠用”款记。 “三”为器物烧成前所刻，是同一类器物大小的编号；“重华宫”等则是清代宫廷造办处玉作匠奉乾隆皇帝谕旨所刻，对应其在清宫中陈设位置。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+            "modal id=110"
+          ],
+          "related_relic_ids": [
+            "NMC-CQ-107"
+          ]
+        }
+      ],
+      "unit": "源远流长",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+      "page_ref": "modal id=110",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/img/1/pic10_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为工艺路线节点：钧窑玫瑰紫釉海棠式花盆适合观察材料处理、制作技术或装饰工艺。"
+    },
+    {
+      "relic_id": "NMC-CQ-111",
+      "name": "青花云龙纹罐",
+      "era": "元（公元1206—1368年）",
+      "gallery_id": "NMC-EXH-CQ",
+      "gallery_name": "中国古代瓷器",
+      "hall": "北17展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 5,
+      "tags": {
+        "era_broad": [
+          "宋辽金元"
+        ],
+        "era_specific": [
+          "元"
+        ],
+        "category_main": [
+          "瓷"
+        ],
+        "craft_types": [
+          "青花"
+        ],
+        "artifact_types": [
+          "壶",
+          "盛器"
+        ],
+        "motifs": [
+          "龙",
+          "花卉"
+        ],
+        "themes": [
+          "纹样追踪",
+          "中外交流",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-CQ-111-m1",
+          "text": "此罐使用进口青料描绘典型的元代龙纹形象，青花发色浓艳鲜丽，为成熟元代青花瓷中的精品。元代青花瓷的造型以瓶、罐、壶等大件器物居多。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+            "modal id=111"
+          ],
+          "related_relic_ids": [
+            "NMC-TJ-008",
+            "NMC-CQ-115",
+            "NMC-CQ-116"
+          ]
+        }
+      ],
+      "treasure_note": "元青花存世稀少，青花云龙纹罐为元青花代表作之一",
+      "unit": "源远流长",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+      "page_ref": "modal id=111",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/img/1/pic11_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为龙纹/龙形追踪节点：青花云龙纹罐适合与其他材质中的龙纹器物比较。"
+    },
+    {
+      "relic_id": "NMC-CQ-112",
+      "name": "青花双凤穿缠枝莲纹玉壶春瓶",
+      "era": "元（公元1206—1368年）",
+      "gallery_id": "NMC-EXH-CQ",
+      "gallery_name": "中国古代瓷器",
+      "hall": "北17展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "宋辽金元"
+        ],
+        "era_specific": [
+          "元"
+        ],
+        "category_main": [
+          "玉"
+        ],
+        "craft_types": [
+          "青花"
+        ],
+        "artifact_types": [
+          "壶",
+          "盛器"
+        ],
+        "motifs": [
+          "龙",
+          "凤鸟",
+          "鸟",
+          "莲花",
+          "莲荷",
+          "瑞兽",
+          "兽",
+          "花卉"
+        ],
+        "themes": [
+          "纹样追踪",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-CQ-112-m1",
+          "text": "此器腹部两面绘飞凤、莲花、祥云等，寓意吉祥。元代青花瓷装饰常以龙凤、鹤鹿、麒麟、鸳鸯、莲花、牡丹、海水、鱼藻以及松竹梅等为主题纹饰，并辅以回纹、云纹、蕉叶、卷草、水波纹等。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+            "modal id=112"
+          ],
+          "related_relic_ids": [
+            "NMC-YQ-403"
+          ]
+        }
+      ],
+      "unit": "源远流长",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+      "page_ref": "modal id=112",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/img/1/pic12_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为龙纹/龙形追踪节点：青花双凤穿缠枝莲纹玉壶春瓶适合与其他材质中的龙纹器物比较。"
+    },
+    {
+      "relic_id": "NMC-CQ-113",
+      "name": "斗彩花蝶图罐",
+      "era": "明 成化（公元1465—1487年）",
+      "gallery_id": "NMC-EXH-CQ",
+      "gallery_name": "中国古代瓷器",
+      "hall": "北17展厅",
+      "status": "候选",
+      "demo_use": "备用/扩展",
+      "importance_level": 3,
+      "tags": {
+        "era_broad": [
+          "明"
+        ],
+        "era_specific": [
+          "明",
+          "成化"
+        ],
+        "category_main": [
+          "书画",
+          "纸本"
+        ],
+        "craft_types": [
+          "五彩",
+          "斗彩",
+          "青花"
+        ],
+        "artifact_types": [
+          "罐",
+          "瓶",
+          "尊",
+          "盆",
+          "陈设或盛储器"
+        ],
+        "motifs": [
+          "花卉"
+        ],
+        "themes": [
+          "工艺技术",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-CQ-113-m1",
+          "text": "宣德朝的青花五彩瓷已出现明代斗彩瓷的工艺萌芽，成化时期则是斗彩瓷器的成熟完善阶段。成化斗彩瓷胎质细腻洁白，釉面光润柔和，画面色彩精丽雅致，以典雅的造型和特殊的彩绘技法蜚声中外。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+            "modal id=113"
+          ],
+          "related_relic_ids": []
+        }
+      ],
+      "unit": "源远流长",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+      "page_ref": "modal id=113",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/img/1/pic13_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为工艺路线节点：斗彩花蝶图罐适合观察材料处理、制作技术或装饰工艺。"
+    },
+    {
+      "relic_id": "NMC-CQ-115",
+      "name": "甜白釉模印云龙纹高足碗",
+      "era": "明 永乐（公元1403—1424年）",
+      "gallery_id": "NMC-EXH-CQ",
+      "gallery_name": "中国古代瓷器",
+      "hall": "北17展厅",
+      "status": "候选",
+      "demo_use": "备用/扩展",
+      "importance_level": 3,
+      "tags": {
+        "era_broad": [
+          "明"
+        ],
+        "era_specific": [
+          "明",
+          "永乐"
+        ],
+        "category_main": [
+          "瓷"
+        ],
+        "craft_types": [
+          "白釉",
+          "甜白釉",
+          "模印"
+        ],
+        "artifact_types": [],
+        "motifs": [
+          "龙"
+        ],
+        "themes": [
+          "工艺技术",
+          "纹样追踪"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-CQ-115-m1",
+          "text": "永乐年间，景德镇御窑在元代卵白釉瓷的基础上，创烧出另一种高温白瓷，因其色调甜润，故有“甜白瓷”之称。永乐甜白釉瓷不仅釉色洁白，且胎体极薄，甚至可以映见指纹，为后来彩瓷的迅猛发展奠定了工艺基础。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+            "modal id=115"
+          ],
+          "related_relic_ids": [
+            "NMC-CQ-111"
+          ]
+        }
+      ],
+      "unit": "源远流长",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+      "page_ref": "modal id=115",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/img/1/pic15_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为龙纹/龙形追踪节点：甜白釉模印云龙纹高足碗适合与其他材质中的龙纹器物比较。"
+    },
+    {
+      "relic_id": "NMC-CQ-116",
+      "name": "青花釉里红加彩海水云龙纹缸",
+      "era": "清 康熙（公元1662—1722年）",
+      "gallery_id": "NMC-EXH-CQ",
+      "gallery_name": "中国古代瓷器",
+      "hall": "北17展厅",
+      "status": "候选",
+      "demo_use": "备用/扩展",
+      "importance_level": 3,
+      "tags": {
+        "era_broad": [
+          "清"
+        ],
+        "era_specific": [
+          "清",
+          "康熙"
+        ],
+        "category_main": [
+          "铜",
+          "青铜"
+        ],
+        "craft_types": [
+          "青花",
+          "釉里红"
+        ],
+        "artifact_types": [
+          "罐",
+          "瓶",
+          "尊",
+          "盆",
+          "陈设或盛储器"
+        ],
+        "motifs": [
+          "龙",
+          "花卉"
+        ],
+        "themes": [
+          "工艺技术",
+          "纹样追踪",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-CQ-116-m1",
+          "text": "此缸外壁以青花釉里红加彩描绘双龙戏珠纹和祥云、山石、海水纹等，波涛翻卷，蛟龙腾跃于云海间，气势磅礴。造型饱满端庄。康熙朝制瓷工匠由于掌握了铜红的呈色技术，因此釉里红瓷烧造得相当成功，不论小品还是大器，均造型古朴，胎体坚致，釉里红纹饰发色纯正，具有鲜明的时代特色。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+            "modal id=116"
+          ],
+          "related_relic_ids": [
+            "NMC-CQ-111"
+          ]
+        }
+      ],
+      "unit": "源远流长",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+      "page_ref": "modal id=116",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/img/1/pic16_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为龙纹/龙形追踪节点：青花釉里红加彩海水云龙纹缸适合与其他材质中的龙纹器物比较。"
+    },
+    {
+      "relic_id": "NMC-CQ-301",
+      "name": "白釉花式带托瓷盏",
+      "era": "北宋（公元960—1127年）",
+      "gallery_id": "NMC-EXH-CQ",
+      "gallery_name": "中国古代瓷器",
+      "hall": "北17展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "宋辽金元"
+        ],
+        "era_specific": [
+          "北宋"
+        ],
+        "category_main": [
+          "瓷"
+        ],
+        "craft_types": [
+          "白釉",
+          "甜白釉"
+        ],
+        "artifact_types": [
+          "茶具",
+          "饮茶器"
+        ],
+        "motifs": [
+          "花卉"
+        ],
+        "themes": [
+          "工艺技术",
+          "茶生活",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-CQ-301-m1",
+          "text": "点茶时茶末用沸水冲点，茶盏很烫，且无把手，故用托以便举持。宋代盏托的经典造型为托盘式，盘中心凸起一高圈，上放小盏。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+            "modal id=301"
+          ],
+          "related_relic_ids": [
+            "NMC-CQ-302",
+            "NMC-YQ-402",
+            "NMC-CQ-303"
+          ]
+        }
+      ],
+      "unit": "瓷韵风华",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+      "page_ref": "modal id=301",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/img/3/pic1_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为茶生活路线节点：白釉花式带托瓷盏的官方资料与饮茶器用/茶具设计相关。"
+    },
+    {
+      "relic_id": "NMC-CQ-302",
+      "name": "黑釉兔毫盏",
+      "era": "宋（公元960—1279年）",
+      "gallery_id": "NMC-EXH-CQ",
+      "gallery_name": "中国古代瓷器",
+      "hall": "北17展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "宋辽金元"
+        ],
+        "era_specific": [
+          "宋"
+        ],
+        "category_main": [
+          "瓷"
+        ],
+        "craft_types": [
+          "黑釉"
+        ],
+        "artifact_types": [
+          "茶具",
+          "饮茶器"
+        ],
+        "motifs": [
+          "瑞兽",
+          "兽",
+          "花卉"
+        ],
+        "themes": [
+          "工艺技术",
+          "茶生活",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-CQ-302-m1",
+          "text": "宋代盛行斗茶。兔毫盏是点茶、斗茶的必备器物，也是宋代点茶茶艺的象征茶具。衡量斗茶的效果，一是看茶面汤花的色泽和均匀程度，茶色以纯白胜青白、灰白、黄白；二看盏内沿与茶汤相接处有无水痕，“咬盏”（汤花浮面紧贴盏沿不退）久者为胜，先着水痕者为负。由于茶色尚白，为了取得较大的反差以显示茶色，斗茶活动中首选建窑黑釉兔毫盏。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+            "modal id=302"
+          ],
+          "related_relic_ids": [
+            "NMC-CQ-301",
+            "NMC-YQ-402"
+          ]
+        }
+      ],
+      "unit": "瓷韵风华",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+      "page_ref": "modal id=302",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/img/3/pic2_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为茶生活路线节点：黑釉兔毫盏的官方资料与饮茶器用/茶具设计相关。"
+    },
+    {
+      "relic_id": "NMC-CQ-303",
+      "name": "粉彩什锦团花开光雨中烹茶诗意茶壶",
+      "era": "清 乾隆（公元1736—1795年）",
+      "gallery_id": "NMC-EXH-CQ",
+      "gallery_name": "中国古代瓷器",
+      "hall": "北17展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "清"
+        ],
+        "era_specific": [
+          "清",
+          "乾隆"
+        ],
+        "category_main": [
+          "瓷"
+        ],
+        "craft_types": [
+          "粉彩",
+          "刻花",
+          "刻纹"
+        ],
+        "artifact_types": [
+          "茶具",
+          "饮茶器"
+        ],
+        "motifs": [
+          "花卉"
+        ],
+        "themes": [
+          "茶生活",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-CQ-303-m1",
+          "text": "明清时期，文人将品茶作为一大雅事，热衷于在茶具上题字刻画。此壶将中国传统的绘画、诗词、书法、篆刻与精湛的制瓷工艺完美结合，为乾隆帝御用茶具中的精品。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+            "modal id=303"
+          ],
+          "related_relic_ids": [
+            "NMC-CQ-301"
+          ]
+        }
+      ],
+      "unit": "瓷韵风华",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+      "page_ref": "modal id=303",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/img/3/pic3_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为茶生活路线节点：粉彩什锦团花开光雨中烹茶诗意茶壶的官方资料与饮茶器用/茶具设计相关。"
+    },
+    {
+      "relic_id": "NMC-YQ-101",
+      "name": "玦形龙",
+      "era": "新石器时代 红山文化（约公元前4500年—前3000年）",
+      "gallery_id": "NMC-EXH-YQ",
+      "gallery_name": "中国古代玉器",
+      "hall": "北19展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 5,
+      "tags": {
+        "era_broad": [
+          "新石器"
+        ],
+        "era_specific": [
+          "新石器",
+          "红山文化"
+        ],
+        "category_main": [
+          "玉"
+        ],
+        "craft_types": [],
+        "artifact_types": [
+          "佩饰",
+          "带饰",
+          "首饰"
+        ],
+        "motifs": [
+          "龙",
+          "瑞兽",
+          "兽"
+        ],
+        "themes": [
+          "礼制身份",
+          "纹样追踪",
+          "亲子友好"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-YQ-101-m1",
+          "text": "龙是一种蛇身兽首的神兽，广泛出现于中国各地新石器时代文化中。红山文化的龙出现较早，分为玦形和C形两种造型，其形象可能是猪、熊、虎、鹿、马首与内卷蛇身的组合；也有学者认为龙是某种动物的胚胎形象，具有变化和再生的含义。大件玉龙代表神主，是用于祭祀活动的重要法器；小型玉龙可能是巫师随身携带，具有魔法的佩件。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+            "modal id=101"
+          ],
+          "related_relic_ids": [
+            "NMC-YQ-110",
+            "NMC-YQ-102"
+          ]
+        }
+      ],
+      "treasure_note": "红山文化玦形龙，与'中华第一龙'红山碧玉C形龙同属红山玉龙家族名品",
+      "unit": "玉出东方",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "excavation": "辽宁朝阳牛河梁出土",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+      "page_ref": "modal id=101",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/img/1/pic1_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为龙纹/龙形追踪节点：玦形龙适合与其他材质中的龙纹器物比较。"
+    },
+    {
+      "relic_id": "NMC-YQ-102",
+      "name": "神面形器",
+      "era": "新石器时代 红山文化（约公元前4500年—前3000年）",
+      "gallery_id": "NMC-EXH-YQ",
+      "gallery_name": "中国古代玉器",
+      "hall": "北19展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "新石器"
+        ],
+        "era_specific": [
+          "新石器",
+          "红山文化"
+        ],
+        "category_main": [
+          "玉"
+        ],
+        "craft_types": [
+          "刻花",
+          "刻纹"
+        ],
+        "artifact_types": [],
+        "motifs": [],
+        "themes": [
+          "工艺技术"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-YQ-102-m1",
+          "text": "神面形器是红山文化标志性玉器之一。正面以阴线刻神面纹，圆眼内凹，下部雕一排长齿，左右两端是变形的犬齿或翅膀。类似玉饰的侧边或背面都有穿孔，可以缝在织物上。直视的双眼、突出的牙齿、诡异的造型凸显了原始宗教神秘、威严的精神气质和文化内涵。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+            "modal id=102"
+          ],
+          "related_relic_ids": [
+            "NMC-YQ-101"
+          ]
+        }
+      ],
+      "unit": "玉出东方",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+      "page_ref": "modal id=102",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/img/1/pic2_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为工艺路线节点：神面形器适合观察材料处理、制作技术或装饰工艺。"
+    },
+    {
+      "relic_id": "NMC-YQ-104",
+      "name": "凤形佩",
+      "era": "新石器时代 肖家屋脊文化（约公元前2200年—前1900年）",
+      "gallery_id": "NMC-EXH-YQ",
+      "gallery_name": "中国古代玉器",
+      "hall": "北19展厅",
+      "status": "候选",
+      "demo_use": "备用/扩展",
+      "importance_level": 3,
+      "tags": {
+        "era_broad": [
+          "新石器"
+        ],
+        "era_specific": [
+          "新石器",
+          "肖家屋脊文化"
+        ],
+        "category_main": [
+          "玉"
+        ],
+        "craft_types": [
+          "刻花",
+          "刻纹"
+        ],
+        "artifact_types": [
+          "佩饰",
+          "带饰",
+          "首饰"
+        ],
+        "motifs": [
+          "凤鸟",
+          "鸟"
+        ],
+        "themes": [
+          "工艺技术",
+          "礼制身份",
+          "纹样追踪"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-YQ-104-m1",
+          "text": "鸟类凌空飞翔，能穿梭于天地之间，能发出各种悦耳的鸣叫声，有的还能啼鸣报晓，这些现象都很容易令古人意识到鸟类就是上天的使者，从而产生对神鸟的崇拜，许多新石器时代文化遗址中都发现有玉鸟及鸟形纹饰。凤鸟具有长长的尾羽，其原型可能源自孔雀或雉鸡。此凤佩代表了肖家屋脊文化玉雕的最高水平，被称为“中华第一凤”。商代晚期妇好墓中的玉凤，在造型、风格、纹饰的雕刻手法上都与此佩极为接近，应该是同时代的玉制精品。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+            "modal id=104"
+          ],
+          "related_relic_ids": []
+        }
+      ],
+      "unit": "玉出东方",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "excavation": "1955年湖北天门罗家柏岭出土",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+      "page_ref": "modal id=104",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/img/1/pic4_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为工艺路线节点：凤形佩适合观察材料处理、制作技术或装饰工艺。"
+    },
+    {
+      "relic_id": "NMC-YQ-110",
+      "name": "人龙纹璜",
+      "era": "西周（约公元前11世纪—前771年）",
+      "gallery_id": "NMC-EXH-YQ",
+      "gallery_name": "中国古代玉器",
+      "hall": "北19展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "商周"
+        ],
+        "era_specific": [
+          "西周"
+        ],
+        "category_main": [
+          "玉"
+        ],
+        "craft_types": [
+          "刻花",
+          "刻纹"
+        ],
+        "artifact_types": [
+          "玉礼器",
+          "仪仗器"
+        ],
+        "motifs": [
+          "龙"
+        ],
+        "themes": [
+          "工艺技术",
+          "礼制身份",
+          "纹样追踪"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-YQ-110-m1",
+          "text": "璜双面雕琢人龙共身纹。人像位于璜的两端，龙首纹雕刻于璜中部，与人身联为一体，体现了当时神人飞升和人龙合体等宗教意识。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+            "modal id=110"
+          ],
+          "related_relic_ids": [
+            "NMC-YQ-101",
+            "NMC-YQ-204"
+          ]
+        }
+      ],
+      "unit": "玉出东方",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+      "page_ref": "modal id=110",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/img/1/pic10_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为龙纹/龙形追踪节点：人龙纹璜适合与其他材质中的龙纹器物比较。"
+    },
+    {
+      "relic_id": "NMC-YQ-201",
+      "name": "牙璋",
+      "era": "二里头文化（约公元前18—前16世纪）",
+      "gallery_id": "NMC-EXH-YQ",
+      "gallery_name": "中国古代玉器",
+      "hall": "北19展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [],
+        "era_specific": [
+          "二里头文化"
+        ],
+        "category_main": [
+          "玉"
+        ],
+        "craft_types": [],
+        "artifact_types": [
+          "玉礼器",
+          "仪仗器"
+        ],
+        "motifs": [
+          "龙"
+        ],
+        "themes": [
+          "礼制身份",
+          "纹样追踪"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-YQ-201-m1",
+          "text": "璋是一种长条形的片状礼器，外观很像戈形兵器。《周礼·典端》载：“牙璋以起军旅，以治兵守。”表明牙璋的发兵用的信符，但从考古出土的情形看，它还可能是祭祀山川的祭器或举行重大仪式时手持的仪仗用器。璋始见于新石器时代晚期龙山文化，夏、商时发现较多，西周以后衰落。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+            "modal id=201"
+          ],
+          "related_relic_ids": [
+            "NMC-FS-005"
+          ]
+        }
+      ],
+      "unit": "玉礼堂皇",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+      "page_ref": "modal id=201",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/img/2/pic1_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为龙纹/龙形追踪节点：牙璋适合与其他材质中的龙纹器物比较。"
+    },
+    {
+      "relic_id": "NMC-YQ-202",
+      "name": "双龙首珩(héng)",
+      "era": "战国（公元前475年—前221年）",
+      "gallery_id": "NMC-EXH-YQ",
+      "gallery_name": "中国古代玉器",
+      "hall": "北19展厅",
+      "status": "候选",
+      "demo_use": "备用/扩展",
+      "importance_level": 3,
+      "tags": {
+        "era_broad": [
+          "春秋战国"
+        ],
+        "era_specific": [
+          "战国"
+        ],
+        "category_main": [
+          "玉"
+        ],
+        "craft_types": [],
+        "artifact_types": [
+          "佩饰",
+          "带饰",
+          "首饰"
+        ],
+        "motifs": [
+          "龙"
+        ],
+        "themes": [
+          "礼制身份",
+          "纹样追踪"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-YQ-202-m1",
+          "text": "珩(héng)为玉组佩上部横向的玉，是玉组佩的骨架。珩底部的钻孔左右对称，以便保持佩饰的均衡。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+            "modal id=202"
+          ],
+          "related_relic_ids": [
+            "NMC-YQ-203"
+          ]
+        }
+      ],
+      "unit": "玉礼堂皇",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+      "page_ref": "modal id=202",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/img/2/pic2_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为龙纹/龙形追踪节点：双龙首珩(héng)适合与其他材质中的龙纹器物比较。"
+    },
+    {
+      "relic_id": "NMC-YQ-203",
+      "name": "舞人佩",
+      "era": "西汉（公元前202年—公元8年）",
+      "gallery_id": "NMC-EXH-YQ",
+      "gallery_name": "中国古代玉器",
+      "hall": "北19展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "秦汉"
+        ],
+        "era_specific": [
+          "西汉"
+        ],
+        "category_main": [
+          "玉"
+        ],
+        "craft_types": [],
+        "artifact_types": [
+          "佩饰",
+          "带饰",
+          "首饰"
+        ],
+        "motifs": [
+          "人物",
+          "宴乐",
+          "舞人"
+        ],
+        "themes": [
+          "礼制身份",
+          "女性妆饰",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-YQ-203-m1",
+          "text": "舞人作折袖曲腰的舞姿，是贵族宴飨生活的写照。舞人佩出现于战国，盛行于汉代，多发现于女性贵族墓中。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+            "modal id=203"
+          ],
+          "related_relic_ids": [
+            "NMC-FS-016",
+            "NMC-YQ-202"
+          ]
+        }
+      ],
+      "unit": "玉礼堂皇",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+      "page_ref": "modal id=203",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/img/2/pic3_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为女性妆饰/服饰路线节点：舞人佩可帮助连接穿戴、首饰与日常形象。"
+    },
+    {
+      "relic_id": "NMC-YQ-204",
+      "name": "夔龙形佩",
+      "era": "战国（公元前475年—前221年）",
+      "gallery_id": "NMC-EXH-YQ",
+      "gallery_name": "中国古代玉器",
+      "hall": "北19展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "春秋战国"
+        ],
+        "era_specific": [
+          "战国"
+        ],
+        "category_main": [
+          "玉"
+        ],
+        "craft_types": [],
+        "artifact_types": [
+          "佩饰",
+          "带饰",
+          "首饰"
+        ],
+        "motifs": [
+          "龙",
+          "瑞兽",
+          "兽"
+        ],
+        "themes": [
+          "工艺技术",
+          "礼制身份",
+          "纹样追踪"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-YQ-204-m1",
+          "text": "不同时期的龙形玉器带有明显的时代特征，东周以前，龙身多内卷，大部分不显肢爪；战国时期，龙身出现S形曲转，常有飞翼，杏核眼，下方雕出一足，为夔龙形象；秦汉以后，龙多为兽形，肢爪齐全，作行走状。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+            "modal id=204"
+          ],
+          "related_relic_ids": [
+            "NMC-YQ-110"
+          ]
+        }
+      ],
+      "unit": "玉礼堂皇",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+      "page_ref": "modal id=204",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/img/2/pic4_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为龙纹/龙形追踪节点：夔龙形佩适合与其他材质中的龙纹器物比较。"
+    },
+    {
+      "relic_id": "NMC-YQ-205",
+      "name": "螭虎食人佩",
+      "era": "战国（公元前475年—前221年）",
+      "gallery_id": "NMC-EXH-YQ",
+      "gallery_name": "中国古代玉器",
+      "hall": "北19展厅",
+      "status": "候选",
+      "demo_use": "备用/扩展",
+      "importance_level": 3,
+      "tags": {
+        "era_broad": [
+          "春秋战国"
+        ],
+        "era_specific": [
+          "战国"
+        ],
+        "category_main": [
+          "玉"
+        ],
+        "craft_types": [
+          "刻花",
+          "刻纹",
+          "透雕",
+          "镂雕"
+        ],
+        "artifact_types": [
+          "佩饰",
+          "带饰",
+          "首饰"
+        ],
+        "motifs": [
+          "龙",
+          "瑞兽",
+          "兽"
+        ],
+        "themes": [
+          "工艺技术",
+          "礼制身份",
+          "纹样追踪"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-YQ-205-m1",
+          "text": "佩中部镂雕螭虎噬人的图案，环佩两旁刻有人首翼兽。螭虎，虎首蛇身，盘曲伏卧，是龙虎结合的神兽形象。商代晚期的青铜器上也可见类似的虎食人形象，被食之人神态安详。一般认为此类题材可能与逝者化神的内容有关，是表现战国时期祭俗文化和仙化升天思想的珍贵实物。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+            "modal id=205"
+          ],
+          "related_relic_ids": []
+        }
+      ],
+      "unit": "玉礼堂皇",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+      "page_ref": "modal id=205",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/img/2/pic5_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为龙纹/龙形追踪节点：螭虎食人佩适合与其他材质中的龙纹器物比较。"
+    },
+    {
+      "relic_id": "NMC-YQ-301",
+      "name": "亭阁人物凤舟簪饰",
+      "era": "明（公元1368年—1644年）",
+      "gallery_id": "NMC-EXH-YQ",
+      "gallery_name": "中国古代玉器",
+      "hall": "北19展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "明"
+        ],
+        "era_specific": [
+          "明"
+        ],
+        "category_main": [
+          "玉"
+        ],
+        "craft_types": [
+          "缝制",
+          "织绣"
+        ],
+        "artifact_types": [
+          "佩饰",
+          "带饰",
+          "首饰"
+        ],
+        "motifs": [
+          "凤鸟",
+          "鸟",
+          "人物",
+          "宴乐",
+          "舞人",
+          "花卉",
+          "服饰形制"
+        ],
+        "themes": [
+          "工艺技术",
+          "礼制身份",
+          "女性妆饰",
+          "纹样追踪",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-YQ-301-m1",
+          "text": "明代已婚女子在正式场合通常会将发髻梳到头顶，再戴上一个由金银丝或马鬃、头发、篾丝等材料编成的发罩，称为“狄髻”。狄髻在外面罩一层皂纱，再插戴各式发簪，包括分心、挑心、满冠、草虫簪、花头簪、顶簪等，既可固定狄髻，更是重要的装饰，称为“头面”。这件片形玉件雕制精美，应该是插在狄髻正中的“分心”发簪上的嵌饰。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+            "modal id=301"
+          ],
+          "related_relic_ids": [
+            "NMC-FS-022"
+          ]
+        }
+      ],
+      "unit": "吉玉琳琅",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+      "page_ref": "modal id=301",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/img/3/pic1_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为女性妆饰/服饰路线节点：亭阁人物凤舟簪饰可帮助连接穿戴、首饰与日常形象。"
+    },
+    {
+      "relic_id": "NMC-YQ-302",
+      "name": "绶带衔花巾环",
+      "era": "宋（公元960年—1279年）",
+      "gallery_id": "NMC-EXH-YQ",
+      "gallery_name": "中国古代玉器",
+      "hall": "北19展厅",
+      "status": "候选",
+      "demo_use": "备用/扩展",
+      "importance_level": 3,
+      "tags": {
+        "era_broad": [
+          "宋辽金元"
+        ],
+        "era_specific": [
+          "宋"
+        ],
+        "category_main": [
+          "玉"
+        ],
+        "craft_types": [],
+        "artifact_types": [
+          "佩饰",
+          "带饰",
+          "首饰"
+        ],
+        "motifs": [
+          "花卉"
+        ],
+        "themes": [
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-YQ-302-m1",
+          "text": "巾环亦名“玉屏花”，宋代始流行，两枚为一副，底边留有大孔，以便男子头巾后部帛带穿插系结。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+            "modal id=302"
+          ],
+          "related_relic_ids": [
+            "NMC-FS-005"
+          ]
+        }
+      ],
+      "unit": "吉玉琳琅",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+      "page_ref": "modal id=302",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/img/3/pic2_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为备用观察节点：绶带衔花巾环有官方资料支撑，需进一步明确其路线角色。"
+    },
+    {
+      "relic_id": "NMC-YQ-303",
+      "name": "孔雀牡丹帽顶",
+      "era": "元（公元1206年—1368年）",
+      "gallery_id": "NMC-EXH-YQ",
+      "gallery_name": "中国古代玉器",
+      "hall": "北19展厅",
+      "status": "候选",
+      "demo_use": "备用/扩展",
+      "importance_level": 3,
+      "tags": {
+        "era_broad": [
+          "宋辽金元"
+        ],
+        "era_specific": [
+          "元"
+        ],
+        "category_main": [
+          "玉"
+        ],
+        "craft_types": [],
+        "artifact_types": [
+          "佩饰",
+          "带饰",
+          "首饰"
+        ],
+        "motifs": [
+          "凤鸟",
+          "鸟",
+          "花卉"
+        ],
+        "themes": [
+          "工艺技术"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-YQ-303-m1",
+          "text": "孔雀牡丹为玉雕作品中的传统纹样，寓意吉祥富贵。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+            "modal id=303"
+          ],
+          "related_relic_ids": [
+            "NMC-TJ-006"
+          ]
+        }
+      ],
+      "unit": "吉玉琳琅",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+      "page_ref": "modal id=303",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/img/3/pic3_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为工艺路线节点：孔雀牡丹帽顶适合观察材料处理、制作技术或装饰工艺。"
+    },
+    {
+      "relic_id": "NMC-YQ-306",
+      "name": "玉簪花饰",
+      "era": "金（公元1115年—1234年）",
+      "gallery_id": "NMC-EXH-YQ",
+      "gallery_name": "中国古代玉器",
+      "hall": "北19展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "宋辽金元"
+        ],
+        "era_specific": [
+          "金"
+        ],
+        "category_main": [
+          "玉"
+        ],
+        "craft_types": [
+          "透雕",
+          "镂雕",
+          "高浮雕",
+          "浮雕"
+        ],
+        "artifact_types": [
+          "佩饰",
+          "带饰",
+          "首饰"
+        ],
+        "motifs": [
+          "花卉"
+        ],
+        "themes": [
+          "工艺技术",
+          "礼制身份",
+          "女性妆饰",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-YQ-306-m1",
+          "text": "花佩采用透雕、高浮雕等技法，雕工细腻精致，构图对称唯美。宋代玉雕受宫廷审美影响，风格华丽、写实，一如工整的院画作品，形神兼备。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+            "modal id=306"
+          ],
+          "related_relic_ids": [
+            "NMC-FS-022",
+            "NMC-TJ-011"
+          ]
+        }
+      ],
+      "unit": "吉玉琳琅",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+      "page_ref": "modal id=306",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/img/3/pic6_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为女性妆饰/服饰路线节点：玉簪花饰可帮助连接穿戴、首饰与日常形象。"
+    },
+    {
+      "relic_id": "NMC-YQ-402",
+      "name": "玛瑙花瓣盏托",
+      "era": "唐（公元618年－907年）",
+      "gallery_id": "NMC-EXH-YQ",
+      "gallery_name": "中国古代玉器",
+      "hall": "北19展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "隋唐"
+        ],
+        "era_specific": [
+          "唐"
+        ],
+        "category_main": [
+          "玛瑙"
+        ],
+        "craft_types": [],
+        "artifact_types": [
+          "茶具",
+          "饮茶器"
+        ],
+        "motifs": [
+          "花卉"
+        ],
+        "themes": [
+          "茶生活",
+          "礼制身份",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-YQ-402-m1",
+          "text": "盏托是为防烫手，安放茶盏的承盘，因其形似舟，又名“茶船”。东晋、南朝时期，江南地区出现较精细的饮茶法，敬茶逐渐成为上层社会的一种待客礼仪，茶具也随之从饮食器中分离出来，出现了许多新器型，盏托即为其中之一。盏托在唐代已十分流行，多为瓷制，也有金玉材质的。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+            "modal id=402"
+          ],
+          "related_relic_ids": [
+            "NMC-CQ-301",
+            "NMC-CQ-302"
+          ]
+        }
+      ],
+      "unit": "琼华满堂",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+      "page_ref": "modal id=402",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/img/4/pic2_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为茶生活路线节点：玛瑙花瓣盏托的官方资料与饮茶器用/茶具设计相关。"
+    },
+    {
+      "relic_id": "NMC-YQ-403",
+      "name": "镂雕花卉鹭鸶杯",
+      "era": "明（公元1368年—1644年）",
+      "gallery_id": "NMC-EXH-YQ",
+      "gallery_name": "中国古代玉器",
+      "hall": "北19展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "明"
+        ],
+        "era_specific": [
+          "明"
+        ],
+        "category_main": [
+          "书画",
+          "纸本"
+        ],
+        "craft_types": [
+          "透雕",
+          "镂雕"
+        ],
+        "artifact_types": [
+          "人物俑",
+          "服饰图像"
+        ],
+        "motifs": [
+          "莲花",
+          "莲荷",
+          "花卉"
+        ],
+        "themes": [
+          "工艺技术",
+          "纹样追踪",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-YQ-403-m1",
+          "text": "杯体为莲荷形，外壁布满镂雕的牡丹花枝和鹭鸶纹，设计巧妙，雕琢精致。鹭鸶常与莲荷芦草等组图，意为“一路连科”，牡丹则象征富贵荣华。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+            "modal id=403"
+          ],
+          "related_relic_ids": [
+            "NMC-CQ-112"
+          ]
+        }
+      ],
+      "unit": "琼华满堂",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+      "page_ref": "modal id=403",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/img/4/pic3_1_b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页；结构化字段为团队保守归纳。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为莲花纹或佛教图像路线节点：镂雕花卉鹭鸶杯适合与瓷器、玉器、铜镜中的莲荷题材比较。"
+    },
+    {
+      "relic_id": "NMC-FS-001",
+      "name": "骨针",
+      "era": "新石器时代",
+      "gallery_id": "NMC-EXH-FS",
+      "gallery_name": "中国古代服饰文化",
+      "hall": "北18展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "新石器"
+        ],
+        "era_specific": [
+          "新石器"
+        ],
+        "category_main": [
+          "骨"
+        ],
+        "craft_types": [],
+        "artifact_types": [],
+        "motifs": [],
+        "themes": [
+          "工艺技术",
+          "生活美学",
+          "亲子友好"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-FS-001-m1",
+          "text": "新石器时代 分别长4厘米、6.2厘米、7.2厘米 中国国家博物馆藏",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+            "card sequence=001"
+          ],
+          "related_relic_ids": [
+            "NMC-FS-027"
+          ]
+        }
+      ],
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+      "page_ref": "card sequence=001",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/images/0-1-5-1-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为工艺路线节点：骨针适合观察材料处理、制作技术或装饰工艺。"
+    },
+    {
+      "relic_id": "NMC-FS-002",
+      "name": "石纺轮",
+      "era": "新石器时代",
+      "gallery_id": "NMC-EXH-FS",
+      "gallery_name": "中国古代服饰文化",
+      "hall": "北18展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "新石器"
+        ],
+        "era_specific": [
+          "新石器"
+        ],
+        "category_main": [
+          "石"
+        ],
+        "craft_types": [],
+        "artifact_types": [],
+        "motifs": [],
+        "themes": [
+          "工艺技术",
+          "生活美学",
+          "亲子友好"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-FS-002-m1",
+          "text": "新石器时代 直径4.3厘米土 原件藏于青海省博物馆",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+            "card sequence=002"
+          ],
+          "related_relic_ids": [
+            "NMC-FS-003"
+          ]
+        }
+      ],
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+      "page_ref": "card sequence=002",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/images/0-1-6-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为工艺路线节点：石纺轮适合观察材料处理、制作技术或装饰工艺。"
+    },
+    {
+      "relic_id": "NMC-FS-003",
+      "name": "陶纺轮",
+      "era": "新石器时代",
+      "gallery_id": "NMC-EXH-FS",
+      "gallery_name": "中国古代服饰文化",
+      "hall": "北18展厅",
+      "status": "候选",
+      "demo_use": "备用/扩展",
+      "importance_level": 3,
+      "tags": {
+        "era_broad": [
+          "新石器"
+        ],
+        "era_specific": [
+          "新石器"
+        ],
+        "category_main": [
+          "陶"
+        ],
+        "craft_types": [
+          "陶塑",
+          "三彩"
+        ],
+        "artifact_types": [],
+        "motifs": [],
+        "themes": [
+          "工艺技术",
+          "生活美学",
+          "亲子友好"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-FS-003-m1",
+          "text": "新石器时代 直径4.3厘米，长23厘米 中国国家博物馆藏",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+            "card sequence=003"
+          ],
+          "related_relic_ids": [
+            "NMC-FS-002"
+          ]
+        }
+      ],
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+      "page_ref": "card sequence=003",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/images/0-1-2-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为工艺路线节点：陶纺轮适合观察材料处理、制作技术或装饰工艺。"
+    },
+    {
+      "relic_id": "NMC-FS-005",
+      "name": "组玉佩",
+      "era": "战国",
+      "gallery_id": "NMC-EXH-FS",
+      "gallery_name": "中国古代服饰文化",
+      "hall": "北18展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "春秋战国"
+        ],
+        "era_specific": [
+          "战国"
+        ],
+        "category_main": [
+          "玉"
+        ],
+        "craft_types": [],
+        "artifact_types": [
+          "佩饰",
+          "带饰",
+          "首饰"
+        ],
+        "motifs": [],
+        "themes": [
+          "礼制身份",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-FS-005-m1",
+          "text": "战国 1954-55年河南洛阳中州路出土 中国国家博物馆藏",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+            "card sequence=005"
+          ],
+          "related_relic_ids": [
+            "NMC-YQ-201",
+            "NMC-YQ-302"
+          ]
+        }
+      ],
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+      "page_ref": "card sequence=005",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/images/1-1-1-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为备用观察节点：组玉佩有官方资料支撑，需进一步明确其路线角色。"
+    },
+    {
+      "relic_id": "NMC-FS-006",
+      "name": "着深衣的木俑",
+      "era": "战国",
+      "gallery_id": "NMC-EXH-FS",
+      "gallery_name": "中国古代服饰文化",
+      "hall": "北18展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "春秋战国"
+        ],
+        "era_specific": [
+          "战国"
+        ],
+        "category_main": [
+          "陶"
+        ],
+        "craft_types": [
+          "陶塑",
+          "三彩"
+        ],
+        "artifact_types": [
+          "人物俑",
+          "服饰图像"
+        ],
+        "motifs": [
+          "服饰形制"
+        ],
+        "themes": [
+          "生活美学",
+          "亲子友好"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-FS-006-m1",
+          "text": "战国 分别高36.7厘米、高37.5厘米 中国国家博物馆藏",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+            "card sequence=006"
+          ],
+          "related_relic_ids": []
+        }
+      ],
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+      "page_ref": "card sequence=006",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/images/1-1-2-2-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为备用观察节点：着深衣的木俑有官方资料支撑，需进一步明确其路线角色。"
+    },
+    {
+      "relic_id": "NMC-FS-007",
+      "name": "武士俑",
+      "era": "西汉",
+      "gallery_id": "NMC-EXH-FS",
+      "gallery_name": "中国古代服饰文化",
+      "hall": "北18展厅",
+      "status": "候选",
+      "demo_use": "备用/扩展",
+      "importance_level": 3,
+      "tags": {
+        "era_broad": [
+          "秦汉"
+        ],
+        "era_specific": [
+          "西汉"
+        ],
+        "category_main": [
+          "陶"
+        ],
+        "craft_types": [
+          "陶塑",
+          "三彩"
+        ],
+        "artifact_types": [
+          "人物俑",
+          "服饰图像"
+        ],
+        "motifs": [
+          "人物",
+          "宴乐",
+          "舞人"
+        ],
+        "themes": [
+          "生活美学",
+          "亲子友好"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-FS-007-m1",
+          "text": "西汉 高48.5厘米 陕西咸阳杨家湾西汉墓出土 中国国家博物馆藏",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+            "card sequence=007"
+          ],
+          "related_relic_ids": []
+        }
+      ],
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+      "page_ref": "card sequence=007",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/images/1-1-3-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为备用观察节点：武士俑有官方资料支撑，需进一步明确其路线角色。"
+    },
+    {
+      "relic_id": "NMC-FS-012",
+      "name": "彩绘木雕女舞俑",
+      "era": "汉",
+      "gallery_id": "NMC-EXH-FS",
+      "gallery_name": "中国古代服饰文化",
+      "hall": "北18展厅",
+      "status": "候选",
+      "demo_use": "备用/扩展",
+      "importance_level": 3,
+      "tags": {
+        "era_broad": [
+          "秦汉"
+        ],
+        "era_specific": [
+          "汉"
+        ],
+        "category_main": [
+          "陶"
+        ],
+        "craft_types": [
+          "陶塑",
+          "三彩"
+        ],
+        "artifact_types": [
+          "人物俑",
+          "服饰图像"
+        ],
+        "motifs": [],
+        "themes": [
+          "工艺技术",
+          "女性妆饰",
+          "生活美学",
+          "亲子友好"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-FS-012-m1",
+          "text": "汉 高15.8厘米 1957年甘肃武威磨咀子出土 中国国家博物馆藏",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+            "card sequence=012"
+          ],
+          "related_relic_ids": [
+            "NMC-FS-016"
+          ]
+        }
+      ],
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+      "page_ref": "card sequence=012",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/images/2-1-6-1-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为女性妆饰/服饰路线节点：彩绘木雕女舞俑可帮助连接穿戴、首饰与日常形象。"
+    },
+    {
+      "relic_id": "NMC-FS-014",
+      "name": "戴鹖冠的三彩俑",
+      "era": "唐",
+      "gallery_id": "NMC-EXH-FS",
+      "gallery_name": "中国古代服饰文化",
+      "hall": "北18展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "隋唐"
+        ],
+        "era_specific": [
+          "唐"
+        ],
+        "category_main": [
+          "陶"
+        ],
+        "craft_types": [
+          "陶塑",
+          "三彩"
+        ],
+        "artifact_types": [
+          "人物俑",
+          "服饰图像"
+        ],
+        "motifs": [
+          "凤鸟",
+          "鸟",
+          "服饰形制"
+        ],
+        "themes": [
+          "礼制身份",
+          "生活美学",
+          "亲子友好"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-FS-014-m1",
+          "text": "唐 高96.5厘米 陕西西安独孤思贞墓出土 中国国家博物馆藏",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+            "card sequence=014"
+          ],
+          "related_relic_ids": [
+            "NMC-FS-016",
+            "NMC-TJ-010",
+            "NMC-FS-015"
+          ]
+        }
+      ],
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+      "page_ref": "card sequence=014",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/images/3-1-1-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为备用观察节点：戴鹖冠的三彩俑有官方资料支撑，需进一步明确其路线角色。"
+    },
+    {
+      "relic_id": "NMC-FS-015",
+      "name": "戴进贤冠的三彩俑",
+      "era": "唐",
+      "gallery_id": "NMC-EXH-FS",
+      "gallery_name": "中国古代服饰文化",
+      "hall": "北18展厅",
+      "status": "候选",
+      "demo_use": "备用/扩展",
+      "importance_level": 3,
+      "tags": {
+        "era_broad": [
+          "隋唐"
+        ],
+        "era_specific": [
+          "唐"
+        ],
+        "category_main": [
+          "陶"
+        ],
+        "craft_types": [
+          "陶塑",
+          "三彩"
+        ],
+        "artifact_types": [
+          "人物俑",
+          "服饰图像"
+        ],
+        "motifs": [
+          "服饰形制"
+        ],
+        "themes": [
+          "礼制身份",
+          "生活美学",
+          "亲子友好"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-FS-015-m1",
+          "text": "唐 高45.5厘米，宽11厘米 中国国家博物馆藏",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+            "card sequence=015"
+          ],
+          "related_relic_ids": [
+            "NMC-FS-014"
+          ]
+        }
+      ],
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+      "page_ref": "card sequence=015",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/images/3-1-2-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为备用观察节点：戴进贤冠的三彩俑有官方资料支撑，需进一步明确其路线角色。"
+    },
+    {
+      "relic_id": "NMC-FS-016",
+      "name": "着半臂的女侍俑",
+      "era": "唐",
+      "gallery_id": "NMC-EXH-FS",
+      "gallery_name": "中国古代服饰文化",
+      "hall": "北18展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "隋唐"
+        ],
+        "era_specific": [
+          "唐"
+        ],
+        "category_main": [
+          "陶"
+        ],
+        "craft_types": [
+          "陶塑",
+          "三彩"
+        ],
+        "artifact_types": [
+          "人物俑",
+          "服饰图像"
+        ],
+        "motifs": [
+          "人物",
+          "宴乐",
+          "舞人",
+          "服饰形制"
+        ],
+        "themes": [
+          "女性妆饰",
+          "生活美学",
+          "亲子友好"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-FS-016-m1",
+          "text": "唐 高48厘米 陕西西安唐鲜于庭诲墓出土 中国国家博物馆藏",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+            "card sequence=016"
+          ],
+          "related_relic_ids": [
+            "NMC-YQ-203",
+            "NMC-FS-014",
+            "NMC-FS-012"
+          ]
+        }
+      ],
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+      "page_ref": "card sequence=016",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/images/3-1-12-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为女性妆饰/服饰路线节点：着半臂的女侍俑可帮助连接穿戴、首饰与日常形象。"
+    },
+    {
+      "relic_id": "NMC-FS-017",
+      "name": "中兴四将图",
+      "era": "宋",
+      "gallery_id": "NMC-EXH-FS",
+      "gallery_name": "中国古代服饰文化",
+      "hall": "北18展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "宋辽金元"
+        ],
+        "era_specific": [
+          "宋"
+        ],
+        "category_main": [
+          "书画",
+          "纸本"
+        ],
+        "craft_types": [],
+        "artifact_types": [
+          "人物俑",
+          "服饰图像"
+        ],
+        "motifs": [],
+        "themes": [
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-FS-017-m1",
+          "text": "宋 纵27厘米，画心91厘米 中国国家博物馆藏",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+            "card sequence=017"
+          ],
+          "related_relic_ids": [
+            "NMC-FS-019"
+          ]
+        }
+      ],
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+      "page_ref": "card sequence=017",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/images/4-1-13-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为备用观察节点：中兴四将图有官方资料支撑，需进一步明确其路线角色。"
+    },
+    {
+      "relic_id": "NMC-FS-019",
+      "name": "陇西恭献王李贞像",
+      "era": "明",
+      "gallery_id": "NMC-EXH-FS",
+      "gallery_name": "中国古代服饰文化",
+      "hall": "北18展厅",
+      "status": "候选",
+      "demo_use": "备用/扩展",
+      "importance_level": 3,
+      "tags": {
+        "era_broad": [
+          "明"
+        ],
+        "era_specific": [
+          "明"
+        ],
+        "category_main": [
+          "书画",
+          "纸本"
+        ],
+        "craft_types": [],
+        "artifact_types": [],
+        "motifs": [],
+        "themes": [
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-FS-019-m1",
+          "text": "明 画心纵197厘米，横155厘米 中国国家博物馆藏",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+            "card sequence=019"
+          ],
+          "related_relic_ids": [
+            "NMC-FS-017"
+          ]
+        }
+      ],
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+      "page_ref": "card sequence=019",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/images/5-1-6-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为备用观察节点：陇西恭献王李贞像有官方资料支撑，需进一步明确其路线角色。"
+    },
+    {
+      "relic_id": "NMC-FS-022",
+      "name": "楼阁人物金簪（分心）",
+      "era": "明",
+      "gallery_id": "NMC-EXH-FS",
+      "gallery_name": "中国古代服饰文化",
+      "hall": "北18展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "明"
+        ],
+        "era_specific": [
+          "明"
+        ],
+        "category_main": [
+          "金",
+          "金饰"
+        ],
+        "craft_types": [],
+        "artifact_types": [
+          "佩饰",
+          "带饰",
+          "首饰"
+        ],
+        "motifs": [
+          "人物",
+          "宴乐",
+          "舞人"
+        ],
+        "themes": [
+          "女性妆饰",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-FS-022-m1",
+          "text": "明 通高5.1厘米，簪板长9.8厘米，重91克 1958年江西省南城县朱厚烨墓出土 中国国家博物馆藏",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+            "card sequence=022"
+          ],
+          "related_relic_ids": [
+            "NMC-YQ-301",
+            "NMC-YQ-306"
+          ]
+        }
+      ],
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+      "page_ref": "card sequence=022",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/images/5-1-14-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为女性妆饰/服饰路线节点：楼阁人物金簪（分心）可帮助连接穿戴、首饰与日常形象。"
+    },
+    {
+      "relic_id": "NMC-FS-024",
+      "name": "康熙御用石青实地纱片金边单朝衣",
+      "era": "清",
+      "gallery_id": "NMC-EXH-FS",
+      "gallery_name": "中国古代服饰文化",
+      "hall": "北18展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 5,
+      "tags": {
+        "era_broad": [
+          "清"
+        ],
+        "era_specific": [
+          "清"
+        ],
+        "category_main": [
+          "纱",
+          "绸",
+          "织物"
+        ],
+        "craft_types": [
+          "缝制",
+          "织绣"
+        ],
+        "artifact_types": [
+          "服装",
+          "服饰实物"
+        ],
+        "motifs": [
+          "服饰形制"
+        ],
+        "themes": [
+          "礼制身份",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-FS-024-m1",
+          "text": "清 身长145厘米 清宫旧藏 中国国家博物馆藏",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+            "card sequence=024"
+          ],
+          "related_relic_ids": [
+            "NMC-FS-027"
+          ]
+        }
+      ],
+      "treasure_note": "康熙御用石青实地纱片金边单朝衣，御用服饰孤品，服饰展代表",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+      "page_ref": "card sequence=024",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/images/6-1-6-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为备用观察节点：康熙御用石青实地纱片金边单朝衣有官方资料支撑，需进一步明确其路线角色。"
+    },
+    {
+      "relic_id": "NMC-FS-027",
+      "name": "天青纱多重镶滚女衫",
+      "era": "清",
+      "gallery_id": "NMC-EXH-FS",
+      "gallery_name": "中国古代服饰文化",
+      "hall": "北18展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "清"
+        ],
+        "era_specific": [
+          "清"
+        ],
+        "category_main": [
+          "纱",
+          "绸",
+          "织物"
+        ],
+        "craft_types": [
+          "天青釉",
+          "缝制",
+          "织绣"
+        ],
+        "artifact_types": [
+          "服装",
+          "服饰实物"
+        ],
+        "motifs": [
+          "服饰形制"
+        ],
+        "themes": [
+          "女性妆饰",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-FS-027-m1",
+          "text": "清 身长97.5厘米，通袖长143厘米，袖口宽46厘米，下摆宽93厘米 中国国家博物馆藏",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+            "card sequence=027"
+          ],
+          "related_relic_ids": [
+            "NMC-FS-001",
+            "NMC-FS-024",
+            "NMC-TJ-016"
+          ]
+        }
+      ],
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+      "page_ref": "card sequence=027",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/images/6-1-34-1-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为女性妆饰/服饰路线节点：天青纱多重镶滚女衫可帮助连接穿戴、首饰与日常形象。"
+    },
+    {
+      "relic_id": "NMC-TJ-001",
+      "name": "弦纹铜镜",
+      "era": "商代",
+      "gallery_id": "NMC-EXH-TJ",
+      "gallery_name": "镜里千秋——中国古代铜镜文化",
+      "hall": "南14展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "商周"
+        ],
+        "era_specific": [
+          "商"
+        ],
+        "category_main": [
+          "玉"
+        ],
+        "craft_types": [
+          "铸造"
+        ],
+        "artifact_types": [
+          "玉礼器",
+          "仪仗器"
+        ],
+        "motifs": [],
+        "themes": [
+          "礼制身份"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-TJ-001-m1",
+          "text": "1976年河南安阳殷墟妇好墓出土 此镜镜面微凸，镜背中央弓形钮，圆钮座，钮座外饰凸弦纹七周，弦纹间有放射状排列的短线。妇好是商王武丁的妻子，其去世后墓内随葬了包括4面铜镜在内的玉器、青铜器、骨器、贝类等大量礼器和日用品。该镜出土于距墓口深5.6米的墓室中部偏南处。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+            "card sequence=001"
+          ],
+          "related_relic_ids": [
+            "NMC-TJ-004"
+          ]
+        }
+      ],
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+      "page_ref": "card sequence=001",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/images/1-2-1-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为备用观察节点：弦纹铜镜有官方资料支撑，需进一步明确其路线角色。"
+    },
+    {
+      "relic_id": "NMC-TJ-002",
+      "name": "鸟兽纹铜镜",
+      "era": "春秋时期",
+      "gallery_id": "NMC-EXH-TJ",
+      "gallery_name": "镜里千秋——中国古代铜镜文化",
+      "hall": "南14展厅",
+      "status": "候选",
+      "demo_use": "备用/扩展",
+      "importance_level": 3,
+      "tags": {
+        "era_broad": [
+          "春秋战国"
+        ],
+        "era_specific": [
+          "春秋"
+        ],
+        "category_main": [
+          "铜",
+          "青铜"
+        ],
+        "craft_types": [
+          "铸造"
+        ],
+        "artifact_types": [
+          "铜镜",
+          "镜相关图像"
+        ],
+        "motifs": [
+          "凤鸟",
+          "鸟",
+          "瑞兽",
+          "兽"
+        ],
+        "themes": []
+      },
+      "materials": [
+        {
+          "material_id": "NMC-TJ-002-m1",
+          "text": "1957年河南三门峡上村岭虢国墓地出土 此镜圆形，镜背正中有两个平行的弓形钮。钮上饰一行走的鹿纹，抬头前伸，身躯细长。钮下为一飞鸟纹，昂首，右转。镜钮左、右各饰一变形虎纹，巨口大张，露出上、下两排利齿，短舌平伸。虎目圆睁鼓凸。身形健硕纵长，身上前后饰以圆涡纹。前、后肢抓地有力，各有四个利爪。长尾呈S形，下垂外卷。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+            "card sequence=002"
+          ],
+          "related_relic_ids": [
+            "NMC-TJ-003"
+          ]
+        }
+      ],
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+      "page_ref": "card sequence=002",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/images/1-2-2-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为备用观察节点：鸟兽纹铜镜有官方资料支撑，需进一步明确其路线角色。"
+    },
+    {
+      "relic_id": "NMC-TJ-003",
+      "name": "武士斗兽纹铜镜",
+      "era": "战国时期",
+      "gallery_id": "NMC-EXH-TJ",
+      "gallery_name": "镜里千秋——中国古代铜镜文化",
+      "hall": "南14展厅",
+      "status": "候选",
+      "demo_use": "备用/扩展",
+      "importance_level": 3,
+      "tags": {
+        "era_broad": [
+          "春秋战国"
+        ],
+        "era_specific": [
+          "战国"
+        ],
+        "category_main": [
+          "铜",
+          "青铜"
+        ],
+        "craft_types": [
+          "刻花",
+          "刻纹",
+          "铸造"
+        ],
+        "artifact_types": [
+          "人物俑",
+          "服饰图像"
+        ],
+        "motifs": [
+          "瑞兽",
+          "兽",
+          "人物",
+          "宴乐",
+          "舞人"
+        ],
+        "themes": []
+      },
+      "materials": [
+        {
+          "material_id": "NMC-TJ-003-m1",
+          "text": "1975年湖北云梦睡虎地出土 此镜圆形，镜背三弦钮，双层方形钮座。在钮座与窄平素缘之间，布置两组武士斗兽图像：第一组画面，刻画的是豹子飞身跃起与武士半蹲式的小心防御，两种形象呈现出强烈的对比。第二组画面，原本豹身向前、尾巴在后的形象，转变成了豹尾冲前、豹身向后、回首张望的样子，武士的姿势未变。画面具有戏剧性。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+            "card sequence=003"
+          ],
+          "related_relic_ids": [
+            "NMC-TJ-002"
+          ]
+        }
+      ],
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+      "page_ref": "card sequence=003",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/images/1-2-3-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为备用观察节点：武士斗兽纹铜镜有官方资料支撑，需进一步明确其路线角色。"
+    },
+    {
+      "relic_id": "NMC-TJ-004",
+      "name": "“中国大宁”瑞兽博局纹鎏金铜镜",
+      "era": "西汉",
+      "gallery_id": "NMC-EXH-TJ",
+      "gallery_name": "镜里千秋——中国古代铜镜文化",
+      "hall": "南14展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 5,
+      "tags": {
+        "era_broad": [
+          "秦汉"
+        ],
+        "era_specific": [
+          "西汉"
+        ],
+        "category_main": [
+          "鎏金铜"
+        ],
+        "craft_types": [
+          "鎏金",
+          "铸造"
+        ],
+        "artifact_types": [
+          "铜镜",
+          "镜相关图像"
+        ],
+        "motifs": [
+          "龙",
+          "瑞兽",
+          "兽",
+          "铭文",
+          "文字"
+        ],
+        "themes": [
+          "工艺技术",
+          "纹样追踪"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-TJ-004-m1",
+          "text": "1951—1952年湖南长沙伍家岭出土 此镜镜背鎏金，圆钮，柿蒂纹钮座，间饰兽首纹。外围双线方框。镜背纹饰由一周双线弦纹分为内外两区。方框外饰博局纹中的T形纹，间饰羽人、玄武、朱雀、瑞兽等。外区间饰朱雀、青龙、独角兽等瑞兽，有些瑞兽的头部已经延伸到内区。内外区瑞兽纹间饰云气纹。近缘饰短斜线纹一周。镜缘铸有五十二字铭文带一周，铭文表达了人民希望国家安宁，子孙昌盛的愿望。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+            "card sequence=004"
+          ],
+          "related_relic_ids": [
+            "NMC-TJ-001",
+            "NMC-TJ-013",
+            "NMC-TJ-005"
+          ]
+        }
+      ],
+      "treasure_note": "'中国大宁'铭文鎏金铜镜，因镜铭出现'中国'二字而知名",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+      "page_ref": "card sequence=004",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/images/1-2-4-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为龙纹/龙形追踪节点：“中国大宁”瑞兽博局纹鎏金铜镜适合与其他材质中的龙纹器物比较。"
+    },
+    {
+      "relic_id": "NMC-TJ-005",
+      "name": "“田氏作竟”七乳四神羽人瑞兽纹铜镜",
+      "era": "东汉",
+      "gallery_id": "NMC-EXH-TJ",
+      "gallery_name": "镜里千秋——中国古代铜镜文化",
+      "hall": "南14展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "秦汉"
+        ],
+        "era_specific": [
+          "东汉"
+        ],
+        "category_main": [
+          "铜",
+          "青铜"
+        ],
+        "craft_types": [
+          "铸造"
+        ],
+        "artifact_types": [
+          "铜镜",
+          "镜相关图像"
+        ],
+        "motifs": [
+          "龙",
+          "瑞兽",
+          "兽",
+          "铭文",
+          "文字"
+        ],
+        "themes": [
+          "工艺技术",
+          "纹样追踪"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-TJ-005-m1",
+          "text": "1956年河南南阳百里奚村汉墓出土 此镜内区纹饰为七枚四叶座乳钉，其间分饰四神及羽人击铎、羽人跳丸、羽人抚琴、卧羊等纹饰。外区为白虎、玄武、青龙、三足乌、羽人、蛇等纹饰。外围短斜线纹一周。镜缘饰联珠纹及平雕青龙、白虎、朱雀、三足乌等姿态各异的瑞兽。镜铭中的“田氏”为镜工之名。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+            "card sequence=005"
+          ],
+          "related_relic_ids": [
+            "NMC-TJ-004"
+          ]
+        }
+      ],
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+      "page_ref": "card sequence=005",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/images/1-2-5-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为龙纹/龙形追踪节点：“田氏作竟”七乳四神羽人瑞兽纹铜镜适合与其他材质中的龙纹器物比较。"
+    },
+    {
+      "relic_id": "NMC-TJ-006",
+      "name": "瑞兽孔雀葡萄纹铜镜",
+      "era": "唐代",
+      "gallery_id": "NMC-EXH-TJ",
+      "gallery_name": "镜里千秋——中国古代铜镜文化",
+      "hall": "南14展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "隋唐"
+        ],
+        "era_specific": [
+          "唐"
+        ],
+        "category_main": [
+          "铜",
+          "青铜"
+        ],
+        "craft_types": [
+          "铸造"
+        ],
+        "artifact_types": [
+          "铜镜",
+          "镜相关图像"
+        ],
+        "motifs": [
+          "凤鸟",
+          "鸟",
+          "葡萄",
+          "瑞兽",
+          "兽"
+        ],
+        "themes": [
+          "纹样追踪",
+          "中外交流"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-TJ-006-m1",
+          "text": "瑞兽葡萄纹镜是盛唐典型样式，镜背由葡萄纹和珍奇异兽装饰。此件铜镜镜背为伏兽钮，略残，主装饰带由连珠纹圈带将纹饰分为内外两区。内区饰两组姿态不一的狮形瑞兽、尖喙长颈神禽和开屏孔雀，隙间配饰葡萄枝叶蔓实、飞蝶等。外区为飞鸟、蜂蝶、蜻蜓及葡萄蔓实相间环绕，外缘饰卷草纹一周。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+            "card sequence=006"
+          ],
+          "related_relic_ids": [
+            "NMC-CQ-106",
+            "NMC-TJ-010",
+            "NMC-YQ-303"
+          ]
+        }
+      ],
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+      "page_ref": "card sequence=006",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/images/1-2-6-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为交流路线节点：瑞兽孔雀葡萄纹铜镜的名称或官方说明包含跨文化/贸易/外来题材线索。"
+    },
+    {
+      "relic_id": "NMC-TJ-007",
+      "name": "海水双鱼纹铜镜",
+      "era": "金代",
+      "gallery_id": "NMC-EXH-TJ",
+      "gallery_name": "镜里千秋——中国古代铜镜文化",
+      "hall": "南14展厅",
+      "status": "候选",
+      "demo_use": "备用/扩展",
+      "importance_level": 3,
+      "tags": {
+        "era_broad": [
+          "宋辽金元"
+        ],
+        "era_specific": [
+          "金"
+        ],
+        "category_main": [
+          "铜",
+          "青铜"
+        ],
+        "craft_types": [
+          "铸造"
+        ],
+        "artifact_types": [
+          "铜镜",
+          "镜相关图像"
+        ],
+        "motifs": [
+          "龙",
+          "莲花",
+          "莲荷",
+          "瑞兽",
+          "兽",
+          "花卉"
+        ],
+        "themes": [
+          "纹样追踪",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-TJ-007-m1",
+          "text": "1976年黑龙江阿城出土 此镜镜圆形、圆钮，无钮座，宽素平缘。镜背布满波浪起伏的水波纹。双鲤长须，张口，摆尾，环钮回游嬉戏，间有荷花、荷叶点缀，生动活泼。此镜形体大，质地厚重，在金代铜镜中尚不多见。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+            "card sequence=007"
+          ],
+          "related_relic_ids": []
+        }
+      ],
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+      "page_ref": "card sequence=007",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/images/1-2-7-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为龙纹/龙形追踪节点：海水双鱼纹铜镜适合与其他材质中的龙纹器物比较。"
+    },
+    {
+      "relic_id": "NMC-TJ-008",
+      "name": "云龙纹菱式铜镜",
+      "era": "明代",
+      "gallery_id": "NMC-EXH-TJ",
+      "gallery_name": "镜里千秋——中国古代铜镜文化",
+      "hall": "南14展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "明"
+        ],
+        "era_specific": [
+          "明"
+        ],
+        "category_main": [
+          "铜",
+          "青铜"
+        ],
+        "craft_types": [
+          "高浮雕",
+          "浮雕",
+          "铸造"
+        ],
+        "artifact_types": [
+          "铜镜",
+          "镜相关图像"
+        ],
+        "motifs": [
+          "龙",
+          "花卉"
+        ],
+        "themes": [
+          "工艺技术",
+          "纹样追踪",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-TJ-008-m1",
+          "text": "此镜为八出菱花形，镜背素地。主体纹饰为一浮雕的蟠龙，绕钮而置，首尾相接，顾首，口对钮珠，大口张开作吞珠状，凶猛威严，具有典型的明代龙纹的特点。隙间饰以云纹。此镜制作规整，纹饰舒朗美观。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+            "card sequence=008"
+          ],
+          "related_relic_ids": [
+            "NMC-CQ-111"
+          ]
+        }
+      ],
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+      "page_ref": "card sequence=008",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/images/1-2-8-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为龙纹/龙形追踪节点：云龙纹菱式铜镜适合与其他材质中的龙纹器物比较。"
+    },
+    {
+      "relic_id": "NMC-TJ-009",
+      "name": "婴戏纹铜镜",
+      "era": "清代",
+      "gallery_id": "NMC-EXH-TJ",
+      "gallery_name": "镜里千秋——中国古代铜镜文化",
+      "hall": "南14展厅",
+      "status": "候选",
+      "demo_use": "备用/扩展",
+      "importance_level": 3,
+      "tags": {
+        "era_broad": [
+          "清"
+        ],
+        "era_specific": [
+          "清"
+        ],
+        "category_main": [
+          "铜",
+          "青铜"
+        ],
+        "craft_types": [
+          "刻花",
+          "刻纹",
+          "铸造"
+        ],
+        "artifact_types": [
+          "人物俑",
+          "服饰图像"
+        ],
+        "motifs": [
+          "花卉"
+        ],
+        "themes": [
+          "工艺技术",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-TJ-009-m1",
+          "text": "此镜钮上铸“湖州薛晋侯自造”七字，窄卷边。镜背素地，饰婴戏图，以线雕技法刻画三十二个姿态各异的童子，题材多取自民俗风情，有五子夺魁、三重三元、榴开百子、围桌识字、敬奉如意等，间饰花草、山石、灵芝等纹饰。婴戏图表达了对子孙满堂、幸福吉祥的美好向往。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+            "card sequence=009"
+          ],
+          "related_relic_ids": []
+        }
+      ],
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+      "page_ref": "card sequence=009",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/images/1-2-9-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为工艺路线节点：婴戏纹铜镜适合观察材料处理、制作技术或装饰工艺。"
+    },
+    {
+      "relic_id": "NMC-TJ-010",
+      "name": "高士宴乐纹嵌螺钿铜镜",
+      "era": "唐代",
+      "gallery_id": "NMC-EXH-TJ",
+      "gallery_name": "镜里千秋——中国古代铜镜文化",
+      "hall": "南14展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 5,
+      "tags": {
+        "era_broad": [
+          "隋唐"
+        ],
+        "era_specific": [
+          "唐"
+        ],
+        "category_main": [
+          "铜",
+          "青铜"
+        ],
+        "craft_types": [
+          "刻花",
+          "刻纹",
+          "嵌螺钿",
+          "铸造"
+        ],
+        "artifact_types": [
+          "壶",
+          "盛器"
+        ],
+        "motifs": [
+          "凤鸟",
+          "鸟",
+          "人物",
+          "宴乐",
+          "舞人",
+          "花卉"
+        ],
+        "themes": [
+          "工艺技术",
+          "女性妆饰",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-TJ-010-m1",
+          "text": "1955年河南洛阳唐墓出土 此镜镜背嵌螺钿刻画人物、树木、鸟鹊等。钮上方一株花树，树两侧各一振翅翘尾的鹦鹉。钮左侧端坐一人，手弹阮咸（古代弹拨乐器一种，由汉代乐师改良加工，又称“秦琵琶”或“汉琵琶”，因魏晋时期高士阮咸善弹而得名）；右侧坐一人，手持酒盅，面前一鼎一壶，背后立一女侍，双手捧盒。钮下有仙鹤、水池，池内和池边有嬉戏的鹦鹉。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+            "card sequence=010"
+          ],
+          "related_relic_ids": [
+            "NMC-CQ-106",
+            "NMC-FS-014",
+            "NMC-TJ-006"
+          ]
+        }
+      ],
+      "treasure_note": "唐代高士宴乐纹嵌螺钿铜镜（花鸟人物螺钿青铜镜），维基列为国博重要馆藏",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+      "page_ref": "card sequence=010",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/images/1-3-1-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为女性妆饰/服饰路线节点：高士宴乐纹嵌螺钿铜镜可帮助连接穿戴、首饰与日常形象。"
+    },
+    {
+      "relic_id": "NMC-TJ-011",
+      "name": "羽人花鸟金银平脱铜镜",
+      "era": "唐代",
+      "gallery_id": "NMC-EXH-TJ",
+      "gallery_name": "镜里千秋——中国古代铜镜文化",
+      "hall": "南14展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 5,
+      "tags": {
+        "era_broad": [
+          "隋唐"
+        ],
+        "era_specific": [
+          "唐"
+        ],
+        "category_main": [
+          "铜",
+          "青铜"
+        ],
+        "craft_types": [
+          "金银平脱",
+          "铸造"
+        ],
+        "artifact_types": [
+          "铜镜",
+          "镜相关图像"
+        ],
+        "motifs": [
+          "凤鸟",
+          "鸟",
+          "莲花",
+          "莲荷",
+          "花卉"
+        ],
+        "themes": [
+          "工艺技术",
+          "纹样追踪",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-TJ-011-m1",
+          "text": "传河南郑州出土 此镜八出葵花形，圆钮，重瓣莲花钮座，钮座银质嵌金，窄平缘。镜背主装饰区内侧绕钮有银质较大的蜂蝶花卉和嵌金较小的鸟鹊错落分布。外侧为银质的双飞仙和双凤鸟间隔沿镜缘飞翔，其间点缀金色的祥云、鸟鹊和花叶。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+            "card sequence=011"
+          ],
+          "related_relic_ids": [
+            "NMC-YQ-306"
+          ]
+        }
+      ],
+      "treasure_note": "唐代羽人花鸟金银平脱铜镜（羽人飞凤花鸟纹金银平脱漆背铜镜），维基标注一级甲等文物",
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+      "page_ref": "card sequence=011",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/images/1-3-3-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为莲花纹或佛教图像路线节点：羽人花鸟金银平脱铜镜适合与瓷器、玉器、铜镜中的莲荷题材比较。"
+    },
+    {
+      "relic_id": "NMC-TJ-013",
+      "name": "变形四叶佛像对凤纹铜镜",
+      "era": "三国时期",
+      "gallery_id": "NMC-EXH-TJ",
+      "gallery_name": "镜里千秋——中国古代铜镜文化",
+      "hall": "南14展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "魏晋南北朝"
+        ],
+        "era_specific": [
+          "三国"
+        ],
+        "category_main": [
+          "铜",
+          "青铜"
+        ],
+        "craft_types": [
+          "铸造"
+        ],
+        "artifact_types": [
+          "罐",
+          "瓶",
+          "尊",
+          "盆",
+          "陈设或盛储器"
+        ],
+        "motifs": [
+          "龙",
+          "凤鸟",
+          "鸟",
+          "莲花",
+          "莲荷",
+          "瑞兽",
+          "兽",
+          "花卉"
+        ],
+        "themes": [
+          "纹样追踪",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-TJ-013-m1",
+          "text": "1975年湖北鄂钢五里墩工地出土 此镜钮座外围四瓣桃形叶纹将镜背纹饰分为四区。每区均饰相对站立的凤纹，双凤之间由一下垂的多须球状区隔。四叶瓣内均饰佛像纹，其中三瓣内各饰一尊坐佛，头上有圆形项光，端坐于龙虎莲花座上。另一瓣内正中饰一佛在莲花座上作半跏沉思状，身前跪一供养人，背后站立一胁侍弟子，手持曲柄伞。其外为单线勾勒的内向十六连弧纹圈，内饰龙、虎、凤鸟等瑞兽纹。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+            "card sequence=013"
+          ],
+          "related_relic_ids": [
+            "NMC-TJ-004",
+            "NMC-CQ-104"
+          ]
+        }
+      ],
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+      "page_ref": "card sequence=013",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/images/1-4-1-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为龙纹/龙形追踪节点：变形四叶佛像对凤纹铜镜适合与其他材质中的龙纹器物比较。"
+    },
+    {
+      "relic_id": "NMC-TJ-014",
+      "name": "瑞兽葡萄纹铜镜",
+      "era": "唐代",
+      "gallery_id": "NMC-EXH-TJ",
+      "gallery_name": "镜里千秋——中国古代铜镜文化",
+      "hall": "南14展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "隋唐"
+        ],
+        "era_specific": [
+          "唐"
+        ],
+        "category_main": [
+          "铜",
+          "青铜"
+        ],
+        "craft_types": [
+          "铸造"
+        ],
+        "artifact_types": [
+          "铜镜",
+          "镜相关图像"
+        ],
+        "motifs": [
+          "凤鸟",
+          "鸟",
+          "葡萄",
+          "瑞兽",
+          "兽"
+        ],
+        "themes": [
+          "纹样追踪",
+          "中外交流"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-TJ-014-m1",
+          "text": "瑞兽葡萄纹镜是盛唐典型样式，镜背由葡萄纹和珍奇异兽装饰。此件铜镜镜背为伏兽钮，略残，主装饰带由连珠纹圈带将纹饰分为内外两区。内区饰两组姿态不一的狮形瑞兽、尖喙长颈神禽和开屏孔雀，隙间配饰葡萄枝叶蔓实、飞蝶等。外区为飞鸟、蜂蝶、蜻蜓及葡萄蔓实相间环绕，外缘饰卷草纹一周。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+            "card sequence=014"
+          ],
+          "related_relic_ids": []
+        }
+      ],
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+      "page_ref": "card sequence=014",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/images/4-1-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为交流路线节点：瑞兽葡萄纹铜镜的名称或官方说明包含跨文化/贸易/外来题材线索。"
+    },
+    {
+      "relic_id": "NMC-TJ-015",
+      "name": "“光正”十二生肖铜镜",
+      "era": "隋代",
+      "gallery_id": "NMC-EXH-TJ",
+      "gallery_name": "镜里千秋——中国古代铜镜文化",
+      "hall": "南14展厅",
+      "status": "候选",
+      "demo_use": "备用/扩展",
+      "importance_level": 3,
+      "tags": {
+        "era_broad": [
+          "隋唐"
+        ],
+        "era_specific": [
+          "隋"
+        ],
+        "category_main": [
+          "铜",
+          "青铜"
+        ],
+        "craft_types": [
+          "铸造"
+        ],
+        "artifact_types": [
+          "铜镜",
+          "镜相关图像"
+        ],
+        "motifs": [
+          "瑞兽",
+          "兽"
+        ],
+        "themes": [
+          "亲子友好"
+        ]
+      },
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+      "page_ref": "card sequence=015",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/images/5-1-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为备用观察节点：“光正”十二生肖铜镜有官方资料支撑，需进一步明确其路线角色。"
+    },
+    {
+      "relic_id": "NMC-TJ-016",
+      "name": "磨镜图",
+      "era": "清代",
+      "gallery_id": "NMC-EXH-TJ",
+      "gallery_name": "镜里千秋——中国古代铜镜文化",
+      "hall": "南14展厅",
+      "status": "核心",
+      "demo_use": "优先进入Demo",
+      "importance_level": 4,
+      "tags": {
+        "era_broad": [
+          "清"
+        ],
+        "era_specific": [
+          "清"
+        ],
+        "category_main": [
+          "铜",
+          "青铜"
+        ],
+        "craft_types": [
+          "铸造"
+        ],
+        "artifact_types": [
+          "罐",
+          "瓶",
+          "尊",
+          "盆",
+          "陈设或盛储器"
+        ],
+        "motifs": [
+          "人物",
+          "宴乐",
+          "舞人"
+        ],
+        "themes": [
+          "女性妆饰",
+          "生活美学"
+        ]
+      },
+      "materials": [
+        {
+          "material_id": "NMC-TJ-016-m1",
+          "text": "此画面中共绘五人，人物均着明代服饰。画面右下侧的磨镜人骑坐在长条凳后端，躬身前倾，长凳前端放置铜镜，磨镜人左脚踩绳以固定铜镜，双手执一物呈磨镜状。条凳内侧放置一个筐篓，里面装有罐、瓶等器皿，推测是盛放磨镜药粉所用。画面左侧前方坐着一翁一妪，二人弓背前伸，专注地观看打磨铜镜；后方站立两位妇人，一位持镜自照，镜中呈现出女子的容貌，另一位怀中抱着一面铜镜。",
+          "source_refs": [
+            "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+            "card sequence=016"
+          ],
+          "related_relic_ids": [
+            "NMC-FS-027"
+          ]
+        }
+      ],
+      "location_status": "仅核验到展厅；展柜/展线顺序待实地或馆方确认",
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+      "page_ref": "card sequence=016",
+      "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/images/1-5-1-b.jpg",
+      "image_note": "官网图片链接；内部研究/比赛演示前需核验版权声明，公开传播建议替换为自拍授权图或标注来源",
+      "credibility": "A官方事实+B保守结构化",
+      "source_note": "官方字段来自国博专题页图片/卡片；结构化字段为团队保守归纳，部分单件需补解释性资料。",
+      "review_note": "结构化字段基于官方名称/说明关键词归纳；正式讲解前需人工复核措辞",
+      "route_value": "可作为女性妆饰/服饰路线节点：磨镜图可帮助连接穿戴、首饰与日常形象。"
+    }
+  ]
+}

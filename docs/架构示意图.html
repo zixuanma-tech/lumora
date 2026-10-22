@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>寻迹 Lumora · Agent 架构示意图</title>
+<style>
+  :root{
+    --ink:#0f172a; --muted:#64748b; --bg:#f4f6f9; --panel:#ffffff; --line:#dfe5ee;
+    --accent:#2563eb; --algo:#16a34a; --state:#0d9488;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei","PingFang SC",sans-serif;}
+  header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);
+    padding:12px 22px 10px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;}
+  header h1{font-size:18px;margin:0;font-weight:700}
+  header .sub{font-size:12.5px;color:var(--muted)}
+  nav{margin-left:auto;display:flex;gap:8px}
+  nav button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 16px;
+    font-size:13px;cursor:pointer;color:var(--ink);transition:.15s}
+  nav button:hover{border-color:#94a3b8}
+  nav button.on{background:#1e293b;border-color:#1e293b;color:#fff}
+  main{padding:16px 22px 8px}
+  section.view{display:none}
+  section.view.on{display:block}
+  /* ---- 架构视图 ---- */
+  #view-arch{display:none}
+  #view-arch.on{display:flex;gap:16px;align-items:flex-start}
+  #archwrap{flex:1;min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    overflow:hidden}
+  #archbar{display:flex;gap:6px;align-items:center;padding:7px 12px;border-bottom:1px solid var(--line);
+    font-size:12px;color:var(--muted);background:#fafbfd}
+  #archbar button{border:1px solid var(--line);background:#fff;border-radius:6px;width:26px;height:24px;
+    cursor:pointer;font-size:14px;line-height:1;color:var(--ink)}
+  #archbar button:hover{border-color:var(--accent);color:var(--accent)}
+  #svgbox{overflow:hidden;cursor:grab}
+  #svgbox.panning{cursor:grabbing}
+  svg#arch{display:block;width:100%;height:auto;user-select:none;-webkit-user-select:none}
+  g.node{cursor:pointer}
+  g.node rect.box{fill:#fff;stroke:#cbd5e1;stroke-width:1.3;transition:.12s}
+  g.node:hover rect.box{stroke:var(--accent)}
+  g.node.sel rect.box{stroke:var(--accent);stroke-width:2;fill:#f5f9ff}
+  g.edge path{fill:none;stroke:#9aa8bd;stroke-width:1.4}
+  g.edge text{fill:#64748b;font-size:9.5px;paint-order:stroke;stroke:#ffffff;stroke-width:3px}
+  g.edge.hl path{stroke:var(--accent);stroke-width:2.4}
+  g.edge.hl text{fill:var(--accent);font-weight:600}
+  /* ---- 详情面板 ---- */
+  aside#detail{width:370px;flex:0 0 370px;background:var(--panel);border:1px solid var(--line);
+    border-radius:12px;padding:16px 18px;max-height:calc(100vh - 130px);overflow:auto;position:sticky;top:74px}
+  #detail .dfile{display:inline-block;font:600 11px/1 ui-monospace,Consolas,monospace;
+    background:#f1f5f9;border:1px solid var(--line);border-radius:6px;padding:4px 8px;color:var(--muted)}
+  #detail h2{font-size:16px;margin:10px 0 2px}
+  #detail .dtag{font-size:12.5px;color:var(--muted);margin:2px 0 8px}
+  #detail ul{margin:4px 0;padding-left:0;list-style:none}
+  #detail li{font-size:12.8px;line-height:1.62;padding-left:15px;position:relative;margin:5px 0;color:#334155}
+  #detail li:before{content:"";position:absolute;left:1px;top:9px;width:5px;height:5px;border-radius:50%;background:#94a3b8}
+  #detail .dapi{font:11.5px/1.6 ui-monospace,Consolas,monospace;background:#f1f5f9;color:#334155;
+    border:1px solid var(--line);border-radius:8px;padding:9px 11px;margin:8px 0 4px;white-space:pre-wrap;word-break:break-all}
+  #detail .dnote{font-size:12.3px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;
+    padding:8px 11px;margin-top:8px;color:#92400e;line-height:1.6}
+  #detail h3{font-size:11.5px;color:var(--muted);margin:14px 0 2px;letter-spacing:1px}
+  /* ---- 旅程视图 ---- */
+  #view-journey .stage{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+  #steps{flex:0 0 250px;display:flex;flex-direction:column;gap:6px}
+  #steps .step{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px;
+    cursor:pointer;transition:.15s;display:flex;gap:10px;align-items:baseline}
+  #steps .step:hover{border-color:#94a3b8}
+  #steps .step.on{border-color:#1e293b;background:#f8fafc}
+  #steps .step .no{font-size:11px;font-weight:700;color:#fff;background:#334155;border-radius:6px;padding:2px 7px}
+  #steps .step.on .no{background:var(--ink)}
+  #steps .step .t{font-size:13.5px;font-weight:600}
+  #steps .step .e{font-size:10.5px;color:var(--muted);display:block;margin-top:2px}
+  #stepdetail{flex:1;min-width:320px;background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px}
+  #stepdetail h2{margin:0 0 2px;font-size:17px}
+  #stepdetail .ep{font:11.5px ui-monospace,Consolas,monospace;background:#f1f5f9;color:#334155;border:1px solid var(--line);
+    display:inline-block;border-radius:6px;padding:4px 10px;margin:6px 0 12px}
+  .flowcol{margin:8px 0 4px}
+  .fstep{background:#fff;border:1px solid var(--line);border-left:3px solid #cbd5e1;
+    border-radius:8px;padding:7px 12px;font-size:12.8px;margin:0 auto;max-width:560px;color:#334155}
+  .fstep.llm{border-left-color:var(--accent)}
+  .fstep.algo{border-left-color:var(--algo)}
+  .fstep.state{border-left-color:var(--state)}
+  .farrow{text-align:center;color:#b6c2d4;font-size:12px;line-height:1.3;margin:1px 0}
+  .tagrow{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+  .tag{font-size:11.5px;border-radius:999px;padding:2px 11px;border:1px solid var(--line);background:#fff;color:#475569}
+  .tag.llm{border-color:#bfdbfe;color:#1d4ed8}
+  .tag.st{border-color:#99f6e4;color:#0f766e}
+  #stepdetail h3{font-size:11.5px;color:var(--muted);margin:16px 0 4px;letter-spacing:1px}
+  #stepdetail .snote{font-size:12.6px;color:#78350f;background:#fffbeb;border:1px solid #fde68a;
+    border-radius:8px;padding:8px 12px;line-height:1.65;margin-top:4px}
+  /* ---- LLM 视图 ---- */
+  #view-llm h3.h{margin:4px 0 8px;font-size:14px;font-weight:600}
+  .pipe{display:flex;flex-wrap:wrap;gap:6px;align-items:stretch;margin:6px 0 18px}
+  .pipe .st{flex:1;min-width:150px;background:var(--panel);border:1px solid var(--line);
+    border-radius:10px;padding:9px 12px;font-size:12.2px;line-height:1.5;color:#334155}
+  .pipe .st b{display:block;font-size:11.8px;color:var(--ink);margin-bottom:3px}
+  .pipe .arr{align-self:center;color:#b6c2d4;font-size:15px;flex:0 0 auto}
+  .llmgrid{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start}
+  table.llm{border-collapse:collapse;background:var(--panel);border:1px solid var(--line);
+    border-radius:12px;overflow:hidden;flex:1 1 640px;font-size:12.4px}
+  table.llm th{background:#f8fafc;text-align:left;padding:8px 10px;font-size:11.5px;color:var(--muted);letter-spacing:.5px}
+  table.llm td{border-top:1px solid var(--line);padding:7px 10px;vertical-align:top;line-height:1.5;color:#334155}
+  table.llm td.r{font-weight:700;white-space:nowrap;color:var(--ink)}
+  table.llm tr:hover td{background:#fafbfd}
+  .llmcards{flex:0 0 350px;display:flex;flex-direction:column;gap:12px}
+  .card{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--algo);
+    border-radius:10px;padding:12px 15px}
+  .card.rose{border-top-color:var(--accent)}
+  .card h3{margin:0 0 6px;font-size:13.5px}
+  .card li{font-size:12.4px;line-height:1.65;margin:4px 0;color:#334155}
+  /* ---- 现状条 ---- */
+  details#status{margin:6px 22px 20px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 16px}
+  details#status summary{cursor:pointer;font-size:13px;font-weight:600;color:#334155}
+  details#status ul{margin:8px 0 2px;padding-left:20px}
+  details#status li{font-size:12.6px;line-height:1.7;color:#475569}
+  footer{padding:6px 22px 18px;font-size:11.5px;color:var(--muted)}
+  @media (max-width:1100px){
+    #view-arch.on{flex-direction:column}
+    aside#detail{width:100%;flex:none;position:static;max-height:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>寻迹 Lumora · 博物馆导览 Agent 架构</h1>
+    <div class="sub">规划 → 按需讲解 → 动态重规划 · HTTP 薄入口 + 中央路由 + 4 算子 + 7 个 LLM 职责 + 确定性路线算法 · 纯 Python 标准库</div>
+  </div>
+  <nav>
+    <button data-v="arch" class="on">分层架构</button>
+    <button data-v="journey">一次游览</button>
+    <button data-v="llm">LLM 职责与信任边界</button>
+  </nav>
+</header>
+
+<main>
+  <!-- ===================== 视图一：分层架构 ===================== -->
+  <section class="view on" id="view-arch">
+    <div id="archwrap">
+      <div id="archbar">
+        <button id="zin" title="放大">＋</button>
+        <button id="zout" title="缩小">－</button>
+        <button id="zreset" title="复位">⟲</button>
+        <span>点击模块查看设计细节 · 悬停高亮关联 · 滚轮缩放 · 拖拽平移</span>
+      </div>
+      <div id="svgbox"><svg id="arch" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 728"></svg></div>
+    </div>
+    <aside id="detail"></aside>
+  </section>
+
+  <!-- ===================== 视图二：一次游览 ===================== -->
+  <section class="view" id="view-journey">
+    <div class="stage">
+      <div id="steps"></div>
+      <div id="stepdetail"></div>
+    </div>
+  </section>
+
+  <!-- ===================== 视图三：LLM 职责 ===================== -->
+  <section class="view" id="view-llm">
+    <h3 class="h">模型输出的信任管线 —— 每一次 LLM 调用都要走完全部闸门</h3>
+    <div class="pipe" id="pipe"></div>
+    <div class="llmgrid">
+      <table class="llm" id="llmtable"></table>
+      <div class="llmcards">
+        <div class="card">
+          <h3>路线核心刻意不用 LLM</h3>
+          <ul>
+            <li>六维加权评分、有向 Dijkstra 最短路、≤12 厅 Held-Karp 子集 DP（>12 厅贪心 + 2-opt）全部是<b>确定性算法</b>。</li>
+            <li>LLM 只提供两个输入：<b>InterestProfile 兴趣标签</b> + <b>查询向量</b>，之后的决策可复现、可回归测试（199 项测试）、零 token 成本。</li>
+            <li>精确最优的边界写进返回值（optimality_scope）：限于既定单厅 Top-K、预计算最短通路与尾部剔除规则之内。</li>
+          </ul>
+        </div>
+        <div class="card rose">
+          <h3>模型输出一律不可信</h3>
+          <ul>
+            <li>严格 JSON 解析：拒绝未知/缺失字段、重复键、代码围栏外文本、SDK 包装。</li>
+            <li>不可变数据类（frozen + slots）二次构造校验：引用范围、顺序、数量。</li>
+            <li>两个 Reviewer <b>独立成调</b>，不复用 Composer 的判断；approved=true 时 issues 必须为空，无默认批准。</li>
+            <li>任一环节失败 → 不写入会话状态（原子性）；算子每次外部调用后还会比对会话快照防过期提交。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<details id="status">
+  <summary>现状与边界（讲给队友时建议交代）</summary>
+  <ul>
+    <li><b>已实现</b>：Router、4 个算子、7 个模型职责装配、HTTP 入口与前端三视图；<b>199 项本地测试全部通过</b>（mock transport，不访问真实服务）。</li>
+    <li><b>main.py 目前起的是空 Router</b>：serve() 未注入 build_model_services() 与真实馆藏数据，直接运行时聊天/规划会 service_unavailable，部署前需在启动层装配。</li>
+    <li><b>data/relics.json、data/edges.json 均为空占位</b>：馆藏快照（MuseumSnapshot）、史料候选需由数据侧注入，不编造虚构拓扑。</li>
+    <li><b>远端模型未验证</b>：API 密钥为占位值，真实密钥用环境变量 LUMORA_LLM_API_KEY 注入（set_lumora_api_key.ps1）。</li>
+    <li><b>待接入</b>：TTS、真实播放器、鉴权、状态持久化（当前路由状态为进程内存）。</li>
+  </ul>
+</details>
+
+<footer>寻迹 Lumora agent_v0 · 架构示意图生成于 2026-10 · 依据 开发交接.md 与源码（router.py / operators.py / route_*.py / guide_*.py / summary_*.py / model_*.py）整理</footer>
+
+<script>
+/* ============================================================
+   层背景带（中性灰，仅作分区提示）
+============================================================ */
+const BANDS = [
+  {x:46, y:16,  w:876, h:88, label:'浏览器 · 前端'},
+  {x:46, y:120, w:876, h:84, label:'HTTP 入口'},
+  {x:46, y:216, w:876, h:88, label:'中央路由'},
+  {x:46, y:316, w:876, h:88, label:'算子层'},
+  {x:46, y:416, w:876, h:88, label:'Prompt 适配 × 确定性算法'},
+  {x:46, y:516, w:876, h:84, label:'模型装配与传输'},
+  {x:46, y:612, w:876, h:80, label:'外部模型服务'},
+];
+
+/* ============================================================
+   节点：图面只保留 名称 + 一行小注，细节全部在右侧面板
+   accent: 'algo'（绿）/ 'state'（青）/ 默认中性
+============================================================ */
+const NODES = [
+{ id:'frontend', x:60,y:28, w:848,h:64,
+  title:'index.html + app.js · 前端三视图', sub:'welcome 许愿 → tour 游览 → summary 手记 · latest_state 唯一状态来源',
+  detail:{file:'index.html / app.js / style.css', tag:'三视图单页前端，只做展示与上报，不保存合并状态',
+    pts:[
+      '三视图：welcome 许愿表单 → tour 游览（路线卡 / 讲解卡 / 聊天卡）→ summary 探索手记',
+      '每次响应统一 {reply_content, latest_state}，前端 apply() 整体重渲染；latest_state 永远来自服务端 state.to_dict()',
+      '讲解播放按分句逐段推进，定时上报 playback_progress（当前为模拟播放器）',
+      '结束模态收集两个反馈问题（最印象展品 / 感想），均可跳过',
+      'sessionStorage 记住 session_id，刷新后 GET /api/state 恢复界面',
+    ]}},
+{ id:'main', x:60,y:132, w:848,h:60,
+  title:'main.py · HTTP 入口', sub:'POST /api/session · /api/event · /api/chat　GET /api/state · /health',
+  detail:{file:'main.py', tag:'HTTP 到 Router 的薄适配层，不做任何业务',
+    pts:[
+      '纯标准库 http.server 自建（无 Flask/FastAPI），单线程 + 内置 asyncio 事件循环',
+      '五个端点：POST /api/session 建会话、/api/event 按钮事件、/api/chat 自然语言、GET /api/state 读状态、/health 健康检查；另托管静态文件',
+      '只做 JSON 校验与转交，CORS 全开，请求体上限 1MB',
+    ],
+    note:'create_server() 当前用空 Router() —— serve() 前需自行传入 build_model_services() 装配的 Router，否则聊天 / 规划会 service_unavailable。'}},
+{ id:'router', x:60,y:228, w:848,h:64,
+  title:'router.py · Router 中央路由', sub:'每会话 asyncio.Lock 串行 · 意图分流 · 路线缓存 · 播放续播栈 · 单调时钟时间账本',
+  detail:{file:'router.py', tag:'可注入的内存态调度层：会话管理、事件分发、播放协议、时间账本',
+    pts:[
+      '按 session_id 保存独立会话，每会话一把 asyncio.Lock：同会话请求串行，不同会话可并发',
+      '11 种按钮 action 直达：submit_preferences / update_visitor_info / replan / start_guide / skip / update_location / playback_progress / resume_guide / finish / generate_summary / get_state',
+      '自然语言经 op_process_input 分流；混合输入按「提交游客信息 → 回答当前展品追问 → 必要时重规划」执行',
+      '会话级缓存：最近路线 route、最近尝试 plan_result、route_dirty 标记、当前播放稿件版本、resume 续播栈、summary',
+      '时间账本：请求进出按单调时钟扣减 remaining_minutes；显式提交时间重置计时基准；规划预估 time_bill 不扣真实余额',
+      'no_feasible_route：保留旧队列并保持 route_dirty，拒绝沿失效路线开讲；time_exhausted：只清空待看队列，不结束游览',
+      'finish 幂等；结束后若注入手记服务则自动生成《探索手记》，失败可重试',
+    ],
+    api:'dispatch_action(router, session_id, action, payload)\ndispatch_chat(router, session_id, text, playback=None)\ncreate_session(...) → 每次响应 {reply_content, latest_state}'}},
+{ id:'state', x:938,y:228, w:326,h:164, accent:'state',
+  title:'session_state.py · SessionState', sub:'唯一可变状态底座 · 只追加 · 原子提交',
+  detail:{file:'session_state.py', tag:'四个算子共同的可信状态底座：只校验和保存，不含算法',
+    pts:[
+      'VisitorInfo 五类：content_interests（内容兴趣）/ guide_styles（讲解风格）/ guide_focus（讲解角度）/ remaining_minutes（剩余时间）/ other_needs（其他需求），均可缺省',
+      'pending_queue 待看队列只能整体替换，禁止重复与已参观展品',
+      'visited_relics 参观轨迹与 guide_records 讲解日志只能追加；跳过与重规划不删除已生成问答',
+      'record_guide() 原子提交：主讲校验成功 → 追加日志 + VisitRecord + 队首出队一次完成；追问回答只追加日志',
+      'skip_next() 移出队首记入 skipped，不算已参观；finish() 幂等，之后冻结一切修改',
+      'GuideContext 保存播放上下文（稿件 ID / 分句 / 已播前缀），防止「已生成」被误当「已听完」',
+      'to_dict() / from_dict()：服务端可信快照序列化与恢复，不接受客户端快照覆盖服务端状态',
+    ],
+    api:'update_visitor_info(**changes)\nreplace_pending_queue(stops)\nrecord_guide(record)\nskip_next(expected_relic_id=None)\nfinish() · to_dict() · from_dict(data)'}},
+{ id:'op_input', x:60,y:328, w:150,h:64, badge:'1',
+  title:'输入处理', sub:'op_process_input()',
+  detail:{file:'operators.py → op_process_input()', tag:'统一入口：结构化字段与自然语言都从这里进入',
+    pts:[
+      '五类游客信息字段字典 → 直接校验局部更新，不调用模型',
+      '自然语言 → 注入的 InputInterpreter（LLM①），输出 InputAnalysis：visitor_info_changes / question / replan_requested / finish_requested',
+      '当前展品追问优先取 GuideContext 正在讲的展品，而非最近完成讲解的展品',
+      '分析结果与字段全部校验成功才提交；失败不写入任何状态',
+      '算子不改轨迹、讲解日志、待看队列；追问交给 Router 转给讲解算子',
+    ]}},
+{ id:'op_plan', x:226,y:328, w:356,h:64, badge:'2',
+  title:'路线规划', sub:'op_plan_route() · route_planner.py',
+  detail:{file:'route_planner.py → op_plan_route()', tag:'评分 → 打包 → 图搜索 → 裁剪 → 召回 → 原子提交',
+    pts:[
+      '输入：真实当前位置 / 出口 + MuseumSnapshot + InterestProfile + 查询向量 + pace（quick / standard / deep）',
+      '时间未知 → 要求补充；时间为 0 → time_exhausted 清空队列（不代表已到出口）',
+      '计算与校验全部成功后才一次性替换 pending_queue；不改历史记录、不扣减 remaining_minutes',
+      '无可行通路或净预算不足 → no_feasible_route、pending_queue_updated=False，保留原队列',
+      '返回完整 plan_result：路径节点 / 展品三项评分 / 推荐标签 / time_bill（步行+穿行+驻足+罚时）',
+      '没有核心展品但可通行时返回纯通行路线，仍可召回顺路国宝',
+    ],
+    api:'await op_plan_route(state, start_node_id, exit_node_id,\n    snapshot, interests, query_vector, pace, config)'}},
+{ id:'op_guide', x:598,y:328, w:160,h:64, badge:'3',
+  title:'讲解生成', sub:'op_generate_guide()',
+  detail:{file:'guide_generator.py → op_generate_guide()', tag:'三段流水：Selector → Composer → Reviewer，全部必需注入',
+    pts:[
+      '缺任一模型服务抛 NotImplementedError，无规则回退、无模型内部知识回退',
+      '每次外部调用后比对会话快照，会话已变即终止本次流程，防过期结果提交',
+      '主讲只允许当前队首（建议显式带 relic_id 防旧按钮操作到新队首）',
+      '成功才 record_guide() 原子提交：讲解日志 + VisitRecord + 队首出队一次完成',
+      '追问回答不改轨迹、不改主讲原稿，原样返回 resume_context 供 Router 续播',
+      'Reviewer 不批准 = 整体失败，不留半稿；新稿件使用新 guide_id',
+    ]}},
+{ id:'op_summary', x:768,y:328, w:140,h:64, badge:'4',
+  title:'手记生成', sub:'op_generate_summary()',
+  detail:{file:'summary_generator.py → op_generate_summary()', tag:'把本次全程讲解与问答整理成结构化《探索手记》',
+    pts:[
+      '取材：SessionState 里的全程 guide_records + visited_relics（含队首未完成主讲的问答），不从模型内部知识补内容',
+      '展品基础资料按 ID 查 data/relics.json；缺失 / 重复 / 额外 ID 直接失败',
+      '本地校验：trail 覆盖全部已参观且保序、discoveries ≥ 1、connections ≥ 2 件展品、questions 只引真实 answer 记录',
+      '空游览（无轨迹无日志）→ status=empty，不调模型',
+      '不改会话、不自动 finish；结束后可重复生成 / 重试',
+      '原问题由后端从日志补回，模型只写 answer_summary，禁止改写问题',
+    ]}},
+{ id:'prompt_input', x:60,y:428, w:150,h:64,
+  title:'输入解析 Prompt', sub:'LLM① 自然语言输入解析',
+  detail:{file:'input_interpreter_prompt.py', tag:'模型无关的 Prompt 适配层（不绑定任何厂商 SDK）',
+    pts:[
+      '提供系统提示、严格 JSON Schema、build_input_interpreter_messages()、parse_input_analysis() 与异步闭包',
+      '上下文（游客信息 / 当前参观 / 讲解上下文）以不可变对象传入，不暴露可修改的会话',
+      '输出四键：visitor_info_changes / question / replan_requested / finish_requested；涉及字段须给完整新值',
+    ]}},
+{ id:'prompt_interest', x:226,y:428, w:150,h:64,
+  title:'兴趣结构化 + 向量', sub:'LLM② 兴趣结构化 + 向量',
+  detail:{file:'interest_prompts.py', tag:'把不可变 VisitorInfo 转换为规划用的 InterestProfile',
+    pts:[
+      '输出字段与 route_models.InterestProfile 一致：时代 / 地域 / 品类 / 工艺（组内 OR）+ 题材 / 审美 / 文化 IP / 受众（外层独立目标、内层 OR 备选）+ query_text',
+      'guide_styles 与 remaining_minutes 不进入兴趣标签；other_needs 只在明确表达受众适配时进入 target_audience',
+      '可注入馆藏 taxonomy 规范词表：提供后模型只能从对应维度规范词中选择',
+      '同一服务层同时承担 embed_query 查询向量调用（GLM-Embedding-3）',
+    ]}},
+{ id:'algo', x:392,y:428, w:190,h:64, accent:'algo',
+  title:'确定性算法核心', sub:'无 LLM · 评分 / 图搜索 / DP',
+  detail:{file:'route_scoring.py / route_graph.py / route_planner.py（_Optimizer）', tag:'规划的质量与最优性全在这一层：完全确定性、可回归测试',
+    pts:[
+      '评分 = 标签 50 + 向量 30 + 价值 20（满分 100）：S_tag = min(50, 50·Σ(w·M)/Σw · β)，六维权重 25/25/20/10/10/10；层级匹配子类全中 1.0、仅父类 0.5；时代×品类双全中 β=1.3，单中 0.7',
+      '向量分：余弦相似度 > 0.5 线性拉伸至 0–30；价值分：20 × importance_level / 5',
+      '单厅 Top-K（quick/standard/deep = 3/5/8），厅内收益按 0.85^rank 疲劳衰减',
+      '有向 Dijkstra：中间展厅累加固定穿行时间；相同耗时优先更少跨层、更少边数',
+      '≤12 厅：Held-Karp 子集 DP，状态 = (已选厅集合, 末厅, 免费跨层次数)，精确；>12 厅：按性价比贪心插入 + 2-opt，不保证全局最优',
+      '净预算 = 剩余 90%；名义超时 ≤ 15 分钟容差内逐个删除末位低分展品；第 3 次起楼层变化 +3 分钟罚时',
+      '核心路线确定后在纯途经厅顺路插入重要度 5 的国宝（每件快速打卡 4 分钟），不为补偿绕路',
+    ]}},
+{ id:'prompt_guide', x:598,y:428, w:160,h:64,
+  title:'讲解 Prompt ×3', sub:'guide_prompts.py · LLM④⑤⑥',
+  detail:{file:'guide_prompts.py', tag:'第三算子的三段模型适配：Selector / Composer / Reviewer',
+    pts:[
+      'Selector 只能逐字复制候选材料 —— 本地逐项核对 material_id / 原文 / 来源 / 关联展品，防模型改写史料',
+      'Composer 只能用 selection.materials 成稿，输出分句播放单元 + used_material_ids，引用范围再次检查',
+      'Reviewer 独立调用做六项核对；approved=true 时 issues 必须为空，无默认批准',
+      '候选史料可为固定 GuideMaterial 序列，或 async load_candidates(request) 按展品从资料层加载',
+    ]}},
+{ id:'prompt_summary', x:768,y:428, w:140,h:64,
+  title:'手记 Prompt ×2', sub:'LLM⑦⑧ 成稿 / 核对',
+  detail:{file:'summary_prompts.py + summary_data.py', tag:'第四算子的两段模型适配 + 资料读取',
+    pts:[
+      'Composer 输出 SummaryDraft 七键：title / introduction / trail / discoveries / connections / questions / next_exploration',
+      '本地解析强制：trail 覆盖已参观展品且顺序一致、发现非空、跨展品联系至少两件、ID 全部落在本次记录内',
+      'questions 只能引用真实 answer 稿件且不重复；原问题从日志补回，模型不得输出问题字段',
+      'JsonSummaryDataSource 读 data/relics.json（现为空占位，最小结构 {"relics":[{relic_id,name,era?,gallery_name?}]}）',
+    ]}},
+{ id:'deps', x:938,y:428, w:326,h:64,
+  title:'注入依赖 · RouterServices（12 项）', sub:'馆藏快照 · 史料候选 · 向量 · 手记资料 · 系数',
+  detail:{file:'router.RouterServices（model_services.build_model_services 装配）', tag:'依赖全部注入：算子是纯流程，数据与服务由外部提供，测试可整体替换',
+    pts:[
+      '12 项 = 7 个模型职责 + snapshot / data_source / vector_service / planner_config / summary_data_source',
+      '馆藏以 MuseumSnapshot 注入：galleries（展厅+穿行时间）/ exhibits（标签+向量+重要度+驻足+拥挤系数）/ 有向 edges / node_floors；不读空的 relics.json 编造拓扑',
+      '空间边（步行时间）与知识关联边（edges.json，供讲解串联，待审核接入）是两回事',
+      'PlannerConfig 集中全部系数（六维权重、Top-K、净预算比例、罚时…），实验用 dataclasses.replace() 换参数，不改搜索代码',
+      '测试注入 mock transport / model_call，199 项测试不访问真实服务',
+    ]}},
+{ id:'model_services', x:60,y:528, w:428,h:60,
+  title:'model_services.py · 模型服务装配', sub:'build_model_services() · 7 职责装配 · 配置与环境变量',
+  detail:{file:'model_services.py', tag:'组合根：把 Prompt 闭包与 HTTP 客户端装配成 Router 可用的服务包',
+    pts:[
+      'build_model_services(candidates, snapshot | data_source, vector_service, summary_data_source) → RouterServices',
+      '7 个职责：interpreter / interest_parser / selector / composer / reviewer / summary_composer / summary_reviewer，可共用同一模型配置',
+      '配置读 llm_config.json（base_url / model / chat_path / response_mode / embedding_model），每个字段可被 LUMORA_LLM_<大写字段> 环境变量覆盖',
+      '密钥不落盘：set_lumora_api_key.ps1 隐藏输入写入当前会话（-PersistUser 保存用户级）',
+      '装配本身不发网络请求；两个 Reviewer 仍分别独立调用',
+    ]}},
+{ id:'model_api', x:508,y:528, w:400,h:60,
+  title:'model_api.py · ChatCompletionsClient', sub:'标准库 urllib 异步 HTTP · 无 SDK · 不重试不降级',
+  detail:{file:'model_api.py + llm_config.json', tag:'厂商无关的统一模型出口：全部出站请求从这里走',
+    pts:[
+      '模型调用契约：model_call(system_prompt=…, user_prompt=…, response_format=…)，Prompt 层只依赖这三个关键字参数',
+      '服务商 GLM-5.3 不支持 json_schema，因此发送 {"type":"json_object"} 并把内部 Schema 拼入系统指令',
+      '响应校验：唯一 choice、finish_reason=stop、无 refusal / tool_calls；认证 / 超时 / 无效正文返回固定错误描述，不回显服务端错误体或密钥',
+      'embed_query(text) 调 /embeddings，空向量 / 零向量 / 非有限值会被拒绝，维数匹配由规划算子检查',
+    ]}},
+{ id:'llm_chat', x:60,y:622, w:428,h:56,
+  title:'GLM-5.3 · Chat', sub:'llmapi.paratera.com · 7 个职责共用 · json_object',
+  detail:{file:'llm_config.json: model=GLM-5.3 · response_mode=json_object', tag:'单个 Chat 模型承担全部 7 个理解 / 表达 / 审核职责',
+    pts:[
+      '输入解析、兴趣结构化、讲解选材、讲解成稿、讲解核对、手记成稿、手记核对',
+      '服务端格式约束不替代本地校验：所有输出仍要过严格 JSON、数据类与算子三道闸',
+      '远端联通与服务端格式兼容尚未用真实密钥验证',
+    ]}},
+{ id:'llm_embed', x:508,y:622, w:400,h:56,
+  title:'GLM-Embedding-3 · Embeddings', sub:'/embeddings · 查询向量 · 与馆藏向量同模型同维',
+  detail:{file:'llm_config.json: embedding_model=GLM-Embedding-3', tag:'语义检索的向量出口（仅规划阶段使用）',
+    pts:[
+      '查询文本 = content_interests 用分号连接的当前内容兴趣',
+      '馆藏向量由数据源预生成，必须使用同一编码模型与维数；缺失 / 零向量 / 维数不一致直接报错并保留原队列',
+      '实际使用前仍需确认账号权限、Embeddings 路径、返回格式与维数',
+    ]}},
+];
+
+/* ============================================================
+   边（调用 / 数据流）
+============================================================ */
+const EDGES = [
+ {id:'e1', from:'frontend', to:'main', pts:[[484,92],[484,132]], label:'JSON 请求 / 响应', lp:[484,116]},
+ {id:'e2', from:'main', to:'router', pts:[[484,192],[484,228]]},
+ {id:'e3', from:'router', to:'op_input', pts:[[135,292],[135,328]], label:'意图分流', lp:[141,313], anchor:'start'},
+ {id:'e4', from:'router', to:'op_plan', pts:[[387,292],[387,328]], label:'规划', lp:[393,313], anchor:'start'},
+ {id:'e5', from:'router', to:'op_guide', pts:[[678,292],[678,328]], label:'讲解', lp:[684,313], anchor:'start'},
+ {id:'e6', from:'router', to:'op_summary', pts:[[838,292],[838,328]], label:'手记', lp:[844,313], anchor:'start'},
+ {id:'e7', from:'op_input', to:'prompt_input', pts:[[135,392],[135,428]]},
+ {id:'e8', from:'op_plan', to:'prompt_interest', pts:[[301,392],[301,428]], label:'VisitorInfo', lp:[307,413], anchor:'start'},
+ {id:'e9', from:'op_plan', to:'algo', pts:[[487,392],[487,428]], label:'评分 + 搜索', lp:[493,413], anchor:'start'},
+ {id:'e10', from:'op_guide', to:'prompt_guide', pts:[[678,392],[678,428]]},
+ {id:'e11', from:'op_summary', to:'prompt_summary', pts:[[838,392],[838,428]]},
+ {id:'e12', from:'prompt_input', to:'model_services', pts:[[135,492],[135,528]]},
+ {id:'e13', from:'prompt_interest', to:'model_services', pts:[[301,492],[301,528]]},
+ {id:'e14', from:'prompt_guide', to:'model_api', pts:[[678,492],[678,528]]},
+ {id:'e15', from:'prompt_summary', to:'model_api', pts:[[838,492],[838,528]]},
+ {id:'e16', from:'model_services', to:'model_api', pts:[[488,558],[508,558]]},
+ {id:'e17', from:'model_api', to:'llm_chat', pts:[[560,588],[560,602],[274,602],[274,622]], label:'chat/completions', lp:[410,600]},
+ {id:'e18', from:'model_api', to:'llm_embed', pts:[[708,588],[708,622]], label:'embeddings', lp:[716,608], anchor:'start'},
+ {id:'e19', from:'router', to:'state', pts:[[908,260],[938,260]], dash:1, label:'持有', lp:[923,254]},
+ {id:'e20a', from:'op_input', to:'state', pts:[[200,392],[200,398],[925,398],[925,360],[938,360]], dash:1},
+ {id:'e20b', from:'op_plan', to:'state', pts:[[572,392],[572,398],[925,398],[925,360],[938,360]], dash:1},
+ {id:'e20c', from:'op_guide', to:'state', pts:[[748,392],[748,398],[925,398],[925,360],[938,360]], dash:1, label:'校验通过才原子提交', lp:[560,394]},
+ {id:'e20d', from:'op_summary', to:'state', pts:[[894,392],[894,398],[925,398],[925,360],[938,360]], dash:1},
+ {id:'e21', from:'deps', to:'model_services', pts:[[938,470],[930,470],[930,608],[300,608],[300,588]], dash:1, label:'装配输入', lp:[660,604]},
+ {id:'e22', from:'model_services', to:'router', pts:[[60,558],[38,558],[38,260],[60,260]], dash:1, label:'RouterServices 注入', lp:[30,410], rot:-90},
+ {id:'e23', from:'prompt_summary', to:'deps', pts:[[908,448],[938,448]], dash:1, label:'读取', lp:[923,442]},
+];
+
+/* ============================================================
+   SVG 渲染
+============================================================ */
+const svg = document.getElementById('arch');
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent){
+  const e = document.createElementNS(NS, tag);
+  for(const k in attrs) e.setAttribute(k, attrs[k]);
+  if(parent) parent.appendChild(e);
+  return e;
+}
+function tw(s, f){
+  let w = 0;
+  for(const ch of s){ w += ch.charCodeAt(0) > 127 ? f*1.08 : f*0.58; }
+  return w;
+}
+const ACCENT = {algo:'#16a34a', state:'#0d9488'};
+
+const defs = el('defs', {}, svg);
+const mkArr = (id, color) => {
+  const m = el('marker', {id, viewBox:'0 0 10 10', refX:9, refY:5, markerWidth:7, markerHeight:7, orient:'auto-start-reverse'}, defs);
+  el('path', {d:'M 0 0 L 10 5 L 0 10 z', fill:color}, m);
+};
+mkArr('arr', '#9aa8bd'); mkArr('arrH', '#2563eb');
+
+const world = el('g', {id:'world'}, svg);
+
+/* 层背景带 */
+BANDS.forEach(b => {
+  const g = el('g', {}, world);
+  el('rect', {x:b.x, y:b.y, width:b.w, height:b.h, rx:10, fill:'#f8fafc', stroke:'#e2e8f0'}, g);
+  const t = el('text', {x:b.x+12, y:b.y+17, fill:'#94a3b8', 'font-size':10.5, 'font-weight':600}, g);
+  t.textContent = b.label;
+});
+
+/* 节点：标题 + 一行小注 */
+const nodeElems = {};
+NODES.forEach(n => {
+  const g = el('g', {class:'node', 'data-id':n.id}, world);
+  const stroke = n.accent ? ACCENT[n.accent] : '#cbd5e1';
+  el('rect', {class:'box', x:n.x, y:n.y, width:n.w, height:n.h, rx:8, stroke:stroke}, g);
+  let tx = n.x + 14;
+  if(n.badge){
+    el('circle', {cx:n.x+21, cy:n.y+21, r:9, fill:'#334155'}, g);
+    const bt = el('text', {x:n.x+21, y:n.y+25, 'text-anchor':'middle', fill:'#fff', 'font-size':11.5, 'font-weight':700}, g);
+    bt.textContent = n.badge;
+    tx = n.x + 36;
+  }
+  const title = el('text', {x:tx, y:n.y+26, 'font-size':13, 'font-weight':700, fill:'#0f172a'}, g);
+  title.textContent = n.title;
+  const sub = el('text', {x:n.x+14, y:n.y+44, 'font-size':10, fill:'#64748b', 'font-family':'ui-monospace,Consolas,monospace'}, g);
+  sub.textContent = n.sub;
+  nodeElems[n.id] = g;
+});
+
+/* 边 */
+const edgeElems = {};
+const adj = {};
+EDGES.forEach(e => {
+  const d = 'M ' + e.pts.map(p => p.join(' ')).join(' L ');
+  const g = el('g', {class:'edge', 'data-id':e.id}, world);
+  el('path', {d, 'marker-end':'url(#arr)', 'stroke-dasharray': e.dash ? '5 4' : 'none'}, g);
+  if(e.label){
+    const attrs = {x:e.lp[0], y:e.lp[1], 'text-anchor':e.anchor||'middle'};
+    if(e.rot) attrs.transform = `rotate(${e.rot} ${e.lp[0]} ${e.lp[1]})`;
+    const t = el('text', attrs, g);
+    t.textContent = e.label;
+  }
+  edgeElems[e.id] = g;
+  (adj[e.from] = adj[e.from] || []).push(e);
+  (adj[e.to] = adj[e.to] || []).push(e);
+});
+
+/* 浮动注释 */
+(function(){
+  const t = el('text', {x:484, y:514, 'text-anchor':'middle', 'font-size':9.5, fill:'#64748b',
+    'paint-order':'stroke', stroke:'#ffffff', 'stroke-width':3}, world);
+  t.textContent = '统一 model_call 契约（system_prompt / user_prompt / response_format）';
+})();
+
+/* 图例 */
+(function legend(){
+  const g = el('g', {}, world);
+  let x = 50;
+  const ly = 712;
+  function item(label, draw){
+    x += draw(x, ly);
+    const t = el('text', {x, y:ly, 'font-size':10.5, fill:'#64748b'}, g);
+    t.textContent = label;
+    x += tw(label, 10.5) + 22;
+  }
+  item('实线 = 调用 / 数据流', (x0) => { el('line', {x1:x0, y1:ly-4, x2:x0+26, y2:ly-4, stroke:'#9aa8bd', 'stroke-width':1.6}, g); return 32; });
+  item('虚线 = 持有 / 注入 / 读取', (x0) => { el('line', {x1:x0, y1:ly-4, x2:x0+26, y2:ly-4, stroke:'#9aa8bd', 'stroke-width':1.6, 'stroke-dasharray':'5 4'}, g); return 32; });
+  item('绿框 = 确定性算法（无 LLM）', (x0) => { el('rect', {x:x0, y:ly-11, width:16, height:12, rx:3, fill:'#fff', stroke:ACCENT.algo}, g); return 22; });
+  item('青框 = 状态底座', (x0) => { el('rect', {x:x0, y:ly-11, width:16, height:12, rx:3, fill:'#fff', stroke:ACCENT.state}, g); return 22; });
+})();
+
+/* ============================================================
+   交互：悬停高亮 / 点击详情 / 缩放平移
+============================================================ */
+const detail = document.getElementById('detail');
+let selected = null;
+
+function setHL(id, on){
+  (adj[id] || []).forEach(e => {
+    const g = edgeElems[e.id];
+    g.classList.toggle('hl', on);
+    g.querySelector('path').setAttribute('marker-end', on ? 'url(#arrH)' : 'url(#arr)');
+    [e.from, e.to].forEach(nid => { if(nodeElems[nid]) nodeElems[nid].classList.toggle('nb', on); });
+  });
+}
+function showDetail(id){
+  const n = NODES.find(v => v.id === id);
+  if(!n || !n.detail){ return; }
+  const d = n.detail;
+  let html = `<span class="dfile">${d.file}</span>
+    <h2>${n.title}</h2>
+    <div class="dtag">${d.tag}</div><ul>`;
+  d.pts.forEach(p => html += `<li>${p}</li>`);
+  html += '</ul>';
+  if(d.api) html += `<h3>关键入口</h3><div class="dapi">${d.api.replace(/</g,'&lt;')}</div>`;
+  if(d.note) html += `<div class="dnote">注：${d.note}</div>`;
+  detail.innerHTML = html;
+}
+function showOverview(){
+  detail.innerHTML = `
+  <span class="dfile">agent_v0 · 全景</span>
+  <h2>项目总览</h2>
+  <div class="dtag">面向博物馆的语音导览 Agent：先按兴趣与时间规划路线，走到每件展品前按需生成讲解，随时改偏好动态重规划，结束自动生成《探索手记》。</div>
+  <h3>分层</h3><ul>
+    <li>HTTP 薄入口（main.py）→ 中央路由（Router，每会话串行）→ 四个纯流程算子 → Prompt 适配层 → 统一模型客户端 → GLM-5.3 / GLM-Embedding-3</li>
+  </ul>
+  <h3>三条设计主线</h3><ul>
+    <li><b>LLM 只做理解 / 表达 / 审核</b>：路线评分与搜索（Dijkstra、Held-Karp 子集 DP）是确定性算法，可回归测试、零 token 成本、结果可解释</li>
+    <li><b>模型输出一律不可信</b>：严格 JSON 解析 → 不可变数据类 → 算子本地校验三道闸；Reviewer 独立调用；失败不提交</li>
+    <li><b>SessionState 唯一可变状态</b>：轨迹与讲解日志只追加、原子提交；算子每次外部调用后快照比对，防过期写入</li>
+  </ul>
+  <h3>规模</h3><ul>
+    <li>4 个算子 · 7+1 个模型职责 · 11 种按钮 action · 5 个 HTTP 端点 · 199 项本地测试通过</li>
+  </ul>
+  <div class="dnote">注：main.py 当前起空 Router 未注入真实服务；relics.json / edges.json 为空占位；密钥为占位值 —— 详见页面底部「现状与边界」。</div>`;
+}
+showOverview();
+
+NODES.forEach(n => {
+  const g = nodeElems[n.id];
+  g.addEventListener('mouseenter', () => setHL(n.id, true));
+  g.addEventListener('mouseleave', () => { if(n.id !== selected) setHL(n.id, false); });
+  g.addEventListener('click', ev => {
+    if(dragMoved) return;
+    ev.stopPropagation();
+    if(selected && selected !== n.id){ setHL(selected, false); nodeElems[selected].classList.remove('sel'); }
+    selected = (selected === n.id) ? null : n.id;
+    if(selected){ nodeElems[n.id].classList.add('sel'); setHL(n.id, true); showDetail(n.id); }
+    else { nodeElems[n.id].classList.remove('sel'); showOverview(); }
+  });
+});
+svg.addEventListener('click', () => {
+  if(dragMoved) return;
+  if(selected){ setHL(selected, false); nodeElems[selected].classList.remove('sel'); selected = null; showOverview(); }
+});
+
+/* 缩放平移 */
+let scale = 1, tx = 0, ty = 0, dragMoved = false;
+function applyT(){ world.setAttribute('transform', `translate(${tx} ${ty}) scale(${scale})`); }
+function clientToVb(cx, cy){
+  const r = svg.getBoundingClientRect();
+  return [ (cx - r.left) / r.width * 1280, (cy - r.top) / r.height * 728 ];
+}
+const box = document.getElementById('svgbox');
+box.addEventListener('wheel', ev => {
+  ev.preventDefault();
+  const [vx, vy] = clientToVb(ev.clientX, ev.clientY);
+  const k = ev.deltaY < 0 ? 1.12 : 1/1.12;
+  const ns = Math.min(3.2, Math.max(0.55, scale * k));
+  const kk = ns / scale;
+  tx = vx - (vx - tx) * kk; ty = vy - (vy - ty) * kk; scale = ns;
+  applyT();
+}, {passive:false});
+let pdown = null;
+box.addEventListener('pointerdown', ev => { pdown = [ev.clientX, ev.clientY, tx, ty]; dragMoved = false; });
+window.addEventListener('pointermove', ev => {
+  if(!pdown) return;
+  const dx = ev.clientX - pdown[0], dy = ev.clientY - pdown[1];
+  if(Math.abs(dx) + Math.abs(dy) > 4){ dragMoved = true; box.classList.add('panning'); }
+  const r = svg.getBoundingClientRect();
+  tx = pdown[2] + dx * 1280 / r.width; ty = pdown[2] + dy * 728 / r.height;
+  applyT();
+});
+window.addEventListener('pointerup', () => { pdown = null; box.classList.remove('panning'); setTimeout(()=>dragMoved=false, 0); });
+svg.addEventListener('dblclick', () => { scale = 1; tx = 0; ty = 0; applyT(); });
+document.getElementById('zin').onclick = () => { scale = Math.min(3.2, scale*1.2); applyT(); };
+document.getElementById('zout').onclick = () => { scale = Math.max(0.55, scale/1.2); applyT(); };
+document.getElementById('zreset').onclick = () => { scale = 1; tx = 0; ty = 0; applyT(); };
+
+/* ============================================================
+   视图二：一次游览
+============================================================ */
+const JOURNEY = [
+{ t:'创建会话', ep:'POST /api/session',
+  flow:[
+    ['前端 createSession()：携带 pace（quick / standard / deep）',''],
+    ['Router.create_session()：注册会话',''],
+    ['新建 SessionState（空 VisitorInfo，自动生成 UUID）','state'],
+    ['等待 update_location 提供真实当前位置与出口节点',''],
+  ],
+  llm:['本步无模型调用'],
+  st:['session 注册 · status = active'],
+  note:'未提供真实位置前不会自动规划。前端用 sessionStorage 记住 session_id，刷新后 GET /api/state 恢复界面。'},
+{ t:'许愿与首次规划', ep:'POST /api/chat',
+  flow:[
+    ['dispatch_chat：先核对前端上报的播放进度',''],
+    ['op_process_input → LLM① 输入解析：提取五类游客信息 / 追问 / 意图','llm'],
+    ['VisitorInfo 更新 → 兴趣 / 时间 / 需求变化置 route_dirty','state'],
+    ['op_plan_route → LLM② 兴趣结构化：VisitorInfo → InterestProfile 六维标签','llm'],
+    ['embed_query（GLM-Embedding-3）生成查询向量','llm'],
+    ['六维加权评分（标签50 + 向量30 + 价值20）+ 单厅 Top-K 打包','algo'],
+    ['有向 Dijkstra 最短路 + ≤12厅子集 DP / >12厅贪心+2-opt','algo'],
+    ['超时尾部裁剪 + 途经厅顺路国宝召回','algo'],
+    ['原子替换 pending_queue，返回路线 + time_bill','state'],
+  ],
+  llm:['① 输入解析','② 兴趣结构化','Embedding 查询向量'],
+  st:['visitor_info 更新','pending_queue 替换','plan_result 会话级缓存'],
+  note:'结构化字段直接校验更新、不调 LLM①。预计 time_bill 不扣真实余额 —— 真实时间由 Router 按单调时钟在每次请求进出时扣减。'},
+{ t:'逐件讲解', ep:'POST /api/event {action:"start_guide"}',
+  flow:[
+    ['校验队首 relic_id 与 route_dirty（防旧按钮 / 失效路线）',''],
+    ['剩余时间明显变化超预估 → 先自动重规划','algo'],
+    ['组装 GuideRequest：游客信息 + 已看轨迹 + 关联候选（不可变）',''],
+    ['Selector → LLM④：从注入候选史料中逐字选材（禁模型知识）','llm'],
+    ['Composer → LLM⑤：按讲解风格成稿，输出分句播放单元','llm'],
+    ['Reviewer → LLM⑥：独立核对草稿是否忠实于史料','llm'],
+    ['record_guide 原子提交：讲解日志 + VisitRecord + 队首出队','state'],
+    ['前端逐段播放，定时 playback_progress 上报已播段数',''],
+  ],
+  llm:['④ 讲解选材','⑤ 讲解成稿','⑥ 讲解核对'],
+  st:['guide_records +1（guide）','visited_relics +1','pending_queue 队首出队'],
+  note:'每次外部调用后比对会话快照，会话已变则拒绝提交（防过期结果）。Reviewer 不批准 = 整体失败，不留半稿。'},
+{ t:'边听边问', ep:'POST /api/chat {text, playback}',
+  flow:[
+    ['上报已完整播放的连续段数（防倒退 / 过期稿件）',''],
+    ['当前主讲 GuideContext 压入 resume 续播栈，暂停播放','state'],
+    ['LLM① 解析出 question（不写入游客信息）','llm'],
+    ['LLM④⑤⑥ 针对正在讲的展品生成独立回答（新 guide_id）','llm'],
+    ['回答播放完成 → resume_guide 按栈恢复原稿与已确认进度',''],
+  ],
+  llm:['① 输入解析','④ 选材','⑤ 成稿','⑥ 核对'],
+  st:['guide_records +1（answer）','参观轨迹与主讲原稿不变'],
+  note:'追问目标优先「正在讲的展品」（GuideContext），其次最近完成讲解；回答不覆盖主讲上下文，旧稿迟到回报不能覆盖新稿进度。'},
+{ t:'变化与动态重规划', ep:'POST /api/event {replan / skip / update_location …} 或 chat 更新偏好',
+  flow:[
+    ['兴趣 / 时间 / 其他需求变化或明确重规划 → route_dirty',''],
+    ['仅讲解风格 / 角度变化 → 不动路线，留给下一次讲解',''],
+    ['重规划只使用 Router 记录的 current_node_id（不从讲解推断位置）',''],
+    ['从当前位置重新规划：LLM② + 向量 + 确定性搜索','llm'],
+    ['skip：移出队首、记入 skipped（不算已参观，可再次推荐）','state'],
+    ['时间耗尽：清空待看队列，不结束游览','state'],
+  ],
+  llm:['重规划时：② 兴趣结构化 + Embedding'],
+  st:['pending_queue 替换或清空','skipped_relics 追加'],
+  note:'无可行通路时保留旧队列且 route_dirty=True，拒绝沿失效路线开始讲解 —— 宁可停下来重新规划，不猜一条路线。'},
+{ t:'结束与探索手记', ep:'POST /api/event {action:"finish", payload:{favorite_relic_id, reflection}}',
+  flow:[
+    ['finish 幂等：冻结余额与一切修改','state'],
+    ['两个结束问题（最印象展品 / 感想），均可跳过',''],
+    ['自动（或重试）触发 op_generate_summary',''],
+    ['读取全程 guide_records + 参观足迹（含队首问答）',''],
+    ['load_relics 按 ID 查询 relics.json 基础资料',''],
+    ['Composer → LLM⑦：整理标题 / 足迹 / 发现 / 联系 / 问答精选','llm'],
+    ['本地校验：trail 保序完整、引用 ID 全部合法','algo'],
+    ['Reviewer → LLM⑧：独立核对是否忠实于讲解与反馈','llm'],
+  ],
+  llm:['⑦ 手记成稿','⑧ 手记核对'],
+  st:['status = finished','summary 会话级缓存'],
+  note:'印象展品必须来自本次已参观；空游览直接返回 empty 不调模型；生成失败保留结束状态，可再次 generate_summary 重试。'},
+];
+const stepsBox = document.getElementById('steps');
+const stepDetail = document.getElementById('stepdetail');
+JOURNEY.forEach((s, i) => {
+  const d = document.createElement('div');
+  d.className = 'step' + (i === 0 ? ' on' : '');
+  d.innerHTML = `<span class="no">${i+1}</span><span><span class="t">${s.t}</span><span class="e">${s.ep}</span></span>`;
+  d.onclick = () => {
+    stepsBox.querySelectorAll('.step').forEach(x => x.classList.remove('on'));
+    d.classList.add('on'); renderStep(i);
+  };
+  stepsBox.appendChild(d);
+});
+function renderStep(i){
+  const s = JOURNEY[i];
+  let h = `<h2>第 ${i+1} 步 · ${s.t}</h2><span class="ep">${s.ep}</span><div class="flowcol">`;
+  s.flow.forEach(([txt, kind], j) => {
+    if(j > 0) h += `<div class="farrow">↓</div>`;
+    h += `<div class="fstep ${kind}">${txt}</div>`;
+  });
+  h += '</div><h3>LLM 调用</h3><div class="tagrow">' + s.llm.map(x=>`<span class="tag llm">${x}</span>`).join('') + '</div>';
+  h += '<h3>状态变化（SessionState）</h3><div class="tagrow">' + s.st.map(x=>`<span class="tag st">${x}</span>`).join('') + '</div>';
+  h += `<div class="snote">注：${s.note}</div>`;
+  stepDetail.innerHTML = h;
+}
+renderStep(0);
+
+/* ============================================================
+   视图三：LLM 职责
+============================================================ */
+const PIPE = [
+  ['① 系统提示 + Schema','模型无关 Prompt 层自带严格 JSON Schema 与输出规则'],
+  ['② GLM-5.3 调用','json_object 模式：Schema 拼入系统指令（服务商不支持 json_schema）'],
+  ['③ 严格 JSON 解析','拒绝未知/缺失字段、重复键、围栏外文本、SDK 包装'],
+  ['④ 不可变数据类','frozen + slots 二次构造校验（引用范围 / 顺序 / 数量）'],
+  ['⑤ 算子本地校验','选材逐字比对、引用落界、trail 保序、原子提交'],
+  ['⑥ 通过才可用','任一环节失败 → 不写入会话状态'],
+];
+document.getElementById('pipe').innerHTML = PIPE.map((p,i) =>
+  `<div class="st"><b>${p[0]}</b>${p[1]}</div>` + (i < PIPE.length-1 ? '<div class="arr">→</div>' : '')
+).join('');
+
+const LROWS = [
+  ['LLM① 输入解析','input_interpreter_prompt.py','op_process_input','用户原话 + 游客信息 + 讲解上下文','InputAnalysis：字段变更 / question / 重规划 / 结束标志'],
+  ['LLM② 兴趣结构化','interest_prompts.py','op_plan_route','不可变 VisitorInfo（+ 可选规范词表）','InterestProfile：六维 / 八字段兴趣标签 + query_text'],
+  ['Embedding 向量','model_api.embed_query','op_plan_route','content_interests 分号连接','查询向量（须与馆藏预生成向量同模型同维）'],
+  ['LLM④ 讲解选材','guide_prompts.py','op_generate_guide','GuideRequest + 候选史料 GuideMaterial','GuideSelection：只能逐字复制候选材料'],
+  ['LLM⑤ 讲解成稿','guide_prompts.py','op_generate_guide','请求 + 选材','GuideDraft：分句播放单元 + used_material_ids'],
+  ['LLM⑥ 讲解核对','guide_prompts.py','op_generate_guide','请求 + 选材 + 草稿','GuideReview：approved / issues（独立六项核对）'],
+  ['LLM⑦ 手记成稿','summary_prompts.py','op_generate_summary','SummaryRequest：全程讲解日志 + 足迹 + 反馈','SummaryDraft：标题 / 足迹 / 发现 / 联系 / 问答精选'],
+  ['LLM⑧ 手记核对','summary_prompts.py','op_generate_summary','请求 + 草稿','SummaryReview：是否忠实于讲解与用户反馈'],
+];
+document.getElementById('llmtable').innerHTML =
+  '<tr><th>职责</th><th>Prompt / 出口</th><th>所属算子</th><th>输入</th><th>输出（均经严格校验）</th></tr>' +
+  LROWS.map(r => `<tr><td class="r">${r[0]}</td><td style="font-family:ui-monospace,Consolas,monospace;font-size:11px">${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td></tr>`).join('');
+
+/* ============================================================
+   Tab 切换
+============================================================ */
+document.querySelectorAll('nav button').forEach(b => {
+  b.onclick = () => {
+    document.querySelectorAll('nav button').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    document.querySelectorAll('section.view').forEach(s => s.classList.remove('on'));
+    document.getElementById('view-' + b.dataset.v).classList.add('on');
+  };
+});
+</script>
+</body>
+</html>

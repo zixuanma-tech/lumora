@@ -1,32 +1,23 @@
-"""第三算子：选材、组织表达、核对、提交；不接入模型或 prompt。"""
+"""第三算子：加载材料、组织表达、校验并提交；不绑定模型或 prompt。"""
 
+from collections.abc import Callable
 from uuid import uuid4
 
 from guide_models import (
     GuideComposer, GuideContext, GuideDraft, GuideRequest, GuideResult, GuideReview,
-    GuideReviewer, GuideSelection, GuideSelector, validate_guide_context,
+    GuideReviewer, GuideSelection, GuideSelector, PreparedGuide, validate_guide_context,
 )
 from session_state import GuideRecord, SessionState
 
 
-async def op_generate_guide(
+def build_guide_request(
     state: SessionState,
     *,
     relic_id: str | None = None,
     question: str | None = None,
     guide_context: GuideContext | None = None,
-    selector: GuideSelector | None = None,
-    composer: GuideComposer | None = None,
-    reviewer: GuideReviewer | None = None,
-) -> GuideResult:
-    """生成队首讲解或回答当前展品问题，向所有阶段传入参观历史 ID。
-
-    主讲与问答均在核对成功后保存到会话，首次讲解才推进队首。追问优先
-    使用播放上下文的展品，其次最近完成生成的展品，不从待看队首猜目标。
-    追问只追加讲解记录、不覆盖原稿，返回原 resume_context 供 Router 续播。
-    初代等待完整草稿与核对后返回分句稿，不输出未核对 token 或实际音频。
-    同会话仍须串行调度；每次 await 后校验状态，拒绝提交过期结果。
-    """
+) -> GuideRequest:
+    """从服务端状态构造不可变请求，不调用外部服务、不提交状态。"""
     if not isinstance(state, SessionState):
         raise ValueError("state 必须是 SessionState")
     if state.status != "active":
@@ -53,57 +44,140 @@ async def op_generate_guide(
             raise ValueError("请先明确正在讲解的展品，不能从待看队首猜测追问目标")
     if relic_id is not None and relic_id != target:
         raise ValueError("展品与当前讲解目标不匹配，请读取最新路线或播放上下文")
-    for name, service in (("selector", selector), ("composer", composer), ("reviewer", reviewer)):
-        if service is None:
-            raise NotImplementedError(f"讲解服务尚未接入，请提供 {name}")
-        if not callable(service):
-            raise ValueError(f"{name} 必须是可调用的异步服务")
 
-    snapshot = state.to_dict()
     current_text = None
     if question is not None and guide_context is None:
         current_text = state.visited_relics[-1].guide_text
-    request = GuideRequest(
+    return GuideRequest(
         session_id=state.session_id, relic_id=target, visitor_info=state.visitor_info,
         visited_relic_ids=state.visited_relic_ids, question=question,
         guide_context=guide_context, current_guide_text=current_text,
     )
 
-    def ensure_unchanged() -> None:
-        if state.to_dict() != snapshot:
-            raise RuntimeError("讲解期间会话已变化，请串行调度后重新生成")
+
+async def prepare_guide(
+    request: GuideRequest,
+    *,
+    selector: GuideSelector | None,
+    composer: GuideComposer | None,
+    reviewer: GuideReviewer | None = None,
+    review_mode: str = "independent",
+    ensure_unchanged: Callable[[], None] | None = None,
+) -> PreparedGuide:
+    """生成并校验讲稿，结果只保存在返回值中，不接触可变会话。
+
+    前台算子可注入每次 await 后的状态检查；后台预生成使用不可变请求，
+    由 Router 在消费时核对版本，不因播放进度或自然计时使准备工作失效。
+    """
+    if not isinstance(request, GuideRequest):
+        raise ValueError("request 必须是 GuideRequest")
+    if review_mode not in ("independent", "integrated"):
+        raise ValueError("review_mode 必须是 independent 或 integrated")
+    if review_mode == "integrated" and reviewer is not None:
+        raise ValueError("integrated 模式不能同时提供独立 reviewer")
+    required_services = [("selector", selector), ("composer", composer)]
+    if review_mode == "independent":
+        required_services.append(("reviewer", reviewer))
+    for name, service in required_services:
+        if service is None:
+            raise NotImplementedError(f"讲解服务尚未接入，请提供 {name}")
+        if not callable(service):
+            raise ValueError(f"{name} 必须是可调用的异步服务")
+    if ensure_unchanged is not None and not callable(ensure_unchanged):
+        raise ValueError("ensure_unchanged 必须是可调用对象或 None")
+
+    def check_unchanged() -> None:
+        if ensure_unchanged is not None:
+            ensure_unchanged()
 
     selection = await selector(request=request)
-    ensure_unchanged()
-    if not isinstance(selection, GuideSelection) or selection.relic_id != target:
+    check_unchanged()
+    if not isinstance(selection, GuideSelection) or selection.relic_id != request.relic_id:
         raise ValueError("selector 必须返回目标展品的 GuideSelection")
 
     draft = await composer(request=request, selection=selection)
-    ensure_unchanged()
-    if not isinstance(draft, GuideDraft) or draft.relic_id != target:
+    check_unchanged()
+    if not isinstance(draft, GuideDraft) or draft.relic_id != request.relic_id:
         raise ValueError("composer 必须返回目标展品的 GuideDraft")
     material_ids = {item.material_id for item in selection.materials}
     if not set(draft.used_material_ids) <= material_ids:
         raise ValueError("草稿引用了选材结果中不存在的材料")
 
-    review = await reviewer(request=request, selection=selection, draft=draft)
-    ensure_unchanged()
-    if not isinstance(review, GuideReview):
-        raise ValueError("reviewer 必须返回 GuideReview")
-    if not review.approved:
-        details = "；".join(review.issues) or "未通过依据核对"
-        raise ValueError(f"讲解未通过核对：{details}")
+    review = None
+    if review_mode == "independent":
+        review = await reviewer(request=request, selection=selection, draft=draft)
+        check_unchanged()
+        if not isinstance(review, GuideReview):
+            raise ValueError("reviewer 必须返回 GuideReview")
+        if not review.approved:
+            details = "；".join(review.issues) or "未通过依据核对"
+            raise ValueError(f"讲解未通过核对：{details}")
 
-    new_context = GuideContext(state.session_id, target, str(uuid4()), draft.segments)
+    return PreparedGuide(request, selection, draft, review, review_mode)
+
+
+def commit_prepared_guide(state: SessionState, prepared: PreparedGuide) -> GuideResult:
+    """校验当前会话并一次提交准备稿；路由版本与显式时间调整由 Router 核对。"""
+    if not isinstance(state, SessionState):
+        raise ValueError("state 必须是 SessionState")
+    if not isinstance(prepared, PreparedGuide):
+        raise ValueError("prepared 必须是 PreparedGuide")
+    request = prepared.request
+    if state.session_id != request.session_id:
+        raise ValueError("准备讲稿不属于当前会话")
+    # 再次校验 active、当前目标与追问归属；原稿、历史和兴趣不能过期。
+    latest = build_guide_request(
+        state, relic_id=request.relic_id, question=request.question,
+        guide_context=request.guide_context,
+    )
+    if latest.visited_relic_ids != request.visited_relic_ids:
+        raise ValueError("准备讲稿的参观历史已变化，请重新生成")
+    fields = ("content_interests", "guide_styles", "guide_focus", "other_needs")
+    if any(getattr(latest.visitor_info, name) != getattr(request.visitor_info, name) for name in fields):
+        raise ValueError("准备讲稿的游客信息已变化，请重新生成")
+    if latest.current_guide_text != request.current_guide_text:
+        raise ValueError("准备讲稿的当前原稿已变化，请重新生成")
+
+    draft = prepared.draft
+    new_context = GuideContext(state.session_id, request.relic_id, str(uuid4()), draft.segments)
     guide_record = GuideRecord(
-        guide_id=new_context.guide_id, relic_id=target,
-        kind="guide" if question is None else "answer",
-        segments=draft.segments, question=question,
+        guide_id=new_context.guide_id, relic_id=request.relic_id,
+        kind="guide" if request.question is None else "answer",
+        segments=draft.segments, question=request.question,
     )
     # 主讲日志与参观一次提交；问答只追加日志，不消费队首或改写已有记录。
     visit_record = state.record_guide(guide_record)
     return GuideResult(
-        request=request, selection=selection, draft=draft, review=review,
+        request=request, selection=prepared.selection, draft=draft, review=prepared.review,
         guide_context=new_context, guide_record=guide_record,
-        resume_context=guide_context, visit_record=visit_record,
+        resume_context=request.guide_context, visit_record=visit_record,
+        review_mode=prepared.review_mode,
     )
+
+
+async def op_generate_guide(
+    state: SessionState,
+    *,
+    relic_id: str | None = None,
+    question: str | None = None,
+    guide_context: GuideContext | None = None,
+    selector: GuideSelector | None = None,
+    composer: GuideComposer | None = None,
+    reviewer: GuideReviewer | None = None,
+    review_mode: str = "independent",
+) -> GuideResult:
+    """兼容前台生成入口；各异步阶段严格检查完整状态，成功后一次提交。"""
+    request = build_guide_request(
+        state, relic_id=relic_id, question=question, guide_context=guide_context,
+    )
+    snapshot = state.to_dict()
+
+    def ensure_unchanged() -> None:
+        if state.to_dict() != snapshot:
+            raise RuntimeError("讲解期间会话已变化，请串行调度后重新生成")
+
+    prepared = await prepare_guide(
+        request, selector=selector, composer=composer, reviewer=reviewer,
+        review_mode=review_mode, ensure_unchanged=ensure_unchanged,
+    )
+    return commit_prepared_guide(state, prepared)

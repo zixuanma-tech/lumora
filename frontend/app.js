@@ -9,6 +9,15 @@
     ['找找器物之间的联系', '顺着生活与工艺的线索往下看。', '我想看看不同器物在生活用途和制作工艺上的联系。'],
     ['我还没有想法', '从日常生活里的一点好奇开始。', '请推荐一条认识古人日常生活与器物的入门路线。'],
   ];
+  const LOADING_MESSAGES = {
+    replan: '正在重新规划路线…',
+    start_guide: '正在生成展品讲解…',
+    skip: '正在调整路线…',
+    resume_guide: '正在恢复讲解…',
+    update_location: '正在更新位置…',
+    finish: '正在整理你的探索手记…',
+    generate_summary: '正在整理你的探索手记…',
+  };
   const $ = (id) => document.getElementById(id);
   const esc = (v) => String(v ?? '').replace(/[&<>'"]/g, (c) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#39;', '"':'&quot;' }[c]));
   const storage = {
@@ -28,8 +37,11 @@
     clearTimeout(toast.timer); toast.timer = setTimeout(() => { $('toast').classList.remove('show'); $('toast').textContent = ''; }, 4500);
   }
   function setStatus(text = '') { $('welcome-status').textContent = text; }
-  function busy(flag) {
+  function busy(flag, message = '正在整理内容，请稍候…') {
     state.sending = flag;
+    $('loading-text').textContent = flag ? message : '';
+    $('loading-overlay').classList.toggle('hidden', !flag);
+    document.querySelectorAll('.topbar, #museum-notice, #app, #modal').forEach((el) => { el.inert = flag; });
     document.querySelectorAll('button,input,textarea,select').forEach((el) => { el.disabled = flag; });
     $('app').setAttribute('aria-busy', String(flag));
     if (flag && state.view === 'tour') $('tour-message').textContent = '正在整理内容，请稍候……';
@@ -70,7 +82,8 @@
     if (data?.reply_content?.status === 'error') {
       const code = data.reply_content.error?.code;
       const message = data.reply_content.message || '';
-      if (/超时|连接模型|网络|代理/.test(message)) return '模型连接暂时没有完成，请检查网络后重试。';
+      if (code === 'timeout' || /超时/.test(message)) return '模型响应超时，讲解生成耗时较长，请稍后重试。';
+      if (/连接模型|网络|代理/.test(message)) return '模型服务暂时无法连接，请检查网络或代理后重试。';
       if (/未通过核对/.test(message)) return '这次生成的内容还不够准确，请重新尝试。';
       return (code === 'invalid_request' ? message : '这一步暂时没有完成，可以再试一次。') + (state.latest?.status === 'finished' ? ' 你的游览记录已保留。' : '');
     }
@@ -78,7 +91,7 @@
   }
   async function event(action, payload = {}) {
     if (!state.sessionId || state.sending) return null;
-    stopSpeech(); busy(true);
+    stopSpeech(); busy(true, LOADING_MESSAGES[action]);
     try {
       await state.progress;
       if (action === 'resume_guide') payload = progressPayload();
@@ -90,7 +103,7 @@
   }
   async function chat(text, fromWelcome = false) {
     if (!state.sessionId || state.sending) return null;
-    stopSpeech(); busy(true); if (!fromWelcome) addChat(text, 'user');
+    stopSpeech(); busy(true, fromWelcome ? '正在为你设计探索路线…' : '正在根据你的问题整理路线或讲解…'); if (!fromWelcome) addChat(text, 'user');
     try {
       await state.progress;
       const playback = progressPayload();
@@ -137,7 +150,9 @@
     $('route-empty').textContent = state.reply?.status === 'time_exhausted' ? '时间已经用完，可以把这次的发现整理成手记。' : '暂时没有合适的路线，可以多留一些时间，或换个主题试试。';
     $('route-track').innerHTML = rows.map((item, i) => {
       const next = !item.visited && i === visited.length;
-      return `<div class="route-stop ${item.visited ? 'visited' : ''} ${next ? 'current' : ''}"><div class="stop-dot">${item.visited ? '✓' : i + 1}</div><div><div class="stop-name">${esc(relicName(item.relic_id))}</div><div class="stop-reason">${esc((item.recommendation_reason || (item.visited ? '讲解已备好' : '等待你的探索')).replaceAll('镇馆之宝', '演示重点展品'))}</div></div>${next ? `<div class="stop-buttons"><button class="stop-action" data-start="${esc(item.relic_id)}" ${state.reply?.route_dirty ? 'disabled' : ''}>开始讲解</button><button class="text-button skip-action" data-skip="${esc(item.relic_id)}">跳过</button></div>` : ''}</div>`;
+      const prefetch = next && !state.reply?.route_dirty && state.reply?.guide_prefetch?.relic_id === item.relic_id ? state.reply.guide_prefetch.status : null;
+      const preparation = { generating: '下一件讲解正在准备', ready: '下一件讲解已备好', failed: '开始时重新准备讲解' }[prefetch] || '';
+      return `<div class="route-stop ${item.visited ? 'visited' : ''} ${next ? 'current' : ''}"><div class="stop-dot">${item.visited ? '✓' : i + 1}</div><div><div class="stop-name">${esc(relicName(item.relic_id))}</div><div class="stop-reason">${esc((item.recommendation_reason || (item.visited ? '讲解已备好' : '等待你的探索')).replaceAll('镇馆之宝', '演示重点展品'))}</div>${preparation ? `<div class="stop-reason">${esc(preparation)}</div>` : ''}</div>${next ? `<div class="stop-buttons"><button class="stop-action" data-start="${esc(item.relic_id)}" ${state.reply?.route_dirty ? 'disabled' : ''}>开始讲解</button><button class="text-button skip-action" data-skip="${esc(item.relic_id)}">跳过</button></div>` : ''}</div>`;
     }).join('');
     $('route-track').querySelectorAll('[data-start]').forEach((b) => b.addEventListener('click', () => event('start_guide', { relic_id: b.dataset.start })));
     $('route-track').querySelectorAll('[data-skip]').forEach((b) => b.addEventListener('click', () => event('skip', { relic_id: b.dataset.skip })));

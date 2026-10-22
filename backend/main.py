@@ -24,7 +24,7 @@ from threading import Thread
 from typing import Any
 from urllib.parse import parse_qs, unquote, urlsplit
 
-from demo_museum import ENTRANCE, EXIT, build_demo_services, museum_metadata
+from catalog_data import build_catalog_services, catalog_metadata
 from lan_network import get_lan_ipv4_addresses
 from router import Router
 
@@ -63,6 +63,7 @@ class MuseumHTTPServer(ThreadingHTTPServer):
         try:
             if not self.loop.is_closed():
                 async def cancel_pending():
+                    await self.router.aclose()
                     pending = [task for task in asyncio.all_tasks() if task is not asyncio.current_task()]
                     for task in pending:
                         task.cancel()
@@ -185,9 +186,9 @@ class MuseumRequestHandler(BaseHTTPRequestHandler):
         if unknown:
             raise ValueError("创建会话包含不支持的字段")
         kwargs = {key: body[key] for key in allowed if key in body}
-        if self.server.museum["mode"] == "demo":
-            kwargs.setdefault("current_node_id", ENTRANCE)
-            kwargs.setdefault("exit_node_id", EXIT)
+        if self.server.museum["mode"] in ("demo", "catalog"):
+            kwargs.setdefault("current_node_id", self.server.museum["entrance_node_id"])
+            kwargs.setdefault("exit_node_id", self.server.museum["exit_node_id"])
         async def create():
             return self.server.router.create_session(**kwargs)
         result = self._run_async(create())
@@ -264,8 +265,8 @@ def create_server(
     if router is None:
         if not demo:
             raise ValueError("真实场馆模式需要显式注入 Router 及经过核实的场馆资料")
-        router = Router(build_demo_services())
-        museum = museum_metadata()
+        router = Router(build_catalog_services())
+        museum = catalog_metadata()
     return MuseumHTTPServer((host, port), MuseumRequestHandler, router=router, static_dir=root, museum=museum)
 
 
@@ -296,6 +297,11 @@ def serve(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="启动寻迹本地演示服务器")
-    parser.add_argument("--lan", action="store_true", help="允许同一局域网内的设备访问并显示当前网址")
+    parser.add_argument(
+        "--lan",
+        action="store_true",
+        help="允许同一局域网内的设备访问，并在启动时显示当前网址",
+    )
     args = parser.parse_args()
-    serve(host="0.0.0.0" if args.lan else DEFAULT_HOST, port=DEFAULT_PORT, lan_access=args.lan)
+    host = "0.0.0.0" if args.lan else DEFAULT_HOST
+    serve(host=host, port=DEFAULT_PORT, lan_access=args.lan)

@@ -88,7 +88,7 @@ def score_exhibit(
     dimensions = {}
     labels = []
     era_match = _hierarchy_match(interests.target_eras, (*tags.era_broad, *tags.era_specific), config.era_parents, config.hierarchy_partial_match)
-    category_match = _hierarchy_match(interests.target_categories, (*tags.category_main, *tags.craft_types), config.craft_parents, config.hierarchy_partial_match)
+    category_match = _hierarchy_match(interests.target_categories, (*tags.category_main, *tags.craft_types, *tags.artifact_types), config.craft_parents, config.hierarchy_partial_match)
     time_space = []
     if interests.target_eras:
         time_space.append(era_match)
@@ -107,7 +107,7 @@ def score_exhibit(
         if category_match:
             labels.append("器物与工艺材质·一级品类匹配")
     if interests.target_craft_types:
-        craft_match = _hierarchy_match(interests.target_craft_types, (*tags.category_main, *tags.craft_types), config.craft_parents, config.hierarchy_partial_match)
+        craft_match = _hierarchy_match(interests.target_craft_types, (*tags.category_main, *tags.craft_types, *tags.artifact_types), config.craft_parents, config.hierarchy_partial_match)
         material_craft.append(craft_match)
         if craft_match:
             labels.append("器物与工艺材质·工艺器型匹配")
@@ -116,7 +116,10 @@ def score_exhibit(
     for name, label in (("themes", "题材与生活场景"), ("aesthetics", "视觉与审美特征"), ("cultural_ip", "文化IP与知名度"), ("audience", "受众与体验适配")):
         targets = getattr(interests, "target_" + name)
         if targets:
-            dimensions[name] = _overlap_match(targets, getattr(tags, name), config.subtag_full_hits)
+            actual = getattr(tags, name)
+            if name == "aesthetics":
+                actual = (*actual, *tags.motifs)
+            dimensions[name] = _overlap_match(targets, actual, config.subtag_full_hits)
             if dimensions[name]:
                 labels.append(label + "匹配")
     if not dimensions:

@@ -31,6 +31,13 @@
       </section>
       <section class="view view-summary hidden" data-view="summary"><div class="summary-hero"><span class="eyebrow">YOUR EXPLORATION NOTE</span><h2 id="summary-title">你的探索手记</h2><p id="summary-introduction"></p></div><div class="summary-content" id="summary-content"></div><button class="secondary-button full-button hidden" id="retry-summary" type="button">重新生成手记</button><button class="primary-button full-button" id="restart-button" type="button"><span>再逛一次</span><b>↗</b></button></section>
     </main>
+    <div class="loading-overlay hidden" id="loading-overlay" role="status" aria-live="polite" aria-atomic="true">
+      <div class="loading-panel">
+        <span class="loading-spinner" aria-hidden="true"></span>
+        <p id="loading-text"></p>
+        <small>请稍候，完成后会自动显示</small>
+      </div>
+    </div>
     <div class="modal hidden" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="modal-backdrop" data-close-modal></div><div class="modal-panel"><button class="modal-close" data-close-modal aria-label="关闭">×</button><h3 id="modal-title"></h3><div id="modal-body"></div></div></div><div class="toast" id="toast" role="status"></div>
   </div><script src="app.js"></script>
 </body></html>

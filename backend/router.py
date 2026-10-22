@@ -1,4 +1,4 @@
-"""按会话串行调度四个算子；不绑定 HTTP、模型 SDK 或播放器。
+"""按会话管理四个算子、讲解预生成与原子状态提交；不绑定 HTTP 或模型 SDK。
 
 客户端只提交事件、文字、位置和实际播放进度，不能覆盖服务端状态或稿件。
 完整路线、播放版本、续播栈和真实时间账本由本模块独立于 SessionState 保存。
@@ -12,12 +12,13 @@ from math import fsum, isfinite
 from time import monotonic
 from typing import Any
 
-from guide_models import GuideComposer, GuideContext, GuideReviewer, GuideSelector
+from guide_models import GuideComposer, GuideContext, GuideRequest, GuideReviewer, GuideSelector
+from guide_generator import build_guide_request, commit_prepared_guide, prepare_guide
 from operators import (
     InputInterpreter, op_generate_guide, op_generate_summary, op_plan_route,
     op_process_input,
 )
-from route_models import InterestParser, MuseumDataSource, MuseumSnapshot, PlannerConfig, VectorService
+from route_models import InterestParser, InterestProfile, MuseumDataSource, MuseumSnapshot, PlannerConfig, VectorService
 from session_state import SessionState, VisitorInfo
 from summary_models import SummaryComposer, SummaryDataSource, SummaryFeedback, SummaryReviewer
 
@@ -38,6 +39,25 @@ class RouterServices:
     summary_data_source: SummaryDataSource | None = None
     summary_composer: SummaryComposer | None = None
     summary_reviewer: SummaryReviewer | None = None
+    guide_review_mode: str = "independent"
+
+
+@dataclass(slots=True)
+class _GuideJob:
+    key: tuple
+    request: GuideRequest
+    background: bool
+    task: asyncio.Task | None = None
+    started: bool = False
+    invalidated: asyncio.Event = field(default_factory=asyncio.Event)
+
+
+@dataclass(frozen=True, slots=True)
+class _PlanningInputs:
+    visitor_key: tuple
+    snapshot: MuseumSnapshot
+    interests: InterestProfile
+    query_vector: tuple[float, ...]
 
 
 @dataclass(slots=True)
@@ -56,6 +76,11 @@ class _Session:
     paused: bool = False
     summary: dict | None = None
     summary_attempted: bool = False
+    guide_epoch: int = 0
+    prefetch: _GuideJob | None = None
+    background_job: _GuideJob | None = None
+    foreground_job: _GuideJob | None = None
+    planning_inputs: _PlanningInputs | None = None
 
 
 class _DispatchError(ValueError):
@@ -85,13 +110,14 @@ def _payload(value: Mapping | None, allowed: set[str], required: set[str] = froz
 class Router:
     """单进程、单事件循环的内存路由器；每个应用实例创建一个 Router。
 
-    同一会话从计时到响应快照全程持锁，不同会话可并发。持久化、多进程
+    状态修改持会话锁；主讲准备与后台预生成在锁外等待，不同会话可并发。持久化、多进程
     锁、身份鉴权及真正的语音暂停由部署/端侧接入，不能用客户端快照恢复。
     """
 
     ROUTE_FIELDS = frozenset({"content_interests", "remaining_minutes", "other_needs"})
 
-    def __init__(self, services: RouterServices | None = None, *, clock: Callable[[], float] = monotonic):
+    def __init__(self, services: RouterServices | None = None, *, clock: Callable[[], float] = monotonic,
+                 prefetch_enabled: bool = True, prefetch_concurrency: int = 2):
         if services is not None and not isinstance(services, RouterServices):
             raise ValueError("services 必须是 RouterServices")
         self.services = services or RouterServices()
@@ -99,8 +125,16 @@ class Router:
             raise ValueError("snapshot 和 data_source 只能提供一个")
         if not callable(clock):
             raise ValueError("clock 必须是单调秒时钟")
+        if type(prefetch_enabled) is not bool:
+            raise ValueError("prefetch_enabled 必须是布尔值")
+        if type(prefetch_concurrency) is not int or prefetch_concurrency < 1:
+            raise ValueError("prefetch_concurrency 必须是正整数")
         self._clock = clock
         self._sessions: dict[str, _Session] = {}
+        self._prefetch_enabled = prefetch_enabled
+        self._prefetch_slots = asyncio.Semaphore(prefetch_concurrency)
+        self._guide_tasks: set[asyncio.Task] = set()
+        self._closing = False
 
     def _now(self) -> float:
         now = self._clock()
@@ -163,8 +197,8 @@ class Router:
                     self._time_exhausted(session)
         session.checkpoint = now
 
-    @staticmethod
-    def _time_exhausted(session: _Session) -> None:
+    def _time_exhausted(self, session: _Session) -> None:
+        self._invalidate_guides(session)
         session.state.replace_pending_queue(())
         session.plan_result = {
             "status": "time_exhausted", "pending_queue_updated": True,
@@ -189,6 +223,7 @@ class Router:
                 "resume_stack": [asdict(context) for context in session.resume_stack],
             },
             "summary": session.summary,
+            "guide_prefetch": Router._prefetch_status(session),
         }
         return {"reply_content": deepcopy(content), "latest_state": session.state.to_dict()}
 
@@ -210,7 +245,221 @@ class Router:
                 reply.update(status="error", message=str(error), error={"code": code, "message": str(error)})
             # 请求处理本身消耗的真实时间也计入；成功的前序步骤不因后序失败回滚。
             self._sync_time(session)
+            self._schedule_prefetch(session)
             return self._response(session, reply)
+
+    @staticmethod
+    def _guide_key(session: _Session, target: str) -> tuple:
+        info = session.state.visitor_info
+        return (session.guide_epoch, target, session.state.visited_relic_ids,
+                info.content_interests, info.guide_styles, info.guide_focus, info.other_needs)
+
+    @staticmethod
+    def _invalidate_guides(session: _Session) -> None:
+        session.guide_epoch += 1
+        for job in (session.prefetch, session.foreground_job):
+            if job is not None:
+                job.invalidated.set()
+        session.prefetch = None
+        session.foreground_job = None
+        # 已发送的 HTTP 不强行取消；background_job 保留到真实调用结束。
+
+    @staticmethod
+    def _prefetch_status(session: _Session) -> dict:
+        job = session.prefetch
+        if job is None or job.invalidated.is_set():
+            return {"status": "idle", "relic_id": None}
+        status = "generating"
+        if job.task.done():
+            status = "failed" if job.task.cancelled() or job.task.exception() is not None else "ready"
+        return {"status": status, "relic_id": job.request.relic_id}
+
+    def _schedule_prefetch(self, session: _Session) -> None:
+        state = session.state
+        if (self._closing or not self._prefetch_enabled or state.status != "active"
+                or state.visitor_info.remaining_minutes == 0 or session.route_dirty
+                or not state.pending_queue or session.foreground_job is not None
+                or not any(record.kind == "guide" for record in state.guide_records)):
+            return
+        target = state.pending_queue[0].relic_id
+        key = self._guide_key(session, target)
+        if session.prefetch is not None and session.prefetch.key == key:
+            return  # 包括失败结果；后台不自动循环重试。
+        if session.background_job is not None and not session.background_job.task.done():
+            return  # 多次变动只在旧 HTTP 结束后安排最新队首。
+        request = build_guide_request(state, relic_id=target)
+        job = self._create_guide_job(session, request, background=True)
+        session.prefetch = session.background_job = job
+
+    def _track_task(self, task: asyncio.Task) -> None:
+        self._guide_tasks.add(task)
+        task.add_done_callback(self._guide_tasks.discard)
+
+    def _create_guide_job(self, session: _Session, request: GuideRequest, *, background: bool) -> _GuideJob:
+        job = _GuideJob(self._guide_key(session, request.relic_id), request, background)
+
+        async def prepare():
+            if background:
+                async with self._prefetch_slots:
+                    async with session.lock:
+                        if job.invalidated.is_set() or job.key != self._guide_key(session, request.relic_id):
+                            raise _DispatchError("stale_guide", "预生成目标已变化")
+                        job.started = True
+                    return await self._prepare_guide(request)
+            job.started = True
+            return await self._prepare_guide(request)
+
+        job.task = asyncio.create_task(prepare())
+        self._track_task(job.task)
+
+        def completed(task):
+            if task.cancelled():
+                return
+            task.exception()  # 取走后台异常，避免泄露异常正文或未处理任务告警。
+            if not self._closing:
+                settle = asyncio.create_task(self._settle_guide_job(session, job))
+                self._track_task(settle)
+
+        job.task.add_done_callback(completed)
+        return job
+
+    async def _prepare_guide(self, request: GuideRequest):
+        return await prepare_guide(
+            request, selector=self.services.selector, composer=self.services.composer,
+            reviewer=self.services.reviewer, review_mode=self.services.guide_review_mode,
+        )
+
+    async def _settle_guide_job(self, session: _Session, job: _GuideJob) -> None:
+        async with session.lock:
+            if session.background_job is job:
+                session.background_job = None
+            self._schedule_prefetch(session)
+
+    @staticmethod
+    async def _wait_guide_job(job: _GuideJob):
+        invalidated = asyncio.create_task(job.invalidated.wait())
+        try:
+            done, _ = await asyncio.wait((job.task, invalidated), return_when=asyncio.FIRST_COMPLETED)
+            if invalidated in done:
+                raise _DispatchError("stale_guide", "需求或路线已变化，请按最新路线开始讲解")
+            return job.task.result()
+        finally:
+            invalidated.cancel()
+            await asyncio.gather(invalidated, return_exceptions=True)
+
+    async def aclose(self) -> None:
+        """服务关闭时回收后台任务；运行中作废使用版本标记而不是取消 HTTP。"""
+        self._closing = True
+        for session in self._sessions.values():
+            self._invalidate_guides(session)
+        while self._guide_tasks:
+            pending = tuple(self._guide_tasks)
+            for task in pending:
+                task.cancel()
+            await asyncio.gather(*pending, return_exceptions=True)
+            # gather 对已完成任务可能立即返回，不能只依赖下一轮回调移除任务。
+            self._guide_tasks.difference_update(pending)
+
+    @staticmethod
+    def _guide_error(reply: dict, error: Exception) -> None:
+        if isinstance(error, _DispatchError):
+            code = error.code
+        elif isinstance(error, NotImplementedError):
+            code = "service_unavailable"
+        elif isinstance(error, ValueError):
+            code = "invalid_request"
+        else:
+            code = "operator_failed"
+        reply.update(status="error", message=str(error), error={"code": code, "message": str(error)})
+
+    async def _check_guide_start(self, session: _Session, target: str, reply: dict) -> bool:
+        if session.state.status != "active":
+            raise _DispatchError("session_finished", "游览已结束，不能继续操作")
+        if session.state.visitor_info.remaining_minutes == 0:
+            self._time_exhausted(session)
+            reply.update(status="time_exhausted", message="剩余时间已用尽")
+            return False
+        if session.route_dirty:
+            raise _DispatchError("route_needs_replan", "路线已失效，请先完成重规划")
+        if not session.state.pending_queue or session.state.pending_queue[0].relic_id != target:
+            raise ValueError("展品已不在队首，请读取最新路线后再操作")
+        estimate = self._remaining_estimate(session)
+        minutes = session.state.visitor_info.remaining_minutes
+        if estimate is not None and minutes is not None and estimate > minutes + 1e-6:
+            await self._plan(session, reply, preserve_target=target)
+            if session.route_dirty or session.state.visitor_info.remaining_minutes == 0:
+                return False
+            if not session.state.pending_queue or session.state.pending_queue[0].relic_id != target:
+                reply["message"] = "时间变化后路线已调整，请按最新队列开始讲解"
+                return False
+        return True
+
+    async def _start_guide(self, session: _Session, data: Mapping | None) -> dict:
+        reply = {"status": "ok", "message": "操作完成", "steps": []}
+        job = None
+        try:
+            async with session.lock:
+                self._sync_time(session)
+                values = _payload(data, {"relic_id"}, {"relic_id"})
+                target = _text(values["relic_id"], "relic_id")
+                if not await self._check_guide_start(session, target, reply):
+                    self._sync_time(session)
+                    self._schedule_prefetch(session)
+                    return self._response(session, reply)
+                key = self._guide_key(session, target)
+                candidate = session.foreground_job or session.prefetch
+                if (candidate is not None and candidate.key == key and not candidate.invalidated.is_set()
+                        and not (candidate.task.done() and (candidate.task.cancelled() or candidate.task.exception()))):
+                    job = candidate
+                    if job.background and not job.started:
+                        # 尚未发请求的排队预取提升为前台，不受后台并发配额阻塞。
+                        job.invalidated.set()
+                        job.task.cancel()
+                        if session.background_job is job:
+                            session.background_job = None
+                        if session.prefetch is job:
+                            session.prefetch = None
+                        job = None
+                if job is None:
+                    job = self._create_guide_job(
+                        session, build_guide_request(session.state, relic_id=target), background=False,
+                    )
+                session.foreground_job = job
+            # 不持会话锁等待，播放进度、追问和重规划仍可处理。
+            prepared = await self._wait_guide_job(job)
+            async with session.lock:
+                self._sync_time(session)
+                if not await self._check_guide_start(session, target, reply):
+                    if session.foreground_job is job:
+                        session.foreground_job = None
+                    self._schedule_prefetch(session)
+                    return self._response(session, reply)
+                if job.invalidated.is_set() or job.key != self._guide_key(session, target):
+                    raise _DispatchError("stale_guide", "需求或路线已变化，请按最新路线开始讲解")
+                result = commit_prepared_guide(session.state, prepared)
+                if session.foreground_job is job:
+                    session.foreground_job = None
+                if session.prefetch is job:
+                    session.prefetch = None
+                session.current = result.guide_context
+                session.resume_stack.clear()
+                session.paused = False
+                reply.update(status="guide_ready", message="讲解已生成", guide=result.to_dict())
+                reply["steps"].append("guide_generated")
+                self._sync_time(session)
+                self._schedule_prefetch(session)
+                return self._response(session, reply)
+        except asyncio.CancelledError:
+            # HTTP 客户端离开不取消共享准备任务；后续相同点击可继续复用。
+            raise
+        except Exception as error:
+            async with session.lock:
+                if session.foreground_job is job:
+                    session.foreground_job = None
+                self._guide_error(reply, error)
+                self._sync_time(session)
+                self._schedule_prefetch(session)
+                return self._response(session, reply)
 
     async def dispatch_action(self, session_id: str, action: str, payload: Mapping | None = None) -> dict:
         """按钮直达；游客信息字典仍交给第一算子校验，不调用意图分析器。"""
@@ -218,6 +467,8 @@ class Router:
         action = _text(action, "action")
         # 在等待锁之前复制请求，避免调用方在排队期间修改 payload。
         data = deepcopy(payload)
+        if action == "start_guide":
+            return await self._start_guide(session, data)
 
         async def operation(session, reply):
             if action == "get_state":
@@ -245,35 +496,10 @@ class Router:
             elif action == "replan":
                 _payload(data, set())
                 await self._plan(session, reply)
-            elif action == "start_guide":
-                values = _payload(data, {"relic_id"}, {"relic_id"})
-                target = _text(values["relic_id"], "relic_id")
-                if session.state.visitor_info.remaining_minutes == 0:
-                    self._time_exhausted(session)
-                    reply.update(status="time_exhausted", message="剩余时间已用尽")
-                    return
-                if session.route_dirty:
-                    raise _DispatchError("route_needs_replan", "路线已失效，请先完成重规划")
-                if not session.state.pending_queue or session.state.pending_queue[0].relic_id != target:
-                    raise ValueError("展品已不在队首，请读取最新路线后再操作")
-                estimate = self._remaining_estimate(session)
-                minutes = session.state.visitor_info.remaining_minutes
-                if estimate is not None and minutes is not None and estimate > minutes + 1e-6:
-                    await self._plan(session, reply)
-                    if session.route_dirty or session.state.visitor_info.remaining_minutes == 0:
-                        return
-                    if not session.state.pending_queue or session.state.pending_queue[0].relic_id != target:
-                        reply["message"] = "时间变化后路线已调整，请按最新队列开始讲解"
-                        return
-                result = await self._guide(session, relic_id=target)
-                session.current = result.guide_context
-                session.resume_stack.clear()
-                session.paused = False
-                reply.update(status="guide_ready", message="讲解已生成", guide=result.to_dict())
-                reply["steps"].append("guide_generated")
             elif action == "skip":
                 values = _payload(data, {"relic_id"}, {"relic_id"})
                 stop = session.state.skip_next(expected_relic_id=_text(values["relic_id"], "relic_id"))
+                self._invalidate_guides(session)
                 reply.update(message="已跳过展品", skipped_relic_id=stop.relic_id)
                 reply["steps"].append("skipped")
             elif action == "update_location":
@@ -282,6 +508,7 @@ class Router:
                 exit_node = self._node(values["exit_node_id"]) if "exit_node_id" in values else session.exit_node_id
                 if current != session.current_node_id or exit_node != session.exit_node_id:
                     session.route_dirty = True
+                    self._invalidate_guides(session)
                 session.current_node_id, session.exit_node_id = current, exit_node
                 reply["message"] = "当前位置已更新"
             elif action in ("playback_progress", "resume_guide"):
@@ -338,6 +565,7 @@ class Router:
         return await op_generate_guide(
             session.state, selector=self.services.selector, composer=self.services.composer,
             reviewer=self.services.reviewer, **kwargs,
+            review_mode=self.services.guide_review_mode,
         )
 
     @staticmethod
@@ -372,6 +600,8 @@ class Router:
             session.state, user_input, interpreter=self.services.interpreter, guide_context=session.current,
         )
         reply["input_result"] = asdict(result)
+        if result.changed_fields or "remaining_minutes" in result.updated_fields:
+            self._invalidate_guides(session)
         if result.changed_fields:
             reply["steps"].append("visitor_info_updated")
         if "remaining_minutes" in result.updated_fields:
@@ -404,7 +634,11 @@ class Router:
         elif result.question is None:
             reply["message"] = "游客信息已更新" if result.changed_fields else "未识别到需要执行的游览操作"
 
-    async def _plan(self, session: _Session, reply: dict):
+    async def _plan(self, session: _Session, reply: dict, *, preserve_target: str | None = None):
+        # 自然计时只改变预算；同一队首的准备稿不依赖路线和具体剩余分钟数。
+        preserve_key = self._guide_key(session, preserve_target) if preserve_target is not None else None
+        if preserve_target is None:
+            self._invalidate_guides(session)
         session.route_dirty = True
         # 首先同步异步输入/讲解期间消耗的时间，再交给规划算子。
         self._sync_time(session)
@@ -423,25 +657,66 @@ class Router:
         if session.exit_node_id is None:
             missing.append("exit_node_id")
         if missing:
+            if preserve_target is not None:
+                self._invalidate_guides(session)
             session.plan_result = {"status": "needs_input", "pending_queue_updated": False, "missing_fields": missing}
             reply.update(status="needs_input", message="请补充规划所需信息", missing_fields=missing)
             return
+        info = session.state.visitor_info
+        visitor_key = (info.content_interests, info.guide_styles, info.guide_focus, info.other_needs)
+        cached = session.planning_inputs
+        reuse_inputs = preserve_target is not None and cached is not None and cached.visitor_key == visitor_key
+        snapshot = cached.snapshot if reuse_inputs else self.services.snapshot
+        interests = cached.interests if reuse_inputs else None
+        query_vector = cached.query_vector if reuse_inputs else None
+
+        # 记录常规规划实际使用的不可变输入，预算重算可完全在本地进行。
+        async def parse_interest(*, visitor_info):
+            nonlocal interests
+            interests = await self.services.interest_parser(visitor_info=visitor_info)
+            return interests
+
+        class CaptureDependencies:
+            async def load(capture):
+                nonlocal snapshot
+                snapshot = await self.services.data_source.load()
+                return snapshot
+
+            async def embed_query(capture, text):
+                nonlocal query_vector
+                query_vector = await self.services.vector_service.embed_query(text)
+                return query_vector
+
+        capture = CaptureDependencies()
         try:
             plan = await op_plan_route(
                 session.state, start_node_id=session.current_node_id, exit_node_id=session.exit_node_id,
-                pace=session.pace, snapshot=self.services.snapshot, data_source=self.services.data_source,
-                interest_parser=self.services.interest_parser, vector_service=self.services.vector_service,
+                pace=session.pace, snapshot=snapshot,
+                data_source=capture if snapshot is None and self.services.data_source is not None else None,
+                interests=interests, query_vector=query_vector,
+                interest_parser=parse_interest if self.services.interest_parser is not None else None,
+                vector_service=capture if self.services.vector_service is not None else None,
                 config=self.services.planner_config,
             )
         except Exception as error:
+            if preserve_target is not None:
+                self._invalidate_guides(session)
             session.plan_result = {"status": "error", "pending_queue_updated": False, "message": str(error)}
             raise
         session.plan_result = deepcopy(plan)
         if not plan["pending_queue_updated"]:
+            if preserve_target is not None:
+                self._invalidate_guides(session)
             reply.update(status=plan["status"], message="当前没有可行路线；保留的旧队列尚未更新")
             return
+        session.planning_inputs = _PlanningInputs(visitor_key, snapshot, interests, tuple(query_vector))
         session.route = deepcopy(plan)
         session.route_dirty = False
+        if preserve_target is not None and (
+            not session.state.pending_queue or session.state.pending_queue[0].relic_id != preserve_target
+            or self._guide_key(session, preserve_target) != preserve_key
+        ):
+            self._invalidate_guides(session)
         reply["steps"].append("route_planned")
         if reply["status"] not in ("answer_ready", "needs_input"):
             reply.update(status=plan["status"], message="路线已更新")
@@ -450,6 +725,7 @@ class Router:
         self, session: _Session, reply: dict, *, feedback: SummaryFeedback | None = None,
     ) -> None:
         self._sync_time(session)
+        self._invalidate_guides(session)
         session.state.finish()
         session.paused = True
         reply.update(status="finished", message="游览已结束")

@@ -74,13 +74,20 @@ def _pace_map(value: Any, name: str, *, integer: bool = False) -> Mapping[str, f
 
 @dataclass(frozen=True, slots=True)
 class ExhibitTags:
-    """数据库中一件文物的六维标签，前两维分别保存层级字段。"""
+    """馆藏标签。
+
+    ``artifact_types`` and ``motifs`` are retained because the delivered data
+    package uses these fields explicitly; older callers can continue using the
+    original fields unchanged.
+    """
 
     era_broad: tuple[str, ...] = ()
     era_specific: tuple[str, ...] = ()
     regions: tuple[str, ...] = ()
     category_main: tuple[str, ...] = ()
     craft_types: tuple[str, ...] = ()
+    artifact_types: tuple[str, ...] = ()
+    motifs: tuple[str, ...] = ()
     themes: tuple[str, ...] = ()
     aesthetics: tuple[str, ...] = ()
     cultural_ip: tuple[str, ...] = ()

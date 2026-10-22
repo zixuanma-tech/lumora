@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "source_file": "国博AI文旅数据收集_官网来源层_20261021.xlsx",
+    "package_version": "扩容solid版 v5（40核心/60候选/160候选池）",
+    "generated": "2026-10-21"
+  },
+  "galleries": [
+    {
+      "gallery_id": "NMC-EXH-CQ",
+      "name": "中国古代瓷器",
+      "hall": "北17展厅",
+      "zone": "北",
+      "exhibition_type": "专题展览",
+      "status": "2023/1/18开展",
+      "scale": "300余件",
+      "units": [
+        "源远流长",
+        "瓷艺匠心",
+        "瓷韵风华",
+        "瓷行天下"
+      ],
+      "intro": "依托国博瓷器典藏，呈现瓷器形成发展、制瓷技术、装饰风格、中外交流及社会审美变迁。",
+      "detail_url": "https://www.chnmuseum.cn/zl/ztcl/202301/t20230118_257977.shtml",
+      "portal_url": "https://www.chnmuseum.cn/portals/0/web/zt/202304gdcq/",
+      "source_level": "A-国博官网",
+      "data_status": "展览级已核验；展品精确位置待核验",
+      "note": "用于路线规划的展厅级底座"
+    },
+    {
+      "gallery_id": "NMC-EXH-YQ",
+      "name": "中国古代玉器",
+      "hall": "北19展厅",
+      "zone": "北",
+      "exhibition_type": "专题展览",
+      "status": "2023/8/18开展",
+      "scale": "480件（套）；一级文物80余件；另有宝玉石矿石样本20余件",
+      "units": [
+        "玉出东方",
+        "玉礼堂皇",
+        "吉玉琳琅",
+        "琼华满堂",
+        "镂冰雕琼"
+      ],
+      "intro": "系统展示中国古代玉器发展脉络、玉文化精神、礼制功能、世俗化与治玉工艺。",
+      "detail_url": "https://www.chnmuseum.cn/zl/ztcl/202308/t20230818_259222.shtml",
+      "portal_url": "https://www.chnmuseum.cn/portals/0/web/zt/202308zggdyq/",
+      "source_level": "A-国博官网",
+      "data_status": "展览级已核验；展品精确位置待核验",
+      "note": "用于路线规划的展厅级底座"
+    },
+    {
+      "gallery_id": "NMC-EXH-FS",
+      "name": "中国古代服饰文化",
+      "hall": "北18展厅",
+      "zone": "北",
+      "exhibition_type": "专题展览",
+      "status": "2021/2/6开展",
+      "scale": "近130件（套）文物；40余件（套）辅助展品；约170幅图片；15尊复原人像",
+      "units": [
+        "服饰的出现",
+        "先秦服饰",
+        "秦汉魏晋南北朝服饰",
+        "隋唐五代服饰",
+        "宋辽金西夏元服饰",
+        "明代服饰",
+        "清代服饰",
+        "历代复原人像"
+      ],
+      "intro": "按历史时期呈现衣冠配饰衍变，涵盖服装、金银配饰、书画、俑像、复原人像等。",
+      "detail_url": "https://www.chnmuseum.cn/zl/ztcl/202102/t20210205_248954.shtml",
+      "portal_url": "https://www.chnmuseum.cn/portals/0/web/zt/202102gdfsh/",
+      "source_level": "A-国博官网",
+      "data_status": "展览级已核验；展品精确位置待核验",
+      "note": "用于路线规划的展厅级底座"
+    },
+    {
+      "gallery_id": "NMC-EXH-TJ",
+      "name": "镜里千秋——中国古代铜镜文化",
+      "hall": "南14展厅",
+      "zone": "南",
+      "exhibition_type": "正在展出/专题陈列",
+      "status": "2020/11/24开展",
+      "scale": "260余件（套）",
+      "units": [
+        "鉴于止水",
+        "清质昭明",
+        "湅治铜华",
+        "清光宜远",
+        "玉台影见",
+        "刻镂文章",
+        "莹质良工"
+      ],
+      "intro": "从历史、制作、流通、功用、纹饰、艺术与玻璃镜发展等角度呈现铜镜文化。",
+      "detail_url": "https://www.chnmuseum.cn/zl/zzzc/202011/t20201123_248145.shtml",
+      "portal_url": "https://www.chnmuseum.cn/portals/0/web/zt/202011jlqq/",
+      "source_level": "A-国博官网",
+      "data_status": "展览级已核验；展品精确位置待核验",
+      "note": "用于路线规划的展厅级底座"
+    }
+  ]
+}

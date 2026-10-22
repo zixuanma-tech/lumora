@@ -1,0 +1,208 @@
+{
+  "meta": {
+    "source_file": "国博AI文旅数据收集_官网来源层_20261021.xlsx",
+    "package_version": "扩容solid版 v5（40核心/60候选/160候选池）",
+    "generated": "2026-10-21"
+  },
+  "recommended_routes": [
+    {
+      "id": "ROUTE-001",
+      "title": "唐宋工艺如何变难、变美？",
+      "description": "从釉色控制、刻花、斗茶器、玉雕和嵌螺钿五个角度展示唐宋工艺。",
+      "relic_ids": [
+        "NMC-CQ-105",
+        "NMC-CQ-107",
+        "NMC-CQ-109",
+        "NMC-CQ-302",
+        "NMC-YQ-306",
+        "NMC-TJ-010"
+      ],
+      "estimated_minutes": 120,
+      "user_question": "我想看唐宋时期手工艺品到底达到了什么水平，重点看工艺难度，不只是看名气最大的器物。",
+      "duration_text": "120-180分钟",
+      "audience": "成人/文化兴趣用户",
+      "halls": [
+        "北17瓷器",
+        "北19玉器",
+        "北18服饰",
+        "南14铜镜"
+      ],
+      "constraints": "展厅级路线可做；展柜顺序待实地核验。",
+      "demo_value": "核心Demo候选",
+      "priority": "证据较强，适合技术+审美叙事"
+    },
+    {
+      "id": "ROUTE-002",
+      "title": "宋人怎么喝茶？",
+      "description": "从盏托防烫、黑盏斗茶、玛瑙盏托跨材质，再延伸到清代诗意茶壶。",
+      "relic_ids": [
+        "NMC-CQ-301",
+        "NMC-CQ-302",
+        "NMC-YQ-402",
+        "NMC-CQ-303"
+      ],
+      "estimated_minutes": 60,
+      "user_question": "我想看古人的茶生活，尤其是宋代点茶、斗茶和茶具设计。",
+      "duration_text": "60-90分钟",
+      "audience": "生活方式/年轻用户",
+      "halls": [
+        "北17瓷器",
+        "北19玉器"
+      ],
+      "constraints": "路线短，适合第一版快速演示。",
+      "demo_value": "强推荐",
+      "priority": "可做成最小高完成度路线"
+    },
+    {
+      "id": "ROUTE-003",
+      "title": "一条纹样怎么穿过千年？",
+      "description": "选择一个纹样后，AI只调取相关器物，按时间和材料组织路线。",
+      "relic_ids": [
+        "NMC-YQ-101",
+        "NMC-YQ-110",
+        "NMC-CQ-111",
+        "NMC-TJ-008",
+        "NMC-CQ-104",
+        "NMC-CQ-109",
+        "NMC-TJ-013",
+        "NMC-TJ-006"
+      ],
+      "estimated_minutes": 90,
+      "user_question": "我想跟着龙纹、莲花纹或葡萄纹看一遍，比较它们在瓷器、玉器、铜镜上的变化。",
+      "duration_text": "90分钟",
+      "audience": "设计/审美/亲子用户",
+      "halls": [
+        "北17瓷器",
+        "北19玉器",
+        "南14铜镜"
+      ],
+      "constraints": "需要为每个纹样准备证据卡，避免泛泛而谈。",
+      "demo_value": "核心Demo候选",
+      "priority": "最能体现“问题带路”"
+    },
+    {
+      "id": "ROUTE-004",
+      "title": "带孩子用五件文物讲文明",
+      "description": "从骨针、礼玉、瓷器、铜镜、人物俑讲工具、权力、技术、生活和身份。",
+      "relic_ids": [
+        "NMC-FS-001",
+        "NMC-YQ-201",
+        "NMC-CQ-105",
+        "NMC-TJ-001",
+        "NMC-FS-014"
+      ],
+      "estimated_minutes": 90,
+      "user_question": "带孩子看两个小时，想用少数展品讲清楚材料如何变成文明。",
+      "duration_text": "90-120分钟",
+      "audience": "亲子/青少年",
+      "halls": [
+        "北18服饰",
+        "北19玉器",
+        "北17瓷器",
+        "南14铜镜"
+      ],
+      "constraints": "每站讲解需短；插观察题。",
+      "demo_value": "备选Demo",
+      "priority": "很适合展示分龄讲解"
+    },
+    {
+      "id": "ROUTE-005",
+      "title": "古代女性如何穿戴和照见自己？",
+      "description": "从唐代女侍形象到明代头面，再到磨镜图和清代女衫，组织女性妆饰与身份表达。",
+      "relic_ids": [
+        "NMC-FS-016",
+        "NMC-YQ-301",
+        "NMC-FS-022",
+        "NMC-YQ-306",
+        "NMC-TJ-016",
+        "NMC-FS-027"
+      ],
+      "estimated_minutes": 90,
+      "user_question": "我想看古代女性的服饰、首饰、镜子和日常生活。",
+      "duration_text": "90分钟",
+      "audience": "女性历史/服饰兴趣用户",
+      "halls": [
+        "北18服饰",
+        "北19玉器",
+        "南14铜镜"
+      ],
+      "constraints": "需谨慎区分“女性相关”与“妆饰相关”。",
+      "demo_value": "备选Demo",
+      "priority": "故事性强，可做中途改题示范"
+    },
+    {
+      "id": "ROUTE-006",
+      "title": "唐代为什么看起来这么国际化？",
+      "description": "从长沙窑外贸、葡萄瑞兽纹、嵌螺钿宴乐镜和唐代人物服饰构成开放社会图景。",
+      "relic_ids": [
+        "NMC-CQ-106",
+        "NMC-TJ-006",
+        "NMC-TJ-010",
+        "NMC-FS-014",
+        "NMC-FS-016"
+      ],
+      "estimated_minutes": 90,
+      "user_question": "我想看唐代器物里的外来元素和开放气象。",
+      "duration_text": "90-120分钟",
+      "audience": "历史/国际交流兴趣用户",
+      "halls": [
+        "北17瓷器",
+        "南14铜镜",
+        "北18服饰"
+      ],
+      "constraints": "部分“外来元素”需补学术来源支撑。",
+      "demo_value": "备选Demo",
+      "priority": "适合作为中途兴趣切换路线"
+    },
+    {
+      "id": "ROUTE-007",
+      "title": "龙从神灵到纹样",
+      "description": "按时间推进龙形、龙纹、云龙、蟠龙的形态变化。",
+      "relic_ids": [
+        "NMC-YQ-101",
+        "NMC-YQ-110",
+        "NMC-YQ-204",
+        "NMC-CQ-111",
+        "NMC-CQ-115",
+        "NMC-TJ-008"
+      ],
+      "estimated_minutes": 75,
+      "user_question": "我想只看龙：从早期玉龙到瓷器和铜镜上的龙纹。",
+      "duration_text": "75-100分钟",
+      "audience": "纹样/国风设计用户",
+      "halls": [
+        "北19玉器",
+        "北17瓷器",
+        "南14铜镜"
+      ],
+      "constraints": "跨度大，讲解要明确每件的官方依据。",
+      "demo_value": "新增Demo候选",
+      "priority": "适合现场“选一个纹样”演示"
+    },
+    {
+      "id": "ROUTE-008",
+      "title": "衣冠从工具开始",
+      "description": "从骨针和纺轮到组玉佩、巾环、朝衣和女衫，说明工具、配饰和制度共同构成服饰文明。",
+      "relic_ids": [
+        "NMC-FS-001",
+        "NMC-FS-002",
+        "NMC-FS-003",
+        "NMC-FS-005",
+        "NMC-YQ-302",
+        "NMC-FS-024",
+        "NMC-FS-027"
+      ],
+      "estimated_minutes": 90,
+      "user_question": "我想看服饰不是审美，而是技术、身份和制度。",
+      "duration_text": "90分钟",
+      "audience": "服饰/制度兴趣用户",
+      "halls": [
+        "北18服饰",
+        "北19玉器"
+      ],
+      "constraints": "服饰展部分解释需补延伸资料。",
+      "demo_value": "新增备选",
+      "priority": "能增强服饰展的存在感"
+    }
+  ]
+}

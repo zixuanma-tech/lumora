@@ -15,7 +15,8 @@ class JsonSummaryDataSource:
     """
 
     def __init__(self, path: str | Path | None = None) -> None:
-        self.path = Path(path) if path is not None else Path(__file__).parent / "data" / "relics.json"
+        project_root = Path(__file__).resolve().parents[1]
+        self.path = Path(path) if path is not None else project_root / "data" / "relics.json"
 
     async def load_relics(self, relic_ids: tuple[str, ...]) -> tuple[SummaryRelic, ...]:
         with self.path.open(encoding="utf-8-sig") as stream:

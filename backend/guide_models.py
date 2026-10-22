@@ -119,7 +119,7 @@ class GuideRequest:
 
 @dataclass(frozen=True, slots=True)
 class GuideMaterial:
-    """选材适配器输出的一段材料；source_refs 可为文献页码或稳定来源 ID。
+    """资料适配器提供的一段材料；source_refs 可为文献页码或稳定来源 ID。
 
     本地只验证来源引用非空，不以存在引用作为史实已核实的证明。
     related_relic_ids 是查证后的关联对象，不从路线过渡语自动生成。
@@ -180,7 +180,7 @@ class GuideDraft:
 
 @dataclass(frozen=True, slots=True)
 class GuideReview:
-    """由核对适配器给出判定；不实现默认放行或模型自检。"""
+    """独立核对适配器的判定；生成内自检不构造此结果。"""
 
     approved: bool
     issues: tuple[str, ...] = ()
@@ -191,6 +191,34 @@ class GuideReview:
         object.__setattr__(self, "issues", _texts(self.issues, "issues"))
         if self.approved and self.issues:
             raise ValueError("存在待解决问题时不能批准讲解")
+
+
+@dataclass(frozen=True, slots=True)
+class PreparedGuide:
+    """只读的已校验讲稿；尚未生成稿件 ID，也未提交参观或讲解记录。"""
+
+    request: GuideRequest
+    selection: GuideSelection
+    draft: GuideDraft
+    review: GuideReview | None
+    review_mode: str
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.request, GuideRequest):
+            raise ValueError("request 必须是 GuideRequest")
+        if not isinstance(self.selection, GuideSelection) or self.selection.relic_id != self.request.relic_id:
+            raise ValueError("selection 必须属于准备讲解的目标展品")
+        if not isinstance(self.draft, GuideDraft) or self.draft.relic_id != self.request.relic_id:
+            raise ValueError("draft 必须属于准备讲解的目标展品")
+        if not set(self.draft.used_material_ids) <= {item.material_id for item in self.selection.materials}:
+            raise ValueError("草稿引用了材料包中不存在的材料")
+        if self.review_mode not in ("independent", "integrated"):
+            raise ValueError("review_mode 必须是 independent 或 integrated")
+        if self.review_mode == "integrated":
+            if self.review is not None:
+                raise ValueError("integrated 模式不能包含独立核对结果")
+        elif not isinstance(self.review, GuideReview) or not self.review.approved:
+            raise ValueError("independent 模式必须通过独立核对")
 
 
 class GuideSelector(Protocol):
@@ -212,11 +240,12 @@ class GuideResult:
     request: GuideRequest
     selection: GuideSelection
     draft: GuideDraft
-    review: GuideReview
+    review: GuideReview | None
     guide_context: GuideContext
     guide_record: GuideRecord
     resume_context: GuideContext | None = None
     visit_record: VisitRecord | None = None
+    review_mode: str = "independent"
 
     @property
     def guide_text(self) -> str:
