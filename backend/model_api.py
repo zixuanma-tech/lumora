@@ -8,10 +8,12 @@ from __future__ import annotations
 
 import asyncio
 import json
+import logging
 import math
 from collections.abc import Awaitable, Callable, Mapping, Sequence
 from dataclasses import dataclass, field
 from http.client import HTTPException
+from time import perf_counter
 from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit
@@ -24,6 +26,7 @@ JSONTransport = Callable[..., Awaitable[Mapping[str, Any]]]
 WEB_SEARCH_TOOL: Mapping[str, Any] = {
     "type": "web_search", "web_search": {"enable": True, "search_result": True},
 }
+LOGGER = logging.getLogger("lumora.model")
 
 
 class ModelServiceError(RuntimeError):
@@ -254,21 +257,39 @@ class ChatCompletionsClient:
         }
         if web_search:
             payload["tools"] = [dict(WEB_SEARCH_TOOL)]
-        data = await self._transport(
-            url=self.config.chat_url, headers=self._headers, payload=payload,
-            timeout_seconds=self.config.timeout,
-        )
+        started = perf_counter()
+        succeeded = False
+        try:
+            data = await self._transport(
+                url=self.config.chat_url, headers=self._headers, payload=payload,
+                timeout_seconds=self.config.timeout,
+            )
+            succeeded = True
+        finally:
+            LOGGER.info(
+                "model_request operation=chat model=%s web_search=%s success=%s elapsed_ms=%.1f",
+                self.config.model, web_search, succeeded, (perf_counter() - started) * 1000,
+            )
         return _response_content(data)
 
     async def embed_query(self, text: str) -> Sequence[float]:
         text = _text(text, "向量查询文本")
         if self.config.embedding_model is None:
             raise NotImplementedError("Embedding 模型尚未配置，请设置 embedding_model")
-        data = await self._transport(
-            url=self.config.embeddings_url, headers=self._headers,
-            payload={"model": self.config.embedding_model, "input": text, "encoding_format": "float"},
-            timeout_seconds=self.config.timeout,
-        )
+        started = perf_counter()
+        succeeded = False
+        try:
+            data = await self._transport(
+                url=self.config.embeddings_url, headers=self._headers,
+                payload={"model": self.config.embedding_model, "input": text, "encoding_format": "float"},
+                timeout_seconds=self.config.timeout,
+            )
+            succeeded = True
+        finally:
+            LOGGER.info(
+                "model_request operation=embedding model=%s web_search=false success=%s elapsed_ms=%.1f",
+                self.config.embedding_model, succeeded, (perf_counter() - started) * 1000,
+            )
         rows = data.get("data") if isinstance(data, Mapping) and "error" not in data else None
         if (not isinstance(rows, list) or len(rows) != 1 or not isinstance(rows[0], Mapping)
                 or type(rows[0].get("index")) is not int or rows[0]["index"] != 0):
