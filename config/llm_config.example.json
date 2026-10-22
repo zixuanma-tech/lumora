@@ -7,5 +7,5 @@
   "response_mode": "json_object",
   "embedding_model": "GLM-Embedding-3",
   "embeddings_path": "/embeddings",
-  "guide_web_search": true
+  "guide_web_search": false
 }

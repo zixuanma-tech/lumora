@@ -357,7 +357,7 @@ class ModelConfigLoadingTests(unittest.TestCase):
         self.assertEqual(config.chat_path, "/chat/completions")
         self.assertEqual(config.response_mode, "json_object")
         self.assertEqual(config.embedding_model, "GLM-Embedding-3")
-        self.assertTrue(config.guide_web_search)
+        self.assertFalse(config.guide_web_search)
         self.assertNotIn(config.api_key, repr(config))
 
     def test_environment_overrides_file_without_writing_secret(self):
