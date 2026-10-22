@@ -2,14 +2,15 @@
 (function () {
   'use strict';
   const TOPICS = [
-    ['第一次来，想看精华', '从几件代表性的器物开始认识这里。', '我是第一次来，想看代表性的精华展品。'],
-    ['沿着一件工艺看', '看看材料如何变成一件器物。', '我想重点了解器物的材料与制作工艺。'],
-    ['听故事，少一点术语', '让器物背后的生活慢慢展开。', '我想了解古人的生活，讲得通俗生动、有故事感。'],
-    ['带孩子一起探索', '一起观察，留一点提问的空间。', '我带孩子来，希望看有趣的器物，讲解轻松易懂。'],
-    ['找找器物之间的联系', '顺着生活与工艺的线索往下看。', '我想看看不同器物在生活用途和制作工艺上的联系。'],
-    ['我还没有想法', '从日常生活里的一点好奇开始。', '请推荐一条认识古人日常生活与器物的入门路线。'],
+    ['第一次来，想看精华', '从几件代表性的器物开始认识这里。', '我是第一次来，想看代表性的精华展品。', { content_interests: ['代表性精品'] }],
+    ['沿着一件工艺看', '看看材料如何变成一件器物。', '我想重点了解器物的材料与制作工艺。', { content_interests: ['制作工艺'], guide_focus: ['材料与工艺'] }],
+    ['听故事，少一点术语', '让器物背后的生活慢慢展开。', '我想了解古人的生活，讲得通俗生动、有故事感。', { content_interests: ['日常生活'], guide_styles: ['通俗', '故事化'] }],
+    ['带孩子一起探索', '一起观察，留一点提问的空间。', '我带孩子来，希望看有趣的器物，讲解轻松易懂。', { content_interests: ['日常生活'], guide_styles: ['轻松易懂', '互动'] }],
+    ['找找器物之间的联系', '顺着生活与工艺的线索往下看。', '我想看看不同器物在生活用途和制作工艺上的联系。', { content_interests: ['日常生活', '制作工艺'], guide_focus: ['跨文物联系'] }],
+    ['我还没有想法', '从日常生活里的一点好奇开始。', '请推荐一条认识古人日常生活与器物的入门路线。', { content_interests: ['日常生活'] }],
   ];
   const LOADING_MESSAGES = {
+    submit_preferences: '正在为你设计探索路线…',
     replan: '正在重新规划路线…',
     start_guide: '正在生成展品讲解…',
     skip: '正在调整路线…',
@@ -219,11 +220,30 @@
     }));
   }
   function timeSentence(value) { return `我预计会游览${/^\d+(\.\d+)?$/.test(value) ? value + '分钟' : value}。`; }
+  function parseMinutes(value) {
+    const text = value.trim().replace(/\s+/g, '').replace(/^(大约|大概|约)/, '').replace(/左右$/, '');
+    const plain = text.match(/^(\d+(?:\.\d+)?)$/);
+    if (plain) return Number(plain[1]);
+    const minutes = text.match(/^(\d+(?:\.\d+)?)(?:分钟|分)$/);
+    if (minutes) return Number(minutes[1]);
+    if (/^(半小时|半个小时)$/.test(text)) return 30;
+    const hours = text.match(/^(\d+(?:\.\d+)?)(?:个)?小时$/);
+    if (hours) return Number(hours[1]) * 60;
+    const common = { '一小时': 60, '一个小时': 60, '两小时': 120, '两个小时': 120, '二小时': 120, '二个小时': 120 };
+    return common[text] ?? null;
+  }
   $('welcome-form').addEventListener('submit', async (e) => {
     e.preventDefault(); if (!state.sessionId) { setStatus('导览服务还没有连接，请稍后重试或刷新页面。'); return; }
     const wish = $('wish-input').value.trim() || (state.selectedTopic == null ? '' : TOPICS[state.selectedTopic][2]), time = $('time-input').value.trim();
     if (!time) { setStatus('先告诉我大约有多少时间，比如“一个小时左右”。'); $('time-input').focus(); return; }
     if (!wish) { setStatus('随便说一句，或选一个下面的主题，也可以直接看看推荐路线。'); return; }
+    const selected = state.selectedTopic == null ? null : TOPICS[state.selectedTopic];
+    const minutes = selected && !$('wish-input').value.trim() ? parseMinutes(time) : null;
+    if (selected && minutes != null && Number.isFinite(minutes) && minutes >= 0) {
+      setStatus('正在按所选主题安排路线……');
+      await event('submit_preferences', { visitor_info: { ...selected[3], remaining_minutes: minutes } });
+      return;
+    }
     setStatus('正在听懂你的想法，安排路线……'); await chat(`${wish}\n${timeSentence(time)}`, true);
   });
   $('wish-input').addEventListener('input', () => { if (state.selectedTopic != null) { state.selectedTopic = null; topics(); setStatus(); } });
