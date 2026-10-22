@@ -278,8 +278,7 @@ class Router:
         state = session.state
         if (self._closing or not self._prefetch_enabled or state.status != "active"
                 or state.visitor_info.remaining_minutes == 0 or session.route_dirty
-                or not state.pending_queue or session.foreground_job is not None
-                or not any(record.kind == "guide" for record in state.guide_records)):
+                or not state.pending_queue or session.foreground_job is not None):
             return
         target = state.pending_queue[0].relic_id
         key = self._guide_key(session, target)

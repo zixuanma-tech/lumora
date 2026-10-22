@@ -8,10 +8,12 @@ from __future__ import annotations
 
 import asyncio
 import json
+import logging
 import math
 from collections.abc import Awaitable, Callable, Mapping, Sequence
 from dataclasses import dataclass, field
 from http.client import HTTPException
+from time import perf_counter
 from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit
@@ -24,6 +26,7 @@ JSONTransport = Callable[..., Awaitable[Mapping[str, Any]]]
 WEB_SEARCH_TOOL: Mapping[str, Any] = {
     "type": "web_search", "web_search": {"enable": True, "search_result": True},
 }
+LOGGER = logging.getLogger("lumora.model")
 
 
 class ModelServiceError(RuntimeError):
@@ -77,6 +80,11 @@ class LLMConfig:
 
     base_url: str = "https://llmapi.paratera.com"
     model: str = "GLM-5.3-Flash"
+    interpreter_model: str | None = None
+    interest_model: str | None = None
+    guide_model: str | None = None
+    summary_model: str | None = None
+    review_model: str | None = None
     api_key: str = field(default=PLACEHOLDER_API_KEY, repr=False)
     chat_path: str = "/chat/completions"
     timeout: float = 120.0
@@ -92,6 +100,11 @@ class LLMConfig:
             raise ValueError("api_key 必须是不含空白或控制字符的 ASCII 字符串")
         object.__setattr__(self, "api_key", key)
         object.__setattr__(self, "model", _text(self.model, "model"))
+        for name in ("interpreter_model", "interest_model", "guide_model",
+                     "summary_model", "review_model"):
+            value = getattr(self, name)
+            if value is not None:
+                object.__setattr__(self, name, _text(value, name))
         if (type(self.timeout) not in (int, float)
                 or not math.isfinite(self.timeout) or self.timeout <= 0):
             raise ValueError("timeout 必须是正有限秒数")
@@ -254,21 +267,39 @@ class ChatCompletionsClient:
         }
         if web_search:
             payload["tools"] = [dict(WEB_SEARCH_TOOL)]
-        data = await self._transport(
-            url=self.config.chat_url, headers=self._headers, payload=payload,
-            timeout_seconds=self.config.timeout,
-        )
+        started = perf_counter()
+        succeeded = False
+        try:
+            data = await self._transport(
+                url=self.config.chat_url, headers=self._headers, payload=payload,
+                timeout_seconds=self.config.timeout,
+            )
+            succeeded = True
+        finally:
+            LOGGER.info(
+                "model_request operation=chat model=%s web_search=%s success=%s elapsed_ms=%.1f",
+                self.config.model, web_search, succeeded, (perf_counter() - started) * 1000,
+            )
         return _response_content(data)
 
     async def embed_query(self, text: str) -> Sequence[float]:
         text = _text(text, "向量查询文本")
         if self.config.embedding_model is None:
             raise NotImplementedError("Embedding 模型尚未配置，请设置 embedding_model")
-        data = await self._transport(
-            url=self.config.embeddings_url, headers=self._headers,
-            payload={"model": self.config.embedding_model, "input": text, "encoding_format": "float"},
-            timeout_seconds=self.config.timeout,
-        )
+        started = perf_counter()
+        succeeded = False
+        try:
+            data = await self._transport(
+                url=self.config.embeddings_url, headers=self._headers,
+                payload={"model": self.config.embedding_model, "input": text, "encoding_format": "float"},
+                timeout_seconds=self.config.timeout,
+            )
+            succeeded = True
+        finally:
+            LOGGER.info(
+                "model_request operation=embedding model=%s web_search=false success=%s elapsed_ms=%.1f",
+                self.config.embedding_model, succeeded, (perf_counter() - started) * 1000,
+            )
         rows = data.get("data") if isinstance(data, Mapping) and "error" not in data else None
         if (not isinstance(rows, list) or len(rows) != 1 or not isinstance(rows[0], Mapping)
                 or type(rows[0].get("index")) is not int or rows[0]["index"] != 0):

@@ -1,11 +1,16 @@
 {
   "base_url": "https://llmapi.paratera.com",
   "model": "GLM-5.3-Flash",
+  "interpreter_model": "Qwen3.6-Flash",
+  "interest_model": "Qwen3.6-Flash",
+  "guide_model": "DeepSeek-V4.1-Flash",
+  "summary_model": "DeepSeek-V4.1-Flash",
+  "review_model": "Qwen3.6-Flash",
   "api_key": "REPLACE_WITH_YOUR_API_KEY",
   "chat_path": "/chat/completions",
   "timeout": 240,
   "response_mode": "json_object",
   "embedding_model": "GLM-Embedding-3",
   "embeddings_path": "/embeddings",
-  "guide_web_search": true
+  "guide_web_search": false
 }

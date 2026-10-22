@@ -68,6 +68,22 @@ class DemoHTTPTests(unittest.TestCase):
         with urlopen(req, timeout=5) as response:
             return json.load(response)
 
+    def stream_call(self, payload):
+        req = Request(
+            self.base + '/api/event-stream', data=json.dumps(payload).encode(),
+            headers={'Content-Type': 'application/json'},
+        )
+        with urlopen(req, timeout=5) as response:
+            self.assertEqual(response.headers.get_content_type(), 'text/event-stream')
+            blocks = response.read().decode().strip().split('\n\n')
+        events = []
+        for block in blocks:
+            lines = block.split('\n')
+            event = next(line[6:].strip() for line in lines if line.startswith('event:'))
+            data = json.loads(next(line[5:].strip() for line in lines if line.startswith('data:')))
+            events.append((event, data))
+        return events
+
     def test_full_demo_flow_and_authoritative_resume_after_reload(self):
         museum = self.call('/api/museum')
         self.assertEqual(museum['mode'], 'demo')
@@ -151,6 +167,23 @@ class DemoHTTPTests(unittest.TestCase):
         self.assertEqual(len(consumed['latest_state']['visited_relics']), 2)
         self.assertEqual(len(consumed['latest_state']['guide_records']), 2)
         self.assertEqual(self.guide_targets.count(next_id), 1)
+
+    def test_start_guide_stream_sends_progress_before_validated_result(self):
+        created = self.call('/api/session', {})
+        session_id = created['latest_state']['session_id']
+        planned = self.call('/api/chat', {
+            'session_id': session_id, 'text': '想看日常生活，有45分钟',
+        })
+        target = planned['latest_state']['pending_queue'][0]['relic_id']
+        events = self.stream_call({
+            'session_id': session_id, 'action': 'start_guide',
+            'payload': {'relic_id': target},
+        })
+
+        self.assertEqual([name for name, _ in events[:2]], ['progress', 'progress'])
+        self.assertEqual(events[0][1]['stage'], 'accepted')
+        self.assertEqual(events[-1][0], 'result')
+        self.assertEqual(events[-1][1]['reply_content']['status'], 'guide_ready')
 
     def test_unknown_session_and_invalid_body(self):
         with self.assertRaises(HTTPError) as caught:

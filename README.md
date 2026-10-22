@@ -71,6 +71,8 @@ D:\tools\anaconda\python.exe --version
 
 仓库只提供不含真实密钥的 `config/llm_config.example.json`。本地可另建被 Git 忽略的 `config/llm_config.json` 调整非敏感参数。环境变量会覆盖配置文件中的同名字段；如果要清除当前会话变量，可运行：
 
+示例配置按职责选用不同模型：输入理解、兴趣解析和手记审核使用 `Qwen3.6-Flash`，讲解与手记生成使用 `DeepSeek-V4.1-Flash`，`GLM-5.3-Flash` 作为未单独配置角色的兜底模型。讲解词采用一次生成并自检的 `integrated` 模式，不调用独立审核模型。部署环境可分别通过 `LUMORA_LLM_INTERPRETER_MODEL`、`LUMORA_LLM_INTEREST_MODEL`、`LUMORA_LLM_GUIDE_MODEL`、`LUMORA_LLM_SUMMARY_MODEL` 和 `LUMORA_LLM_REVIEW_MODEL` 覆盖。
+
 ```powershell
 .\scripts\set_lumora_api_key.ps1 -Clear
 ```

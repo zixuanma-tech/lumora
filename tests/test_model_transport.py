@@ -54,6 +54,31 @@ class ModelConfigTests(unittest.TestCase):
 
 
 class ChatCompletionsClientTests(unittest.IsolatedAsyncioTestCase):
+    async def test_model_requests_emit_safe_timing_logs(self):
+        async def transport(**kwargs):
+            if kwargs["url"].endswith("/embeddings"):
+                return {"data": [{"index": 0, "embedding": [1, 0]}]}
+            return response('{"ok":true}')
+
+        client = ChatCompletionsClient(
+            LLMConfig(api_key="secret", embedding_model="embedding-fast"),
+            transport=transport,
+        )
+        schema = {"type": "json_schema", "name": "result", "strict": True,
+                  "schema": {"type": "object", "additionalProperties": False}}
+        with self.assertLogs("lumora.model", level="INFO") as captured:
+            await client(system_prompt="system secret", user_prompt="visitor secret",
+                         response_format=schema)
+            await client.embed_query("private query")
+
+        logs = "\n".join(captured.output)
+        self.assertIn("operation=chat", logs)
+        self.assertIn("operation=embedding", logs)
+        self.assertIn("elapsed_ms=", logs)
+        self.assertNotIn("visitor secret", logs)
+        self.assertNotIn("private query", logs)
+        self.assertNotIn("secret", logs)
+
     async def test_json_schema_transport_maps_flat_prompt_schema(self):
         calls = []
 

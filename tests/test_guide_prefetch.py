@@ -151,6 +151,27 @@ class GuidePrefetchTests(unittest.IsolatedAsyncioTestCase):
         self.assertNotIn("segments", encoded)
         self.assertNotIn("guide:b", encoded)
 
+    async def test_route_plan_prefetches_first_guide_and_click_reuses_it(self):
+        session = self.create()
+        gate = self.block("a")
+
+        planned = await self.router.dispatch_action("s", "replan")
+        self.assertEqual(planned["reply_content"]["status"], "planned")
+        await self.spin_until(lambda: self.count("a") == 1)
+        self.assertEqual(session.state.visited_relic_ids, ())
+        self.assertEqual(len(session.state.guide_records), 0)
+        self.assertEqual((await self.state())["reply_content"]["guide_prefetch"], {
+            "status": "generating", "relic_id": "a",
+        })
+
+        waiting = asyncio.create_task(self.start("a"))
+        await asyncio.sleep(0)
+        self.assertFalse(waiting.done())
+        self.assertEqual(self.count("a"), 1)
+        gate.set()
+        await asyncio.wait_for(waiting, timeout=1)
+        self.assertEqual(self.count("a"), 1)
+
     async def test_ready_cache_commits_on_click_without_another_model_call(self):
         session = self.create()
         await self.start()
