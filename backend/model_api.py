@@ -80,6 +80,11 @@ class LLMConfig:
 
     base_url: str = "https://llmapi.paratera.com"
     model: str = "GLM-5.3-Flash"
+    interpreter_model: str | None = None
+    interest_model: str | None = None
+    guide_model: str | None = None
+    summary_model: str | None = None
+    review_model: str | None = None
     api_key: str = field(default=PLACEHOLDER_API_KEY, repr=False)
     chat_path: str = "/chat/completions"
     timeout: float = 120.0
@@ -95,6 +100,11 @@ class LLMConfig:
             raise ValueError("api_key 必须是不含空白或控制字符的 ASCII 字符串")
         object.__setattr__(self, "api_key", key)
         object.__setattr__(self, "model", _text(self.model, "model"))
+        for name in ("interpreter_model", "interest_model", "guide_model",
+                     "summary_model", "review_model"):
+            value = getattr(self, name)
+            if value is not None:
+                object.__setattr__(self, name, _text(value, name))
         if (type(self.timeout) not in (int, float)
                 or not math.isfinite(self.timeout) or self.timeout <= 0):
             raise ValueError("timeout 必须是正有限秒数")

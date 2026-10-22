@@ -9,7 +9,7 @@ from __future__ import annotations
 import json
 import os
 from collections.abc import Awaitable, Callable, Mapping, Sequence
-from dataclasses import fields
+from dataclasses import fields, replace
 from pathlib import Path
 from typing import Any
 
@@ -29,6 +29,9 @@ DEFAULT_CONFIG_PATH = PROJECT_ROOT / "config" / "llm_config.json"
 EXAMPLE_CONFIG_PATH = PROJECT_ROOT / "config" / "llm_config.example.json"
 ModelCall = Callable[..., Awaitable[str | Mapping[str, Any]]]
 CandidateLoader = Callable[..., Awaitable[Sequence[GuideMaterial]]]
+ROLE_MODEL_FIELDS = frozenset({
+    "interpreter_model", "interest_model", "guide_model", "summary_model", "review_model",
+})
 
 def load_llm_config(
     path: str | Path | None = None, *, environ: Mapping[str, str] | None = None,
@@ -77,7 +80,7 @@ def load_llm_config(
                     value = float(value)
                 except (TypeError, ValueError):
                     raise ValueError("LUMORA_LLM_TIMEOUT 必须是正数秒数") from None
-            elif name == "embedding_model" and value == "":
+            elif name in ROLE_MODEL_FIELDS | {"embedding_model"} and value == "":
                 value = None
             elif name == "guide_web_search":
                 if not isinstance(value, str) or value.strip().lower() not in ("true", "false"):
@@ -123,12 +126,22 @@ def build_model_services(
     if model_call is not None and not callable(model_call):
         raise TypeError("model_call 必须是异步可调用对象")
 
+    interpreter_call = interest_call = guide_call = summary_call = review_call = model_call
     composer_call = None
     guide_web_search = False
     if model_call is None:
         settings = config if config is not None else load_llm_config(config_path)
         client = ChatCompletionsClient(settings, transport=transport)
-        model_call = client
+
+        def role_client(field_name: str) -> ChatCompletionsClient:
+            selected = getattr(settings, field_name) or settings.model
+            return ChatCompletionsClient(replace(settings, model=selected), transport=transport)
+
+        interpreter_call = role_client("interpreter_model")
+        interest_call = role_client("interest_model")
+        guide_call = role_client("guide_model")
+        summary_call = role_client("summary_model")
+        review_call = role_client("review_model")
         if vector_service is None and settings.embedding_model is not None:
             vector_service = client
         if settings.guide_web_search:
@@ -137,22 +150,22 @@ def build_model_services(
                 # 部署层只启用厂商工具；完整证据策略由 Prompt 模块按模式生成。
                 patched = dict(kwargs)
                 patched["web_search"] = True
-                return await client(**patched)
+                return await guide_call(**patched)
             composer_call = web_search_composer_call
 
     return RouterServices(
-        interpreter=make_input_interpreter(model_call),
-        interest_parser=make_interest_parser(model_call, taxonomy=taxonomy),
+        interpreter=make_input_interpreter(interpreter_call),
+        interest_parser=make_interest_parser(interest_call, taxonomy=taxonomy),
         selector=make_guide_material_loader(
             _missing_candidates if candidates is None else candidates,
         ),
         composer=make_guide_composer(
-            composer_call if composer_call is not None else model_call,
+            composer_call if composer_call is not None else guide_call,
             web_search_enabled=guide_web_search,
         ),
         guide_review_mode="integrated",
-        summary_composer=make_summary_composer(model_call),
-        summary_reviewer=make_summary_reviewer(model_call),
+        summary_composer=make_summary_composer(summary_call),
+        summary_reviewer=make_summary_reviewer(review_call),
         snapshot=snapshot, data_source=data_source, vector_service=vector_service,
         planner_config=planner_config, summary_data_source=summary_data_source,
     )

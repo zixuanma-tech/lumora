@@ -156,6 +156,45 @@ class ModelServicesTests(unittest.IsolatedAsyncioTestCase):
         self.source.load_relics.assert_awaited_once_with(("r1",))
         json.dumps(response, ensure_ascii=False, allow_nan=False)
 
+    async def test_config_can_select_a_model_for_each_role(self):
+        http_calls = []
+
+        async def transport(**kwargs):
+            http_calls.append(copy.deepcopy(kwargs))
+            payload = kwargs["payload"]
+            schema = payload["response_format"]["json_schema"]
+            result = await self.model(
+                system_prompt=payload["messages"][0]["content"],
+                user_prompt=payload["messages"][1]["content"],
+                response_format={"type": "json_schema", **schema},
+            )
+            return {"choices": [{"message": {"content": json.dumps(result, ensure_ascii=False)},
+                                 "finish_reason": "stop"}]}
+
+        services = build_model_services(
+            config=LLMConfig(
+                api_key="offline-key", response_mode="json_schema",
+                interpreter_model="fast-input", interest_model="fast-interest",
+                guide_model="quality-guide", summary_model="quality-summary",
+                review_model="fast-review",
+            ),
+            transport=transport, candidates=[self.material], snapshot=self.snapshot,
+            vector_service=self.vector, summary_data_source=self.source,
+        )
+        router = Router(services, clock=lambda: 1000.0)
+        router.create_session(
+            {"content_interests": ["测试品类"], "remaining_minutes": 60},
+            session_id="s", current_node_id="entrance", exit_node_id="exit",
+        )
+        await router.dispatch_chat("s", "你好")
+        await router.dispatch_action("s", "replan")
+        await router.dispatch_action("s", "start_guide", {"relic_id": "r1"})
+        await router.dispatch_action("s", "finish")
+
+        self.assertEqual([call["payload"]["model"] for call in http_calls], [
+            "fast-input", "fast-interest", "quality-guide", "quality-summary", "fast-review",
+        ])
+
     async def test_main_guide_loads_all_candidates_and_calls_model_once(self):
         second = GuideMaterial("m2", "第二段完整材料。", ("second-source",), ("r2",))
         candidates = [self.material, second]
@@ -360,6 +399,11 @@ class ModelConfigLoadingTests(unittest.TestCase):
         self.assertEqual(config.chat_path, "/chat/completions")
         self.assertEqual(config.response_mode, "json_object")
         self.assertEqual(config.embedding_model, "GLM-Embedding-3")
+        self.assertIsNone(config.interpreter_model)
+        self.assertIsNone(config.interest_model)
+        self.assertIsNone(config.guide_model)
+        self.assertIsNone(config.summary_model)
+        self.assertIsNone(config.review_model)
         self.assertFalse(config.guide_web_search)
         self.assertNotIn(config.api_key, repr(config))
 
@@ -371,6 +415,8 @@ class ModelConfigLoadingTests(unittest.TestCase):
             "LUMORA_LLM_API_KEY": "local-test-key",
             "LUMORA_LLM_MODEL": "env-model", "LUMORA_LLM_TIMEOUT": "12.5",
             "LUMORA_LLM_RESPONSE_MODE": "json_object", "LUMORA_LLM_EMBEDDING_MODEL": "",
+            "LUMORA_LLM_INTERPRETER_MODEL": "fast-input",
+            "LUMORA_LLM_GUIDE_MODEL": "",
             "LUMORA_LLM_GUIDE_WEB_SEARCH": "false",
         })
         self.assertEqual(config.base_url, "https://example.com/v1")
@@ -378,6 +424,8 @@ class ModelConfigLoadingTests(unittest.TestCase):
         self.assertEqual(config.timeout, 12.5)
         self.assertEqual(config.response_mode, "json_object")
         self.assertIsNone(config.embedding_model)
+        self.assertEqual(config.interpreter_model, "fast-input")
+        self.assertIsNone(config.guide_model)
         self.assertFalse(config.guide_web_search)
         self.assertEqual(path.read_text(encoding="utf-8"), before)
         self.assertNotIn("local-test-key", repr(config))
