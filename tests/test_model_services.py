@@ -97,8 +97,11 @@ class ModelServicesTests(unittest.IsolatedAsyncioTestCase):
         values.update(changes)
         return build_model_services(**values)
 
-    def router(self, **changes):
-        router = Router(self.services(**changes), clock=lambda: 1000.0)
+    def router(self, *, prefetch_enabled=True, **changes):
+        router = Router(
+            self.services(**changes), clock=lambda: 1000.0,
+            prefetch_enabled=prefetch_enabled,
+        )
         router.create_session(
             {"content_interests": ["测试品类"], "remaining_minutes": 60},
             session_id="s", current_node_id="entrance", exit_node_id="exit",
@@ -207,7 +210,7 @@ class ModelServicesTests(unittest.IsolatedAsyncioTestCase):
         ]
         for output in invalid_outputs + [TimeoutError("离线超时")]:
             with self.subTest(output=output):
-                router = self.router()
+                router = self.router(prefetch_enabled=False)
                 planned = await router.dispatch_action("s", "replan")
                 self.calls.clear()
                 self.guide_response = None if isinstance(output, Exception) else output
