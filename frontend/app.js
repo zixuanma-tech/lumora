@@ -61,6 +61,39 @@
     }
     return data;
   }
+  async function streamEvent(action, payload) {
+    const response = await fetch('/api/event-stream', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ session_id: state.sessionId, action, payload }),
+    });
+    if (!response.ok || !response.body) {
+      return request('/api/event', { session_id: state.sessionId, action, payload });
+    }
+    const reader = response.body.getReader(), decoder = new TextDecoder();
+    let buffer = '', result = null;
+    while (true) {
+      const chunk = await reader.read();
+      buffer += decoder.decode(chunk.value || new Uint8Array(), { stream: !chunk.done });
+      const blocks = buffer.split('\n\n'); buffer = blocks.pop();
+      for (const block of blocks) {
+        let eventName = 'message', dataText = '';
+        for (const line of block.split('\n')) {
+          if (line.startsWith('event:')) eventName = line.slice(6).trim();
+          if (line.startsWith('data:')) dataText += line.slice(5).trim();
+        }
+        if (!dataText) continue;
+        const data = JSON.parse(dataText);
+        if (eventName === 'progress') {
+          $('loading-text').textContent = data.message || '正在生成讲解…';
+          $('tour-message').textContent = data.message || '正在生成讲解…';
+        } else if (eventName === 'result') result = data;
+        else if (eventName === 'error') throw Error(data?.error?.message || '流式请求没有完成。');
+      }
+      if (chunk.done) break;
+    }
+    if (!result) throw Error('讲解生成连接提前结束，请重试。');
+    return result;
+  }
   const current = () => state.reply?.playback?.current;
   const progressPayload = () => current() ? { guide_id: current().guide_id, completed_segments: current().completed_segments } : undefined;
   const relic = (id) => (state.museum?.relics || []).find((item) => item.relic_id === id);
@@ -96,7 +129,9 @@
     try {
       await state.progress;
       if (action === 'resume_guide') payload = progressPayload();
-      const data = await request('/api/event', { session_id: state.sessionId, action, payload });
+      const data = action === 'start_guide'
+        ? await streamEvent(action, payload)
+        : await request('/api/event', { session_id: state.sessionId, action, payload });
       apply(data); const problem = replyProblem(data); if (problem) toast(problem);
       return data;
     } catch (error) { toast(error.message); return null; }

@@ -6,6 +6,7 @@ HTTP 层只负责把 JSON 请求转交给 :class:`router.Router`，不在浏览�
 
 * ``POST /api/session`` 创建会话；
 * ``POST /api/event`` 调用按钮事件；
+* ``POST /api/event-stream`` 流式返回耗时按钮事件的进度与最终结果；
 * ``POST /api/chat`` 发送自然语言输入；
 * ``GET /api/state?session_id=...`` 读取最新状态；
 * ``GET /health`` 做健康检查。
@@ -17,6 +18,7 @@ import asyncio
 import argparse
 import json
 import mimetypes
+from concurrent.futures import TimeoutError as FutureTimeout
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -101,6 +103,20 @@ class MuseumRequestHandler(BaseHTTPRequestHandler):
             self.log_error("Router %s", reply.get("error", {}).get("code", "unknown"))
         self._send_bytes(_json_bytes(payload), status=int(status), content_type="application/json; charset=utf-8")
 
+    def _start_event_stream(self) -> None:
+        self.send_response(HTTPStatus.OK)
+        self.send_header("Content-Type", "text/event-stream; charset=utf-8")
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("Connection", "close")
+        self.send_header("X-Accel-Buffering", "no")
+        self.end_headers()
+        self.close_connection = True
+
+    def _write_event(self, event: str, payload: Any) -> None:
+        body = b"event: " + event.encode("ascii") + b"\ndata: " + _json_bytes(payload) + b"\n\n"
+        self.wfile.write(body)
+        self.wfile.flush()
+
     def _read_json(self) -> dict[str, Any]:
         raw_length = self.headers.get("Content-Length")
         try:
@@ -172,6 +188,9 @@ class MuseumRequestHandler(BaseHTTPRequestHandler):
             if parsed_path == "/api/event":
                 self._dispatch_event(body)
                 return
+            if parsed_path == "/api/event-stream":
+                self._dispatch_event_stream(body)
+                return
             if parsed_path == "/api/chat":
                 self._dispatch_chat(body)
                 return
@@ -194,7 +213,8 @@ class MuseumRequestHandler(BaseHTTPRequestHandler):
         result = self._run_async(create())
         self._send_json(result, status=HTTPStatus.CREATED)
 
-    def _dispatch_event(self, body: dict[str, Any]) -> None:
+    @staticmethod
+    def _event_arguments(body: dict[str, Any]) -> tuple[str, str, dict | None]:
         session_id = body.get("session_id")
         action = body.get("action")
         if not isinstance(session_id, str) or not session_id.strip():
@@ -207,8 +227,47 @@ class MuseumRequestHandler(BaseHTTPRequestHandler):
         payload = body.get("payload", {})
         if payload is not None and not isinstance(payload, dict):
             raise ValueError("payload 必须是字段字典")
+        return session_id, action, payload
+
+    def _dispatch_event(self, body: dict[str, Any]) -> None:
+        session_id, action, payload = self._event_arguments(body)
         result = self._run_async(self.server.router.dispatch_action(session_id, action, payload))
         self._send_json(result)
+
+    def _dispatch_event_stream(self, body: dict[str, Any]) -> None:
+        session_id, action, payload = self._event_arguments(body)
+        if action != "start_guide":
+            raise ValueError("流式事件当前只支持 start_guide")
+        future = asyncio.run_coroutine_threadsafe(
+            self.server.router.dispatch_action(session_id, action, payload), self.server.loop,
+        )
+        self._start_event_stream()
+        try:
+            self._write_event("progress", {"stage": "accepted", "message": "讲解任务已接收"})
+            self._write_event("progress", {"stage": "generating", "message": "正在生成并核对讲解"})
+            while True:
+                try:
+                    result = future.result(timeout=10)
+                    break
+                except FutureTimeout:
+                    self._write_event("progress", {
+                        "stage": "generating", "message": "讲解仍在生成，请稍候",
+                    })
+            self._write_event("result", result)
+        except (BrokenPipeError, ConnectionResetError):
+            # 浏览器离开时不取消 Router 中可复用的讲解准备任务。
+            return
+        except Exception as error:
+            if isinstance(error, KeyError):
+                failure = _error("unknown_session", "会话不存在")
+            elif isinstance(error, (ValueError, TypeError)):
+                failure = _error("invalid_request", str(error))
+            else:
+                failure = _error("server_error", "服务器暂时无法处理请求")
+            try:
+                self._write_event("error", failure)
+            except (BrokenPipeError, ConnectionResetError):
+                pass
 
     def _dispatch_chat(self, body: dict[str, Any]) -> None:
         session_id = body.get("session_id")
