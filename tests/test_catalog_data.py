@@ -1,13 +1,17 @@
 """Delivered 60-relic package adapters."""
 
 import unittest
+from unittest.mock import AsyncMock
 
 from catalog_data import (
+    CatalogInterestParser,
     JsonGuideDataSource,
     JsonMuseumDataSource,
     catalog_metadata,
     catalog_taxonomy,
 )
+from route_models import InterestProfile
+from session_state import VisitorInfo
 
 
 class CatalogDataTests(unittest.IsolatedAsyncioTestCase):
@@ -39,6 +43,30 @@ class CatalogDataTests(unittest.IsolatedAsyncioTestCase):
         taxonomy = catalog_taxonomy()
         self.assertTrue(taxonomy["craft_types"])
         self.assertIn("龙", taxonomy["aesthetics"])
+
+    async def test_explicit_catalog_labels_skip_model_interest_parsing(self):
+        fallback = AsyncMock()
+        parser = CatalogInterestParser(catalog_taxonomy(), fallback)
+        profile = await parser(visitor_info=VisitorInfo(
+            content_interests=["日常生活", "瓷器制作工艺"],
+            guide_focus=["龙纹"],
+        ))
+
+        self.assertTrue(profile.has_targets)
+        self.assertIn(("生活美学",), profile.target_themes)
+        self.assertIn(("工艺技术",), profile.target_themes)
+        self.assertTrue(profile.target_craft_types or profile.target_categories)
+        self.assertIn(("龙",), profile.target_aesthetics)
+        fallback.assert_not_awaited()
+
+    async def test_ambiguous_interest_falls_back_to_model_parser(self):
+        expected = InterestProfile(target_themes=["模型解析结果"])
+        fallback = AsyncMock(return_value=expected)
+        parser = CatalogInterestParser(catalog_taxonomy(), fallback)
+        info = VisitorInfo(content_interests=["随便看看未知主题"])
+
+        self.assertIs(await parser(visitor_info=info), expected)
+        fallback.assert_awaited_once_with(visitor_info=info)
 
 
 if __name__ == "__main__":

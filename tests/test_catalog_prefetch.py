@@ -30,15 +30,7 @@ class CatalogPrefetchTests(unittest.IsolatedAsyncioTestCase):
             name = kwargs["response_format"]["name"]
             calls[name] += 1
             if name == "interest_profile":
-                if calls[name] > 1:
-                    raise TimeoutError("时间重算不应重新请求兴趣模型")
-                return {
-                    "target_eras": [], "target_regions": [],
-                    "target_categories": ["瓷"], "target_craft_types": [],
-                    "target_themes": [["工艺技术"]], "target_aesthetics": [],
-                    "target_cultural_ip": [], "target_audience": [],
-                    "query_text": "瓷器制作工艺",
-                }
+                raise AssertionError("明确馆藏标签不应请求兴趣模型")
             if name == "guide_draft":
                 payload = json.loads(kwargs["user_prompt"])
                 target = payload["request"]["relic_id"]
@@ -95,7 +87,7 @@ class CatalogPrefetchTests(unittest.IsolatedAsyncioTestCase):
         consumed = await router.dispatch_action("ru-ware", "start_guide", {"relic_id": ru_ware_id})
         self.assertEqual(consumed["reply_content"]["status"], "guide_ready", consumed["reply_content"])
         self.assertIn("route_planned", consumed["reply_content"]["steps"])
-        self.assertEqual(calls["interest_profile"], 1)
+        self.assertEqual(calls["interest_profile"], 0)
         self.assertEqual(guide_targets[ru_ware_id], 1)
         self.assertEqual(len(consumed["latest_state"]["guide_records"]), 2)
         self.assertIn("天青", consumed["reply_content"]["guide"]["guide_text"])

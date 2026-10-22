@@ -9,13 +9,15 @@ from __future__ import annotations
 
 import json
 from collections.abc import Mapping, Sequence
+from dataclasses import replace
 from hashlib import blake2b
 from math import sqrt
 from pathlib import Path
 from typing import Any
 
 from guide_models import GuideMaterial, GuideRequest
-from route_models import Exhibit, ExhibitTags, Gallery, MuseumSnapshot, SpatialEdge
+from route_models import Exhibit, ExhibitTags, Gallery, InterestProfile, MuseumSnapshot, SpatialEdge
+from session_state import VisitorInfo
 from summary_data import JsonSummaryDataSource
 
 
@@ -246,6 +248,57 @@ class CatalogVectorService:
         return _catalog_vector(_text(text, "text"))
 
 
+class CatalogInterestParser:
+    """Resolve explicit catalog labels locally and fall back for ambiguous wording."""
+
+    _FIELDS = (
+        ("eras", "target_eras"),
+        ("categories", "target_categories"),
+        ("craft_types", "target_craft_types"),
+        ("themes", "target_themes"),
+        ("aesthetics", "target_aesthetics"),
+    )
+    _ALIASES = {
+        "日常生活": (("themes", "生活美学"),),
+        "制作工艺": (("themes", "工艺技术"),),
+        "材料与工艺": (("themes", "工艺技术"),),
+    }
+
+    def __init__(self, taxonomy: Mapping[str, Sequence[str]], fallback) -> None:
+        if not callable(fallback):
+            raise TypeError("fallback 必须是可调用的兴趣解析器")
+        self._taxonomy = {
+            name: tuple(_text(item, name) for item in taxonomy.get(name, ()))
+            for name, _ in self._FIELDS
+        }
+        self._fallback = fallback
+
+    async def __call__(self, *, visitor_info: VisitorInfo) -> InterestProfile:
+        if not isinstance(visitor_info, VisitorInfo):
+            raise ValueError("visitor_info 必须是 VisitorInfo")
+        phrases = (*visitor_info.content_interests, *visitor_info.guide_focus)
+        matched = {}
+        for source_name, target_name in self._FIELDS:
+            values = []
+            for label in self._taxonomy[source_name]:
+                if any(label in phrase or len(phrase) >= 2 and phrase in label for phrase in phrases):
+                    values.append(label)
+            for phrase in phrases:
+                for alias, targets in self._ALIASES.items():
+                    if alias not in phrase:
+                        continue
+                    values.extend(
+                        label for field, label in targets
+                        if field == source_name and label in self._taxonomy[source_name]
+                    )
+            values = list(dict.fromkeys(values))
+            matched[target_name] = tuple(values)
+        profile = InterestProfile(
+            **matched, query_text="；".join(visitor_info.content_interests),
+        )
+        return profile if profile.has_targets else await self._fallback(visitor_info=visitor_info)
+
+
 def catalog_taxonomy(path: str | Path | None = None) -> dict[str, tuple[str, ...]]:
     """Collect model taxonomy from the delivered labels; no old demo labels."""
     data = _read_json(Path(path) if path is not None else PROJECT_ROOT / "data" / "relics.json")
@@ -292,15 +345,20 @@ def build_catalog_services(*, model_call=None):
     from model_services import build_model_services
 
     guide_source = JsonGuideDataSource()
-    return build_model_services(
+    taxonomy = catalog_taxonomy()
+    services = build_model_services(
         model_call=model_call,
         candidates=guide_source.candidates,
         data_source=JsonMuseumDataSource(),
         vector_service=CatalogVectorService(),
         summary_data_source=JsonSummaryDataSource(),
-        taxonomy=catalog_taxonomy(),
+        taxonomy=taxonomy,
+    )
+    return replace(
+        services,
+        interest_parser=CatalogInterestParser(taxonomy, services.interest_parser),
     )
 
 
-__all__ = ["CatalogVectorService", "JsonGuideDataSource", "JsonMuseumDataSource",
+__all__ = ["CatalogInterestParser", "CatalogVectorService", "JsonGuideDataSource", "JsonMuseumDataSource",
            "build_catalog_services", "catalog_metadata", "catalog_taxonomy"]
